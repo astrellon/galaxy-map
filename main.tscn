@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=24 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://galaxy5.png" id="1_kek77"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://bigStar4.png" id="4_7mycd"]
@@ -11,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="11_efxa6"]
 [ext_resource type="Script" uid="uid://ckjfs3kccwh4u" path="res://rotator.gd" id="12_dg77c"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://raymarch.gdshader" id="12_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://planet1Gradient.png" id="13_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://f735bee5b64ef98879dc618b016ecf7939a5756040c2cde21ccb15e69a6e1cfb.png" id="13_vivmo"]
 [ext_resource type="Script" uid="uid://bxpcytrpp8b4r" path="res://raymarch.gd" id="13_w48qg"]
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://wireframe2.gd" id="13_ycdy4"]
@@ -65,10 +66,10 @@ tracks/1/path = NodePath("SubViewport/Raymarch:reveal")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2.73333, 5.76667),
+"times": PackedFloat32Array(2.73333, 6.93333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 2.0]
+"values": [0.0, 1.6]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lquwl"]
@@ -80,10 +81,11 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dg77c"]
 shader = ExtResource("12_ycdy4")
 shader_parameter/uNoiseTexture = ExtResource("13_vivmo")
+shader_parameter/uPlanetTexture = ExtResource("13_2cqfq")
 shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
-shader_parameter/uCameraPosition = Vector3(0, 0, 4.295)
+shader_parameter/uCameraPosition = Vector3(0, 0, 5.1)
 shader_parameter/uCameraFov = 50.0
-shader_parameter/uReveal = 0.53
+shader_parameter/uReveal = 0.87
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
 shader = ExtResource("14_vivmo")
@@ -232,11 +234,12 @@ noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(0.360233, 0.826758, -0.432091, -0.497552, -0.221525, -0.838671, -0.789097, 0.517105, 0.331555, 0.45, 0.46, 0.39)
 script = ExtResource("12_dg77c")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 5)
-fov = 46.1
+fov = 97.1
 
 [node name="Wireframe" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 position = Vector2(-163, -42)

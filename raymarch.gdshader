@@ -3,9 +3,12 @@ shader_type canvas_item;
 const int MAX_MARCHING_STEPS = 255;
 const float MIN_DIST = 0.0;
 const float MAX_DIST = 100.0;
-const float EPSILON = 0.0001;
+const float EPSILON = 0.001;
+const float PLANET = 1.0;
+const float CLOUD = 2.0;
 
 uniform sampler2D uNoiseTexture: repeat_enable, filter_linear;
+uniform sampler2D uPlanetTexture: repeat_disable, filter_nearest;
 uniform mat3 uCameraMatrix;
 uniform vec3 uCameraPosition;
 uniform float uCameraFov;
@@ -30,15 +33,31 @@ float perlinNoise3D(vec3 p)
     return x;
 }
 
-
 float sphereSDF(vec3 samplePoint)
 {
     return length(samplePoint) - 1.0;
 }
 
-float sceneSDF(vec3 samplePoint)
+float cloudScene(vec3 samplePoint)
 {
-    return sphereSDF(samplePoint);
+	float sphereDist = sphereSDF(samplePoint);
+	float cloudDist = sphereDist * 5.0 - smoothstep(1.1, 1.2, perlinNoise3D(samplePoint * 0.01)) * 0.5 + 0.1;
+	
+	return cloudDist;
+}
+
+float planetScene(vec3 samplePoint)
+{
+	return sphereSDF(samplePoint);
+}
+
+vec2 sceneSDF(vec3 samplePoint)
+{
+    //return vec2(sphereSDF(samplePoint), PLANET);
+	float sphereDist = planetScene(samplePoint);
+	float cloudDist = cloudScene(samplePoint);
+	float obj = sphereDist < cloudDist ? PLANET : CLOUD;
+	return vec2(min(sphereDist, cloudDist), obj);
 }
 
 vec3 rayDirection(float fieldOfView, vec2 fragCoord)
@@ -48,31 +67,25 @@ vec3 rayDirection(float fieldOfView, vec2 fragCoord)
     return normalize(vec3(xy, -z));
 }
 
-vec3 estimateNormal(vec3 p)
+vec3 estimateNormalPlanet(vec3 point, float currentDepth)
 {
+    vec2 eps_zero = vec2(currentDepth * 0.015, 0.0);
     return normalize(vec3(
-        sceneSDF(vec3(p.x + EPSILON, p.y, p.z)) - sceneSDF(vec3(p.x - EPSILON, p.y, p.z)),
-        sceneSDF(vec3(p.x, p.y + EPSILON, p.z)) - sceneSDF(vec3(p.x, p.y - EPSILON, p.z)),
-        sceneSDF(vec3(p.x, p.y, p.z  + EPSILON)) - sceneSDF(vec3(p.x, p.y, p.z - EPSILON))
+        planetScene(point + eps_zero.xyy) - planetScene(point - eps_zero.xyy),
+        planetScene(point + eps_zero.yxy) - planetScene(point - eps_zero.yxy),
+        planetScene(point + eps_zero.yyx) - planetScene(point - eps_zero.yyx)
+    ));
+}
+vec3 estimateNormalCloud(vec3 point, float currentDepth)
+{
+    vec2 eps_zero = vec2(currentDepth * 0.015, 0.0);
+    return normalize(vec3(
+        cloudScene(point + eps_zero.xyy) - cloudScene(point - eps_zero.xyy),
+        cloudScene(point + eps_zero.yxy) - cloudScene(point - eps_zero.yxy),
+        cloudScene(point + eps_zero.yyx) - cloudScene(point - eps_zero.yyx)
     ));
 }
 
-/**
- * Lighting contribution of a single point light source via Phong illumination.
- *
- * The vec3 returned is the RGB color of the light's contribution.
- *
- * k_a: Ambient color
- * k_d: Diffuse color
- * k_s: Specular color
- * alpha: Shininess coefficient
- * p: position of point being lit
- * eye: the position of the camera
- * lightPos: the position of the light
- * lightIntensity: color/intensity of the light
- *
- * See https://en.wikipedia.org/wiki/Phong_reflection_model#Description
- */
 float quadraticOut(float t) {
 	return -t * (t - 2.0);
 }
@@ -82,81 +95,93 @@ float quadraticIn(float t) {
 float cubicIn(float t) {
 	return t * t * t;
 }
-vec3 phongContribForLight(vec3 k_d, vec3 k_s, float alpha, vec3 p, vec3 eye, vec3 normal, vec3 lightPos, vec3 lightIntensity)
+float phongContribForLight(float alpha, vec3 point, vec3 eye, vec3 normal, vec3 lightPos)
 {
-    vec3 L = normalize(lightPos - p);
-    vec3 V = normalize(eye - p);
+    vec3 L = normalize(lightPos - point);
+    vec3 V = normalize(eye - point);
     vec3 R = normalize(reflect(-L, normal));
 
     float dotLN = dot(L, normal);
     float dotRV = dot(R, V);
 	
-	dotLN = round(dotLN * 3.0) / 3.0;
+	//dotLN = round(dotLN * 3.0) / 3.0;
+	dotLN = round(dotLN);
 	dotRV = round(cubicIn(dotRV) * 0.6);
 
-    if (dotLN < 0.0) {
+    if (dotLN < 0.0) 
+	{
         // Light not visible from this point on the surface
-        return vec3(0.0, 0.0, 0.0);
+        //return vec3(0.0, 0.0, 0.0);
+		return 0.0;
     }
 	
-    if (dotRV < 0.0) {
+    if (dotRV < 0.0)
+	{
         // Light reflection in opposite direction as viewer, apply only diffuse component
-        return lightIntensity * (k_d * dotLN);
+        return dotLN;
     }
-    return lightIntensity * (k_d * dotLN + k_s * pow(dotRV, alpha));
+    return dotLN + pow(dotRV, alpha);
 }
 
-/**
- * Lighting via Phong illumination.
- *
- * The vec3 returned is the RGB color of that point after lighting is applied.
- * k_a: Ambient color
- * k_d: Diffuse color
- * k_s: Specular color
- * alpha: Shininess coefficient
- * p: position of point being lit
- * eye: the position of the camera
- *
- * See https://en.wikipedia.org/wiki/Phong_reflection_model#Description
- */
-vec3 phongIllumination(vec3 k_a, vec3 k_d, vec3 k_s, float alpha, vec3 p, vec3 eye, vec3 normal)
+const float shadowSharpness = 128.0;
+float softShadow(vec3 rayOrigin, vec3 rayDirection, float near, float far)
 {
-    const vec3 ambientLight = 0.25 * vec3(1.0, 1.0, 1.0);
-    vec3 color = ambientLight * k_a;
+    float depth = near;
+    float result = 1.0;
+    int i = 0;
 
-    vec3 light1Pos = vec3(4.0, 2.0, 4.0);
-    vec3 light1Intensity = vec3(0.4, 0.4, 0.4);
+    for (; i < MAX_MARCHING_STEPS; i++)
+    {
+        float dist = sceneSDF(rayOrigin + depth * rayDirection).x;
+        if (dist < EPSILON)
+        {
+            return 0.0;
+        }
 
-    color += phongContribForLight(k_d, k_s, alpha, p, eye, normal, light1Pos, light1Intensity);
+        result = min(result, shadowSharpness * dist / depth);
+        depth += dist;
+        if (depth >= far)
+        {
+            return result;
+        }
+    }
 
-    return color;
+    return result;
 }
 
-float rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far)
+float phongIllumination(float currentDepth, float alpha, vec3 point, vec3 eye, vec3 normal)
+{
+    vec3 light1Pos = vec3(-4.0, 1.5, 4.0);
+	vec3 toLight = normalize(point - light1Pos);
+	
+	float shadow = softShadow(point, toLight, 0.005 * currentDepth, 100.0);
+    return phongContribForLight(alpha, point, eye, normal, light1Pos) * (0.25 * shadow + 0.75);
+}
+
+vec2 rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far)
 {
     float depth = near;
     for (int i = 0; i < MAX_MARCHING_STEPS; i++)
     {
-        float dist = sceneSDF(rayOrigin + depth * rayDirection);
-        if (dist < EPSILON)
+        vec2 dist = sceneSDF(rayOrigin + depth * rayDirection);
+        if (dist.x < EPSILON)
         {
-            return depth;
+            return vec2(depth, dist.y);
         }
 
-        depth += dist;
+        depth += dist.x;
         if (depth >= far)
         {
-            return far;
+            return vec2(far, 0.0);
         }
     }
 
-    return far;
+    return vec2(far, 0.0);
 }
 
-vec3 hsv2rgb(vec3 c) {
-  vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-  vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
-  return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+bool approxEquals(float x, float y)
+{
+	return abs(x - y) < EPSILON;
 }
 
 void fragment()
@@ -167,46 +192,43 @@ void fragment()
     vec3 rayDir = uCameraMatrix * rayDirection(uCameraFov, oPosition);
     vec3 rayOrigin = uCameraPosition;
 	
-    float dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
-    if (dist > MAX_DIST - EPSILON)
+    vec2 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+    if (dist.x > MAX_DIST - EPSILON)
     {
-        //COLOR = vec4(0, 0, 0, 0);
 		discard;
     }
     else
     {
         // The closest point on the surface to the eyepoint along the view ray
-        vec3 p = rayOrigin + dist * rayDir;
-
-		float noise = perlinNoise3D(p * 0.0075);
-		if (noise > uReveal) {
+        vec3 p = rayOrigin + dist.x * rayDir;
+		
+		float noise = perlinNoise3D(p * 0.0075) - 0.6;
+		if (noise > uReveal) 
+		{
 			discard;
 		}
-		vec3 K_a = vec3(0.1, 0.1, 0.15);
-		vec3 K_d = vec3(0.1, 0.3, 0.95);
-		float shininess = 5.0;
-		if (noise < 0.95) {
-			K_a = vec3(0.1, 0.15, 0.1);
-			K_d = vec3(0.3, 0.9, 0.2);
-			shininess = 10.0;
+
+		
+		if (approxEquals(dist.y, PLANET))
+		{
+			vec3 normal = estimateNormalPlanet(p, dist.x);
+        	float lighting = 1.0 - phongIllumination(dist.x, 5.0, p, rayOrigin, normal) / 2.0;
+			float fresnel = dot(normal, rayDir);
+			fresnel = clamp(fresnel + 1.0, 0.0, 1.0);
+			
+			fresnel = pow(fresnel, 2.5);
+			fresnel = round(fresnel * 2.0);
+			lighting = min(lighting, 1.0 - fresnel * 0.3);
+			
+			vec3 planetColour = texture(uPlanetTexture, vec2(noise, lighting)).rgb;
+			
+	        COLOR = vec4(planetColour, 1.0);
 		}
-        vec3 K_s = vec3(1.0, 1.0, 1.0);
-
-		vec3 normal = estimateNormal(p);
-        vec3 litColour = phongIllumination(K_a, K_d, K_s, shininess, p, rayOrigin, normal);
-		
-		float fresnel = dot(normal, rayDir);
-		fresnel = clamp(fresnel + 1.0, 0.0, 1.0);
-		
-		fresnel = pow(fresnel, 2.5);
-		fresnel = round(fresnel * 2.0) / 32.0;
-		litColour += fresnel * K_d;
-
-        COLOR = vec4(litColour, 1.0);
-		//ALBEDO = litColour;
+		else if (approxEquals(dist.y, CLOUD))
+		{
+			vec3 normal = estimateNormalCloud(p, dist.x);
+        	float lighting = 1.0 - phongIllumination(dist.x, 5.0, p, rayOrigin, normal) / 2.0;
+			COLOR = vec4(vec3(1.0 - lighting * 0.4), 1.0);
+		}
     }
-}
-
-void vertex() {
-	// Called for every vertex the material is visible on.
 }
