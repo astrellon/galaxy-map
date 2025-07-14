@@ -1,0 +1,282 @@
+[gd_scene load_steps=23 format=3 uid="uid://b2einv4kauowa"]
+
+[ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://galaxy5.png" id="1_kek77"]
+[ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://bigStar4.png" id="4_7mycd"]
+[ext_resource type="Texture2D" uid="uid://pq4nexk1h18c" path="res://bigStar1.png" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://u5ou1jwrae4y" path="res://bigStar2.png" id="6_5vw27"]
+[ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://star_twinkle.gd" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://bvjj0830yg1m3" path="res://bigStar3.png" id="8_kek77"]
+[ext_resource type="Texture2D" uid="uid://8rvwhdvrslsq" path="res://bigStar5.png" id="9_4c57u"]
+[ext_resource type="Texture2D" uid="uid://2kjydfbpfat1" path="res://bigStar6.png" id="10_4c57u"]
+[ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="11_efxa6"]
+[ext_resource type="Script" uid="uid://ckjfs3kccwh4u" path="res://rotator.gd" id="12_dg77c"]
+[ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://raymarch.gdshader" id="12_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://f735bee5b64ef98879dc618b016ecf7939a5756040c2cde21ccb15e69a6e1cfb.png" id="13_vivmo"]
+[ext_resource type="Script" uid="uid://bxpcytrpp8b4r" path="res://raymarch.gd" id="13_w48qg"]
+[ext_resource type="Script" uid="uid://simql32rav5t" path="res://wireframe2.gd" id="13_ycdy4"]
+[ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://outline.gdshader" id="14_vivmo"]
+
+[sub_resource type="Animation" id="Animation_1bvp3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:wireframe_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Raymarch:reveal")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0582358]
+}
+
+[sub_resource type="Animation" id="Animation_h2yge"]
+resource_name = "show_wireframe"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:wireframe_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.633333, 2.63333),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Raymarch:reveal")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.73333, 5.76667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lquwl"]
+_data = {
+&"RESET": SubResource("Animation_1bvp3"),
+&"show_wireframe": SubResource("Animation_h2yge")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dg77c"]
+shader = ExtResource("12_ycdy4")
+shader_parameter/uNoiseTexture = ExtResource("13_vivmo")
+shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
+shader_parameter/uCameraPosition = Vector3(0, 0, 4.295)
+shader_parameter/uCameraFov = 50.0
+shader_parameter/uReveal = 0.53
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
+shader = ExtResource("14_vivmo")
+shader_parameter/color = Color(0.407843, 0.858824, 0.196078, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w48qg"]
+viewport_path = NodePath("Wireframe/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_dg77c"]
+font = ExtResource("11_efxa6")
+font_size = 9
+font_color = Color(0.393333, 1, 0.3, 1)
+outline_color = Color(0.0882216, 0.262509, 0.166645, 1)
+shadow_size = 0
+shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
+
+[node name="Node2D" type="Node2D"]
+texture_filter = 1
+
+[node name="Galaxy5" type="Sprite2D" parent="."]
+texture = ExtResource("1_kek77")
+centered = false
+
+[node name="BigStar4" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(126, 113)
+texture = ExtResource("4_7mycd")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 10.0
+noise_amp = 0.3
+
+[node name="BigStar1" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(249, 155)
+texture = ExtResource("5_272bh")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 11.575
+noise_amp = 0.245
+
+[node name="BigStar2" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(281, 102)
+texture = ExtResource("6_5vw27")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 14.0
+noise_amp = 0.25
+
+[node name="BigStar3" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(122, 171)
+texture = ExtResource("8_kek77")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 8.0
+noise_amp = 0.2
+
+[node name="BigStar5" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(158, 166)
+texture = ExtResource("9_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 10.0
+noise_amp = 0.22
+
+[node name="BigStar6" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(223, 214)
+texture = ExtResource("9_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 10.0
+noise_amp = 0.22
+
+[node name="BigStar7" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(199, 168)
+texture = ExtResource("10_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 14.0
+noise_amp = 0.3
+
+[node name="BigStar8" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(313, 118)
+texture = ExtResource("10_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 14.0
+noise_amp = 0.3
+
+[node name="BigStar9" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(232, 67)
+texture = ExtResource("10_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 14.0
+noise_amp = 0.3
+
+[node name="BigStar10" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(188, 198)
+texture = ExtResource("10_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 14.0
+noise_amp = 0.3
+
+[node name="BigStar11" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(215, 27)
+texture = ExtResource("10_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 14.0
+noise_amp = 0.3
+
+[node name="BigStar12" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(171, 68)
+texture = ExtResource("9_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 10.0
+noise_amp = 0.22
+
+[node name="BigStar13" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(280, 172)
+texture = ExtResource("9_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 10.0
+noise_amp = 0.22
+
+[node name="BigStar14" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(264, 55)
+texture = ExtResource("9_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 10.0
+noise_amp = 0.22
+
+[node name="BigStar15" type="Sprite2D" parent="Galaxy5"]
+position = Vector2(161, 119)
+texture = ExtResource("10_4c57u")
+centered = false
+script = ExtResource("6_272bh")
+noise_speed = 14.0
+noise_amp = 0.3
+
+[node name="Node3D" type="Node3D" parent="."]
+script = ExtResource("12_dg77c")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 5)
+fov = 46.1
+
+[node name="Wireframe" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
+position = Vector2(-163, -42)
+script = ExtResource("13_ycdy4")
+meshFile = "res://planet2.obj"
+camera = NodePath("../Node3D/Camera3D")
+backface_culling = false
+front_colour = Color(0.407497, 0.86, 0.1978, 1)
+back_colour = Color(0, 0.517593, 8.66354e-07, 1)
+wireframe_scale = 0.0
+max_scale_fov = 100.505
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Wireframe"]
+libraries = {
+&"": SubResource("AnimationLibrary_lquwl")
+}
+autoplay = "show_wireframe"
+
+[node name="SubViewport" type="SubViewport" parent="Wireframe"]
+transparent_bg = true
+size = Vector2i(64, 64)
+
+[node name="Raymarch" type="ColorRect" parent="Wireframe/SubViewport" node_paths=PackedStringArray("camera")]
+material = SubResource("ShaderMaterial_dg77c")
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("13_w48qg")
+camera = NodePath("../../../Node3D/Camera3D")
+reveal = 0.0582358
+
+[node name="Sprite2D" type="Sprite2D" parent="Wireframe"]
+material = SubResource("ShaderMaterial_2cqfq")
+position = Vector2(196, 96)
+texture = SubResource("ViewportTexture_w48qg")
+centered = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = 25.0
+offset_top = 41.0
+offset_right = 87.0
+offset_bottom = 64.0
+text = "Green Planet"
+label_settings = SubResource("LabelSettings_dg77c")
