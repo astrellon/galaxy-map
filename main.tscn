@@ -234,7 +234,6 @@ noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(0.360233, 0.826758, -0.432091, -0.497552, -0.221525, -0.838671, -0.789097, 0.517105, 0.331555, 0.45, 0.46, 0.39)
 script = ExtResource("12_dg77c")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D"]
@@ -260,26 +259,26 @@ autoplay = "show_wireframe"
 
 [node name="SubViewport" type="SubViewport" parent="Wireframe"]
 transparent_bg = true
-size = Vector2i(64, 64)
+size = Vector2i(128, 128)
 
 [node name="Raymarch" type="ColorRect" parent="Wireframe/SubViewport" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_dg77c")
-offset_right = 64.0
-offset_bottom = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
 script = ExtResource("13_w48qg")
 camera = NodePath("../../../Node3D/Camera3D")
 reveal = 0.0582358
 
 [node name="Sprite2D" type="Sprite2D" parent="Wireframe"]
 material = SubResource("ShaderMaterial_2cqfq")
-position = Vector2(196, 96)
+position = Vector2(165, 68)
 texture = SubResource("ViewportTexture_w48qg")
 centered = false
 
 [node name="Label" type="Label" parent="."]
-offset_left = 25.0
-offset_top = 41.0
-offset_right = 87.0
-offset_bottom = 64.0
+offset_left = 35.0
+offset_top = 46.0
+offset_right = 97.0
+offset_bottom = 69.0
 text = "Green Planet"
 label_settings = SubResource("LabelSettings_dg77c")

@@ -3,9 +3,10 @@ shader_type canvas_item;
 const int MAX_MARCHING_STEPS = 255;
 const float MIN_DIST = 0.0;
 const float MAX_DIST = 100.0;
-const float EPSILON = 0.001;
+const float EPSILON = 0.00001;
 const float PLANET = 1.0;
 const float CLOUD = 2.0;
+const float RING = 3.0;
 
 uniform sampler2D uNoiseTexture: repeat_enable, filter_linear;
 uniform sampler2D uPlanetTexture: repeat_disable, filter_nearest;
@@ -29,35 +30,83 @@ float perlinNoise3D(vec3 p)
 {
     float x = 0.0;
     for (float i = 0.0; i < 6.0; i += 1.0)
-        x += noise3D(p * pow(2.0, i)) * pow(0.5, i);
+	{
+		x += noise3D(p * pow(2.0, i)) * pow(0.5, i);
+	}
     return x;
 }
 
-float sphereSDF(vec3 samplePoint)
+float opOnion(float sdf, float thickness)
 {
-    return length(samplePoint) - 1.0;
+	return abs(sdf) - thickness;
+}
+
+float opSubtraction(float d1, float d2)
+{
+	return max(-d1, d2);
+}
+
+float opIntersection(float d1, float d2)
+{
+	return max(d1, d2);
+}
+
+float sdfSphere(vec3 samplePoint, float radius)
+{
+    return length(samplePoint) - radius;
+}
+
+float sdfCappedCylinder(vec3 point, float height, float radius)
+{
+    vec2 d = abs(vec2(length(point.xz), point.y)) - vec2(radius, height);
+    return min(max(d.x, d.y), 0.0) + length(max(d, 0.0));
+}
+
+float sdfCutHollowSphere(vec3 point, float radius, float cutoff, float thickness)
+{
+    vec2 q = vec2(length(point.xz), point.y);
+    float w = sqrt(radius * radius - cutoff * cutoff);
+    
+    return ((cutoff * q.x < w * q.y) ? 
+		length(q - vec2(w, cutoff)) : 
+        abs(length(q) - radius)) - thickness;
 }
 
 float cloudScene(vec3 samplePoint)
 {
-	float sphereDist = sphereSDF(samplePoint);
-	float cloudDist = sphereDist * 5.0 - smoothstep(1.1, 1.2, perlinNoise3D(samplePoint * 0.01)) * 0.5 + 0.1;
+	float outerSphere = sdfSphere(samplePoint, 0.7);
+	float innerSphere = sdfSphere(samplePoint, 0.6);
+	float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12)) - 0.85) * 0.3;
 	
-	return cloudDist;
+	return opSubtraction(cloudDist, innerSphere);
 }
 
 float planetScene(vec3 samplePoint)
 {
-	return sphereSDF(samplePoint);
+	return sdfSphere(samplePoint, 0.5);
+}
+
+float ringScene(vec3 samplePoint)
+{
+	return opSubtraction(
+		sdfCappedCylinder(samplePoint, 0.2, 0.75),
+		sdfCappedCylinder(samplePoint, 0.015, 1.1));
+}
+
+vec2 objMin(vec2 d1, vec2 d2)
+{
+	return d1.x < d2.x ? d1 : d2;
 }
 
 vec2 sceneSDF(vec3 samplePoint)
 {
-    //return vec2(sphereSDF(samplePoint), PLANET);
-	float sphereDist = planetScene(samplePoint);
-	float cloudDist = cloudScene(samplePoint);
-	float obj = sphereDist < cloudDist ? PLANET : CLOUD;
-	return vec2(min(sphereDist, cloudDist), obj);
+	vec2 sphereDist = vec2(planetScene(samplePoint), PLANET);
+	vec2 cloudDist = vec2(cloudScene(samplePoint), CLOUD);
+	//return cloudDist;
+	return objMin(sphereDist, cloudDist);
+	//vec2 ringDist = vec2(ringScene(samplePoint), RING);
+	
+	//return objMin(sphereDist, objMin(cloudDist, ringDist));
 }
 
 vec3 rayDirection(float fieldOfView, vec2 fragCoord)
@@ -69,7 +118,7 @@ vec3 rayDirection(float fieldOfView, vec2 fragCoord)
 
 vec3 estimateNormalPlanet(vec3 point, float currentDepth)
 {
-    vec2 eps_zero = vec2(currentDepth * 0.015, 0.0);
+    vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
     return normalize(vec3(
         planetScene(point + eps_zero.xyy) - planetScene(point - eps_zero.xyy),
         planetScene(point + eps_zero.yxy) - planetScene(point - eps_zero.yxy),
@@ -78,11 +127,20 @@ vec3 estimateNormalPlanet(vec3 point, float currentDepth)
 }
 vec3 estimateNormalCloud(vec3 point, float currentDepth)
 {
-    vec2 eps_zero = vec2(currentDepth * 0.015, 0.0);
+    vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
     return normalize(vec3(
         cloudScene(point + eps_zero.xyy) - cloudScene(point - eps_zero.xyy),
         cloudScene(point + eps_zero.yxy) - cloudScene(point - eps_zero.yxy),
         cloudScene(point + eps_zero.yyx) - cloudScene(point - eps_zero.yyx)
+    ));
+}
+vec3 estimateNormalRing(vec3 point, float currentDepth)
+{
+    vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
+    return normalize(vec3(
+        ringScene(point + eps_zero.xyy) - ringScene(point - eps_zero.xyy),
+        ringScene(point + eps_zero.yxy) - ringScene(point - eps_zero.yxy),
+        ringScene(point + eps_zero.yyx) - ringScene(point - eps_zero.yyx)
     ));
 }
 
@@ -105,8 +163,8 @@ float phongContribForLight(float alpha, vec3 point, vec3 eye, vec3 normal, vec3 
     float dotRV = dot(R, V);
 	
 	//dotLN = round(dotLN * 3.0) / 3.0;
-	dotLN = round(dotLN);
-	dotRV = round(cubicIn(dotRV) * 0.6);
+	//dotLN = round(dotLN);
+	//dotRV = round(cubicIn(dotRV) * 0.6);
 
     if (dotLN < 0.0) 
 	{
@@ -149,13 +207,13 @@ float softShadow(vec3 rayOrigin, vec3 rayDirection, float near, float far)
     return result;
 }
 
-float phongIllumination(float currentDepth, float alpha, vec3 point, vec3 eye, vec3 normal)
+float phongIllumination(float currentDepth, float alpha, vec3 point, vec3 eye, vec3 normal, float minDepth)
 {
-    vec3 light1Pos = vec3(-4.0, 1.5, 4.0);
-	vec3 toLight = normalize(point - light1Pos);
+    const vec3 lightPos = vec3(-4.0, 1.5, 4.0);
+	vec3 toLight = normalize(lightPos - point);
 	
-	float shadow = softShadow(point, toLight, 0.005 * currentDepth, 100.0);
-    return phongContribForLight(alpha, point, eye, normal, light1Pos) * (0.25 * shadow + 0.75);
+	float shadow = softShadow(point, toLight, minDepth * currentDepth, 100.0);
+    return phongContribForLight(alpha, point, eye, normal, lightPos) * shadow;
 }
 
 vec2 rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far)
@@ -169,7 +227,7 @@ vec2 rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far)
             return vec2(depth, dist.y);
         }
 
-        depth += dist.x;
+        depth += dist.x * 0.5;
         if (depth >= far)
         {
             return vec2(far, 0.0);
@@ -207,28 +265,35 @@ void fragment()
 		{
 			discard;
 		}
-
 		
 		if (approxEquals(dist.y, PLANET))
 		{
 			vec3 normal = estimateNormalPlanet(p, dist.x);
-        	float lighting = 1.0 - phongIllumination(dist.x, 5.0, p, rayOrigin, normal) / 2.0;
+        	float lighting = clamp(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001), 0.0, 1.0);
 			float fresnel = dot(normal, rayDir);
 			fresnel = clamp(fresnel + 1.0, 0.0, 1.0);
 			
 			fresnel = pow(fresnel, 2.5);
 			fresnel = round(fresnel * 2.0);
-			lighting = min(lighting, 1.0 - fresnel * 0.3);
+			lighting = max(lighting, fresnel * 0.5);
 			
-			vec3 planetColour = texture(uPlanetTexture, vec2(noise, lighting)).rgb;
+			vec3 planetColour = texture(uPlanetTexture, vec2(noise, 1.2 - lighting)).rgb;
 			
 	        COLOR = vec4(planetColour, 1.0);
 		}
 		else if (approxEquals(dist.y, CLOUD))
 		{
 			vec3 normal = estimateNormalCloud(p, dist.x);
-        	float lighting = 1.0 - phongIllumination(dist.x, 5.0, p, rayOrigin, normal) / 2.0;
-			COLOR = vec4(vec3(1.0 - lighting * 0.4), 1.0);
+        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001) * 0.5 + 0.5;
+			COLOR = vec4(vec3(lighting), 1.0);
+		}
+		else if (approxEquals(dist.y, RING))
+		{
+			vec3 normal = estimateNormalRing(p, dist.x);
+			normal.y = abs(normal.y);
+        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1) / 2.0;
+			float dist = sin(length(p) * 50.0) * 0.2 + 0.7;
+			COLOR = vec4(vec3(dist * lighting * vec3(0.7, 0.3, 0.2)), 1.0);
 		}
     }
 }
