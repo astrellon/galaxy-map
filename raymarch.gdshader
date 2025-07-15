@@ -15,6 +15,11 @@ uniform vec3 uCameraPosition;
 uniform float uCameraFov;
 uniform float uReveal = 1.0;
 
+uniform vec3 uPlanetNoiseScale = vec3(1.0);
+uniform vec3 uPlanetNoiseOffset = vec3(0.0);
+uniform vec3 uRingParams = vec3(1.1, 0.75, 0.015);
+uniform bvec4 uFlags = bvec4(false);
+
 float noise3D(vec3 p)
 {
     p.z = fract(p.z)*256.0;
@@ -74,6 +79,11 @@ float sdfCutHollowSphere(vec3 point, float radius, float cutoff, float thickness
 
 float cloudScene(vec3 samplePoint)
 {
+	if (!uFlags.x)
+	{
+		return 100.0;
+	}
+	
 	float outerSphere = sdfSphere(samplePoint, 0.7);
 	float innerSphere = sdfSphere(samplePoint, 0.6);
 	float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12)) - 0.85) * 0.3;
@@ -83,14 +93,23 @@ float cloudScene(vec3 samplePoint)
 
 float planetScene(vec3 samplePoint)
 {
+	if (!uFlags.y)
+	{
+		return 100.0;
+	}
 	return sdfSphere(samplePoint, 0.5);
 }
 
 float ringScene(vec3 samplePoint)
 {
+	if (!uFlags.z)
+	{
+		return 100.0;
+	}
+	
 	return opSubtraction(
-		sdfCappedCylinder(samplePoint, 0.2, 0.75),
-		sdfCappedCylinder(samplePoint, 0.015, 1.1));
+		sdfCappedCylinder(samplePoint, uRingParams.z + 1.0, uRingParams.y),
+		sdfCappedCylinder(samplePoint, uRingParams.z, uRingParams.x));
 }
 
 vec2 objMin(vec2 d1, vec2 d2)
@@ -102,11 +121,9 @@ vec2 sceneSDF(vec3 samplePoint)
 {
 	vec2 sphereDist = vec2(planetScene(samplePoint), PLANET);
 	vec2 cloudDist = vec2(cloudScene(samplePoint), CLOUD);
-	//return cloudDist;
-	return objMin(sphereDist, cloudDist);
-	//vec2 ringDist = vec2(ringScene(samplePoint), RING);
+	vec2 ringDist = vec2(ringScene(samplePoint), RING);
 	
-	//return objMin(sphereDist, objMin(cloudDist, ringDist));
+	return objMin(sphereDist, objMin(cloudDist, ringDist));
 }
 
 vec3 rayDirection(float fieldOfView, vec2 fragCoord)
@@ -260,7 +277,7 @@ void fragment()
         // The closest point on the surface to the eyepoint along the view ray
         vec3 p = rayOrigin + dist.x * rayDir;
 		
-		float noise = perlinNoise3D(p * 0.0075) - 0.6;
+		float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale + uPlanetNoiseOffset) - 0.6;
 		if (noise > uReveal) 
 		{
 			discard;
