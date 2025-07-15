@@ -1,22 +1,21 @@
-[gd_scene load_steps=30 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=25 format=3 uid="uid://b2einv4kauowa"]
 
-[ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://galaxy5.png" id="1_kek77"]
-[ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://bigStar4.png" id="4_7mycd"]
-[ext_resource type="Texture2D" uid="uid://pq4nexk1h18c" path="res://bigStar1.png" id="5_272bh"]
-[ext_resource type="Texture2D" uid="uid://u5ou1jwrae4y" path="res://bigStar2.png" id="6_5vw27"]
-[ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://star_twinkle.gd" id="6_272bh"]
-[ext_resource type="Texture2D" uid="uid://bvjj0830yg1m3" path="res://bigStar3.png" id="8_kek77"]
-[ext_resource type="Texture2D" uid="uid://8rvwhdvrslsq" path="res://bigStar5.png" id="9_4c57u"]
-[ext_resource type="Texture2D" uid="uid://2kjydfbpfat1" path="res://bigStar6.png" id="10_4c57u"]
-[ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="11_efxa6"]
-[ext_resource type="Script" uid="uid://ckjfs3kccwh4u" path="res://rotator.gd" id="12_dg77c"]
-[ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://raymarch.gdshader" id="12_ycdy4"]
-[ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://planet1Gradient.png" id="13_2cqfq"]
-[ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://f735bee5b64ef98879dc618b016ecf7939a5756040c2cde21ccb15e69a6e1cfb.png" id="13_vivmo"]
-[ext_resource type="Script" uid="uid://bxpcytrpp8b4r" path="res://raymarch.gd" id="13_w48qg"]
-[ext_resource type="Script" uid="uid://simql32rav5t" path="res://wireframe2.gd" id="13_ycdy4"]
-[ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://outline.gdshader" id="14_vivmo"]
-[ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://planet2Gradient.png" id="17_yaehf"]
+[ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://textures/galaxy5.png" id="1_jbj1t"]
+[ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
+[ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://scripts/star_twinkle.gd" id="3_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://pq4nexk1h18c" path="res://textures/bigStar1.png" id="4_0ld40"]
+[ext_resource type="Texture2D" uid="uid://u5ou1jwrae4y" path="res://textures/bigStar2.png" id="5_gqmmt"]
+[ext_resource type="Texture2D" uid="uid://bvjj0830yg1m3" path="res://textures/bigStar3.png" id="6_yc10j"]
+[ext_resource type="Texture2D" uid="uid://8rvwhdvrslsq" path="res://textures/bigStar5.png" id="7_jscy8"]
+[ext_resource type="Texture2D" uid="uid://2kjydfbpfat1" path="res://textures/bigStar6.png" id="8_pm3ni"]
+[ext_resource type="Script" uid="uid://ckjfs3kccwh4u" path="res://scripts/rotator.gd" id="9_y6deb"]
+[ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="10_og1vs"]
+[ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="11_2wyq8"]
+[ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://textures/planet1Gradient.png" id="12_vxglm"]
+[ext_resource type="Script" uid="uid://bxpcytrpp8b4r" path="res://scripts/raymarch.gd" id="13_2f3dj"]
+[ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://shaders/outline.gdshader" id="14_yq6so"]
+[ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="15_fv21b"]
+[ext_resource type="PackedScene" uid="uid://xrnrgaclsms6" path="res://scenes/celestial_object.tscn" id="16_tel4y"]
 
 [sub_resource type="Animation" id="Animation_1bvp3"]
 length = 0.001
@@ -399,8 +398,8 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dg77c"]
 shader = SubResource("Shader_074og")
-shader_parameter/uNoiseTexture = ExtResource("13_vivmo")
-shader_parameter/uPlanetTexture = ExtResource("13_2cqfq")
+shader_parameter/uNoiseTexture = ExtResource("11_2wyq8")
+shader_parameter/uPlanetTexture = ExtResource("12_vxglm")
 shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/uCameraPosition = Vector3(0, 0, 5.1)
 shader_parameter/uCameraFov = 50.0
@@ -410,7 +409,7 @@ shader_parameter/uPlanetNoiseOffset = Vector3(1.02, 1, 1)
 shader_parameter/uFlags = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2cqfq"]
-shader = ExtResource("14_vivmo")
+shader = ExtResource("14_yq6so")
 shader_parameter/color = Color(0.407497, 0.86, 0.1978, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
@@ -421,42 +420,10 @@ shader_parameter/add_margins = true
 viewport_path = NodePath("Green Planet/SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_dg77c"]
-font = ExtResource("11_efxa6")
+font = ExtResource("15_fv21b")
 font_size = 9
 font_color = Color(0.560784, 0.815686, 0.196078, 1)
 outline_color = Color(0.380392, 0.647059, 0.247059, 1)
-shadow_size = 0
-shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cegan"]
-shader = ExtResource("12_ycdy4")
-shader_parameter/uNoiseTexture = ExtResource("13_vivmo")
-shader_parameter/uPlanetTexture = ExtResource("17_yaehf")
-shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
-shader_parameter/uCameraPosition = Vector3(0, 0, 3.635)
-shader_parameter/uCameraFov = 49.945
-shader_parameter/uReveal = 1.86
-shader_parameter/uPlanetNoiseScale = Vector3(0.1, 1.5, 0.1)
-shader_parameter/uPlanetNoiseOffset = Vector3(10, 0, 0)
-shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = 6
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yaehf"]
-shader = ExtResource("14_vivmo")
-shader_parameter/color = Color(0.909804, 0.541176, 0.211765, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_82xsv"]
-viewport_path = NodePath("Gas Giant/SubViewport")
-
-[sub_resource type="LabelSettings" id="LabelSettings_yaehf"]
-font = ExtResource("11_efxa6")
-font_size = 9
-font_color = Color(0.909804, 0.541176, 0.211765, 1)
-outline_color = Color(0.690196, 0.356863, 0.172549, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
@@ -464,131 +431,131 @@ shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 texture_filter = 1
 
 [node name="Galaxy5" type="Sprite2D" parent="."]
-texture = ExtResource("1_kek77")
+texture = ExtResource("1_jbj1t")
 centered = false
 
 [node name="BigStar4" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(126, 113)
-texture = ExtResource("4_7mycd")
+texture = ExtResource("2_muem4")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.3
 
 [node name="BigStar1" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(249, 155)
-texture = ExtResource("5_272bh")
+texture = ExtResource("4_0ld40")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 11.575
 noise_amp = 0.245
 
 [node name="BigStar2" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(281, 102)
-texture = ExtResource("6_5vw27")
+texture = ExtResource("5_gqmmt")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.25
 
 [node name="BigStar3" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(122, 171)
-texture = ExtResource("8_kek77")
+texture = ExtResource("6_yc10j")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 8.0
 noise_amp = 0.2
 
 [node name="BigStar5" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(158, 166)
-texture = ExtResource("9_4c57u")
+texture = ExtResource("7_jscy8")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
 [node name="BigStar6" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(223, 214)
-texture = ExtResource("9_4c57u")
+texture = ExtResource("7_jscy8")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
 [node name="BigStar7" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(199, 168)
-texture = ExtResource("10_4c57u")
+texture = ExtResource("8_pm3ni")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="BigStar8" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(313, 118)
-texture = ExtResource("10_4c57u")
+texture = ExtResource("8_pm3ni")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="BigStar9" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(232, 67)
-texture = ExtResource("10_4c57u")
+texture = ExtResource("8_pm3ni")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="BigStar10" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(188, 198)
-texture = ExtResource("10_4c57u")
+texture = ExtResource("8_pm3ni")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="BigStar11" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(215, 27)
-texture = ExtResource("10_4c57u")
+texture = ExtResource("8_pm3ni")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="BigStar12" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(171, 68)
-texture = ExtResource("9_4c57u")
+texture = ExtResource("7_jscy8")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
 [node name="BigStar13" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(280, 172)
-texture = ExtResource("9_4c57u")
+texture = ExtResource("7_jscy8")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
 [node name="BigStar14" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(264, 55)
-texture = ExtResource("9_4c57u")
+texture = ExtResource("7_jscy8")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
 [node name="BigStar15" type="Sprite2D" parent="Galaxy5"]
 position = Vector2(161, 119)
-texture = ExtResource("10_4c57u")
+texture = ExtResource("8_pm3ni")
 centered = false
-script = ExtResource("6_272bh")
+script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
 [node name="Node3D" type="Node3D" parent="."]
-script = ExtResource("12_dg77c")
+script = ExtResource("9_y6deb")
 
 [node name="Camera3D" type="Camera3D" parent="Node3D"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 5)
@@ -596,7 +563,7 @@ fov = 97.1
 
 [node name="Green Planet" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
 position = Vector2(-163, -42)
-script = ExtResource("13_ycdy4")
+script = ExtResource("10_og1vs")
 meshFile = "res://planet2.obj"
 camera = NodePath("../Node3D/Camera3D")
 backface_culling = false
@@ -619,7 +586,7 @@ size = Vector2i(128, 128)
 material = SubResource("ShaderMaterial_dg77c")
 offset_right = 128.0
 offset_bottom = 128.0
-script = ExtResource("13_w48qg")
+script = ExtResource("13_2f3dj")
 camera = NodePath("../../../Node3D/Camera3D")
 reveal = 0.0582358
 
@@ -638,46 +605,5 @@ text = "Green Planet"
 label_settings = SubResource("LabelSettings_dg77c")
 horizontal_alignment = 1
 
-[node name="Gas Giant" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
+[node name="Gas Giant" parent="." instance=ExtResource("16_tel4y")]
 position = Vector2(-174, 62)
-script = ExtResource("13_ycdy4")
-meshFile = "res://gasGiant.obj"
-camera = NodePath("../Node3D/Camera3D")
-backface_culling = false
-front_colour = Color(0.909804, 0.541176, 0.211765, 1)
-back_colour = Color(0.690196, 0.356863, 0.172549, 1)
-wireframe_scale = 0.0
-max_scale_fov = 100.505
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Gas Giant"]
-libraries = {
-&"": SubResource("AnimationLibrary_lquwl")
-}
-autoplay = "show_wireframe"
-
-[node name="SubViewport" type="SubViewport" parent="Gas Giant"]
-transparent_bg = true
-size = Vector2i(128, 128)
-
-[node name="Raymarch" type="ColorRect" parent="Gas Giant/SubViewport" node_paths=PackedStringArray("camera")]
-material = SubResource("ShaderMaterial_cegan")
-offset_right = 128.0
-offset_bottom = 128.0
-script = ExtResource("13_w48qg")
-camera = NodePath("../../../Node3D/Camera3D")
-reveal = 0.0582358
-
-[node name="Outline" type="Sprite2D" parent="Gas Giant"]
-material = SubResource("ShaderMaterial_yaehf")
-position = Vector2(165, 68)
-texture = SubResource("ViewportTexture_82xsv")
-centered = false
-
-[node name="Label" type="Label" parent="Gas Giant"]
-offset_left = 198.0
-offset_top = 88.0
-offset_right = 260.0
-offset_bottom = 111.0
-text = "Gas Giant"
-label_settings = SubResource("LabelSettings_yaehf")
-horizontal_alignment = 1

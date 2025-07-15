@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnx2je17f82bf"
-path="res://.godot/imported/bigStar4.png-c0625d20e111aace1f2637fed299d9b1.ctex"
+uid="uid://diadyov7w7a8r"
+path="res://.godot/imported/planet2Gradient.png-a409f6449d500cd8a73625a9de87a2b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bigStar4.png"
-dest_files=["res://.godot/imported/bigStar4.png-c0625d20e111aace1f2637fed299d9b1.ctex"]
+source_file="res://textures/planet2Gradient.png"
+dest_files=["res://.godot/imported/planet2Gradient.png-a409f6449d500cd8a73625a9de87a2b6.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2kjydfbpfat1"
-path="res://.godot/imported/bigStar6.png-6a6743495985dc2f4c3c0d8188b4dee7.ctex"
+path="res://.godot/imported/bigStar6.png-670fc40a4b94cc0bb0eb63c2b54c81bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bigStar6.png"
-dest_files=["res://.godot/imported/bigStar6.png-6a6743495985dc2f4c3c0d8188b4dee7.ctex"]
+source_file="res://textures/bigStar6.png"
+dest_files=["res://.godot/imported/bigStar6.png-670fc40a4b94cc0bb0eb63c2b54c81bb.ctex"]
 
 [params]
 

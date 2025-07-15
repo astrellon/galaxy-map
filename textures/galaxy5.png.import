@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diadyov7w7a8r"
-path="res://.godot/imported/planet2Gradient.png-be3940c2fb9a61b0ec3a025a5a18bf36.ctex"
+uid="uid://cofljk3f7rpaf"
+path="res://.godot/imported/galaxy5.png-3749cc1eb85fb36e626662b7035cd39b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://planet2Gradient.png"
-dest_files=["res://.godot/imported/planet2Gradient.png-be3940c2fb9a61b0ec3a025a5a18bf36.ctex"]
+source_file="res://textures/galaxy5.png"
+dest_files=["res://.godot/imported/galaxy5.png-3749cc1eb85fb36e626662b7035cd39b.ctex"]
 
 [params]
 
