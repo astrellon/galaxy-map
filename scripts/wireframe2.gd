@@ -6,6 +6,7 @@ extends Node2D
 @export var front_colour: Color = Color.GREEN
 @export var back_colour: Color = Color.DARK_GREEN
 @export var wireframe_scale: float = 0.75
+@export var alpha: float = 1.0
 @export var max_scale_fov: float = 45
 @export var ignore_line: Vector4
 
@@ -22,7 +23,7 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	if self.wireframe_scale < 0.0001:
+	if self.wireframe_scale < 0.0001 || self.alpha < 0.0001:
 		return
 
 	var fov = lerpf(180, self.max_scale_fov, self.wireframe_scale)
@@ -30,6 +31,9 @@ func _draw() -> void:
 
 	var has_ignore = self.ignore_line.length() > 0.1
 	var ignore_dir = Vector3(self.ignore_line.x, self.ignore_line.y, self.ignore_line.z)
+	
+	var back_colour = Color(self.back_colour, self.alpha)
+	var front_colour = Color(self.front_colour, self.alpha)
 
 	front_faces.clear()
 
@@ -71,10 +75,10 @@ func _draw() -> void:
 		for i in range(len(screen_positions)):
 			var prev = screen_positions[-1] if i == 0 else screen_positions[i - 1]
 			var current = screen_positions[i]
-			draw_line(prev, current, self.back_colour)
+			draw_line(prev, current, back_colour)
 
 	for f in front_faces:
 		for i in range(len(f.positions)):
 			var prev = f.positions[-1] if i == 0 else f.positions[i - 1]
 			var current = f.positions[i]
-			draw_line(prev, current, self.front_colour)
+			draw_line(prev, current, front_colour)
