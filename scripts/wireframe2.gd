@@ -6,6 +6,7 @@ extends Node2D
 @export var front_colour: Color = Color.GREEN
 @export var back_colour: Color = Color.DARK_GREEN
 @export var wireframe_scale: float = 0.75
+@export var mesh_scale: float = 1.0
 @export var alpha: float = 1.0
 @export var max_scale_fov: float = 45
 @export var ignore_line: Vector4
@@ -43,7 +44,7 @@ func _draw() -> void:
 		var prev_world = Vector3.ZERO
 		var has_prev_world = false
 		for fv in f.faces:
-			var current = self.mesh.vertices[fv.x]
+			var current = self.mesh.vertices[fv.x] * self.mesh_scale
 			var next = self.camera.unproject_position(current)
 
 			if has_prev_world && has_ignore:

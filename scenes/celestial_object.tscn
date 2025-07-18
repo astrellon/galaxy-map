@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="1_x5fnd"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="2_wu8c0"]
-[ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="3_ix6hq"]
-[ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="4_gxy6w"]
+[ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="3_x5fnd"]
+[ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="4_wu8c0"]
 [ext_resource type="Script" uid="uid://bxpcytrpp8b4r" path="res://scripts/raymarch.gd" id="5_38sfh"]
 [ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://shaders/outline.gdshader" id="6_w8pnv"]
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="7_33sgm"]
@@ -34,18 +34,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0582358]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:alpha")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
 
 [sub_resource type="Animation" id="Animation_h2yge"]
 resource_name = "show_wireframe"
@@ -72,7 +60,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(2.73333, 6.93333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 1.6]
+"values": [-0.2, 1.6]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -81,7 +69,7 @@ tracks/2/path = NodePath(".:alpha")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(5.3, 6.83333),
+"times": PackedFloat32Array(5.5, 6.83333),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [1.0, 0.0]
@@ -95,16 +83,17 @@ _data = {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cegan"]
 shader = ExtResource("2_wu8c0")
-shader_parameter/uNoiseTexture = ExtResource("3_ix6hq")
-shader_parameter/uPlanetTexture = ExtResource("4_gxy6w")
+shader_parameter/uNoiseTexture = ExtResource("3_x5fnd")
+shader_parameter/uPlanetTexture = ExtResource("4_wu8c0")
 shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
-shader_parameter/uCameraPosition = Vector3(0, 0, 3.635)
-shader_parameter/uCameraFov = 49.945
-shader_parameter/uReveal = 1.86
-shader_parameter/uPlanetNoiseScale = Vector3(0.1, 1.5, 0.1)
-shader_parameter/uPlanetNoiseOffset = Vector3(10, 0, 0)
+shader_parameter/uCameraPosition = Vector3(0, 0, 5)
+shader_parameter/uCameraFov = 50.0
+shader_parameter/uReveal = 2.0
+shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
+shader_parameter/uPlanetNoiseOffset = Vector3(0, 0, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = 6
+shader_parameter/uFlags = 0.0
+shader_parameter/uScene = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yaehf"]
 shader = ExtResource("6_w8pnv")
@@ -132,7 +121,6 @@ backface_culling = false
 front_colour = Color(0.909804, 0.541176, 0.211765, 1)
 back_colour = Color(0.690196, 0.356863, 0.172549, 1)
 wireframe_scale = 0.0
-alpha = 0.0
 max_scale_fov = 100.505
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

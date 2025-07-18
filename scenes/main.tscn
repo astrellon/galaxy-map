@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=28 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://textures/galaxy5.png" id="1_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -9,42 +9,28 @@
 [ext_resource type="Texture2D" uid="uid://8rvwhdvrslsq" path="res://textures/bigStar5.png" id="7_jscy8"]
 [ext_resource type="Texture2D" uid="uid://2kjydfbpfat1" path="res://textures/bigStar6.png" id="8_pm3ni"]
 [ext_resource type="Script" uid="uid://ckjfs3kccwh4u" path="res://scripts/rotator.gd" id="9_y6deb"]
-[ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="11_2wyq8"]
-[ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://textures/planet1Gradient.png" id="12_vxglm"]
-[ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="13_jbj1t"]
+[ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="12_jkv2x"]
+[ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://textures/planet1Gradient.png" id="13_jbj1t"]
+[ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="13_muem4"]
 [ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://shaders/outline.gdshader" id="14_yq6so"]
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="15_fv21b"]
 [ext_resource type="PackedScene" uid="uid://xrnrgaclsms6" path="res://scenes/celestial_object.tscn" id="16_tel4y"]
+[ext_resource type="Texture2D" uid="uid://b723b2kuuysie" path="res://textures/planet3Gradient.png" id="17_dp3eg"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="17_muem4"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_muem4"]
-shader = ExtResource("17_muem4")
-shader_parameter/uNoiseTexture = ExtResource("11_2wyq8")
-shader_parameter/uPlanetTexture = ExtResource("13_jbj1t")
-shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
-shader_parameter/uCameraPosition = Vector3(0, 0, 3.635)
-shader_parameter/uCameraFov = 49.945
-shader_parameter/uReveal = 1.86
-shader_parameter/uPlanetNoiseScale = Vector3(0.1, 1.5, 0.1)
-shader_parameter/uPlanetNoiseOffset = Vector3(10, 0, 0)
-shader_parameter/uRingParams = Vector3(1.15, 0.75, 0.015)
-shader_parameter/uFlags = 6
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_jkv2x"]
-viewport_path = NodePath("Gas Giant/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dp3eg"]
 shader = ExtResource("17_muem4")
-shader_parameter/uNoiseTexture = ExtResource("11_2wyq8")
-shader_parameter/uPlanetTexture = ExtResource("12_vxglm")
+shader_parameter/uNoiseTexture = ExtResource("12_jkv2x")
+shader_parameter/uPlanetTexture = ExtResource("13_jbj1t")
 shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
-shader_parameter/uCameraPosition = Vector3(0, 0, 3.635)
-shader_parameter/uCameraFov = 49.945
-shader_parameter/uReveal = 1.86
+shader_parameter/uCameraPosition = Vector3(0, 0, 5)
+shader_parameter/uCameraFov = 50.0
+shader_parameter/uReveal = 1.99
 shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
-shader_parameter/uPlanetNoiseOffset = Vector3(10, 0, 0)
+shader_parameter/uPlanetNoiseOffset = Vector3(0, 0, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = 3
+shader_parameter/uFlags = 0.0
+shader_parameter/uScene = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jkv2x"]
 shader = ExtResource("14_yq6so")
@@ -55,7 +41,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jbj1t"]
-viewport_path = NodePath("Green Planet2/SubViewport")
+viewport_path = NodePath("Earth Like/SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_jbj1t"]
 font = ExtResource("15_fv21b")
@@ -65,14 +51,64 @@ outline_color = Color(0.690196, 0.356863, 0.172549, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_muem4"]
+shader = ExtResource("17_muem4")
+shader_parameter/uNoiseTexture = ExtResource("12_jkv2x")
+shader_parameter/uPlanetTexture = ExtResource("13_muem4")
+shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
+shader_parameter/uCameraPosition = Vector3(0, 0, 5)
+shader_parameter/uCameraFov = 50.0
+shader_parameter/uReveal = 2.0
+shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
+shader_parameter/uPlanetNoiseOffset = Vector3(0, 0, 0)
+shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
+shader_parameter/uFlags = -0.1
+shader_parameter/uScene = 1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jkv2x"]
+viewport_path = NodePath("Gas Giant/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbj1t"]
+shader = ExtResource("17_muem4")
+shader_parameter/uNoiseTexture = ExtResource("12_jkv2x")
+shader_parameter/uPlanetTexture = ExtResource("17_dp3eg")
+shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
+shader_parameter/uCameraPosition = Vector3(0, 0, 5)
+shader_parameter/uCameraFov = 50.0
+shader_parameter/uReveal = 2.0
+shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
+shader_parameter/uPlanetNoiseOffset = Vector3(0.575, 0.11, 0)
+shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
+shader_parameter/uFlags = 5.29
+shader_parameter/uScene = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ld40"]
+shader = ExtResource("14_yq6so")
+shader_parameter/color = Color(0.501961, 0.482353, 0.478431, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_muem4"]
+viewport_path = NodePath("Icosahedron/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gqmmt"]
+font = ExtResource("15_fv21b")
+font_size = 9
+font_color = Color(0.501961, 0.482353, 0.478431, 1)
+outline_color = Color(0.34902, 0.341176, 0.341176, 1)
+shadow_size = 0
+shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
+
+[node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
 
-[node name="Galaxy5" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_jbj1t")
 centered = false
 
-[node name="BigStar4" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar4" type="Sprite2D" parent="Background"]
 position = Vector2(126, 113)
 texture = ExtResource("2_muem4")
 centered = false
@@ -80,7 +116,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.3
 
-[node name="BigStar1" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar1" type="Sprite2D" parent="Background"]
 position = Vector2(249, 155)
 texture = ExtResource("4_0ld40")
 centered = false
@@ -88,7 +124,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 11.575
 noise_amp = 0.245
 
-[node name="BigStar2" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar2" type="Sprite2D" parent="Background"]
 position = Vector2(281, 102)
 texture = ExtResource("5_gqmmt")
 centered = false
@@ -96,7 +132,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.25
 
-[node name="BigStar3" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar3" type="Sprite2D" parent="Background"]
 position = Vector2(122, 171)
 texture = ExtResource("6_yc10j")
 centered = false
@@ -104,7 +140,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 8.0
 noise_amp = 0.2
 
-[node name="BigStar5" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar5" type="Sprite2D" parent="Background"]
 position = Vector2(158, 166)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -112,7 +148,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar6" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar6" type="Sprite2D" parent="Background"]
 position = Vector2(223, 214)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -120,7 +156,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar7" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar7" type="Sprite2D" parent="Background"]
 position = Vector2(199, 168)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -128,7 +164,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar8" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar8" type="Sprite2D" parent="Background"]
 position = Vector2(313, 118)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -136,7 +172,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar9" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar9" type="Sprite2D" parent="Background"]
 position = Vector2(232, 67)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -144,7 +180,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar10" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar10" type="Sprite2D" parent="Background"]
 position = Vector2(188, 198)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -152,7 +188,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar11" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar11" type="Sprite2D" parent="Background"]
 position = Vector2(215, 27)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -160,7 +196,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar12" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar12" type="Sprite2D" parent="Background"]
 position = Vector2(171, 68)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -168,7 +204,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar13" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar13" type="Sprite2D" parent="Background"]
 position = Vector2(280, 172)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -176,7 +212,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar14" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar14" type="Sprite2D" parent="Background"]
 position = Vector2(264, 55)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -184,7 +220,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar15" type="Sprite2D" parent="Galaxy5"]
+[node name="BigStar15" type="Sprite2D" parent="Background"]
 position = Vector2(161, 119)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -192,43 +228,64 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Camera Pivot" type="Node3D" parent="."]
 script = ExtResource("9_y6deb")
 
-[node name="Camera3D" type="Camera3D" parent="Node3D"]
+[node name="Camera3D" type="Camera3D" parent="Camera Pivot"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 5)
 fov = 97.1
+
+[node name="Earth Like" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+position = Vector2(-164, -40)
+meshFile = "res://meshes/planet2.obj"
+camera = NodePath("../Camera Pivot/Camera3D")
+front_colour = Color(0.560784, 0.815686, 0.196078, 1)
+back_colour = Color(0.380392, 0.647059, 0.247059, 1)
+
+[node name="Raymarch" parent="Earth Like/SubViewport" index="0" node_paths=PackedStringArray("camera")]
+material = SubResource("ShaderMaterial_dp3eg")
+camera = NodePath("../../../Camera Pivot/Camera3D")
+
+[node name="Outline" parent="Earth Like" index="2"]
+material = SubResource("ShaderMaterial_jkv2x")
+texture = SubResource("ViewportTexture_jbj1t")
+
+[node name="Label" parent="Earth Like" index="3"]
+text = "Earth Like"
+label_settings = SubResource("LabelSettings_jbj1t")
 
 [node name="Gas Giant" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
 position = Vector2(-165, 54)
 meshFile = "res://meshes/gas_giant.obj"
-camera = NodePath("../Node3D/Camera3D")
+camera = NodePath("../Camera Pivot/Camera3D")
 
 [node name="Raymarch" parent="Gas Giant/SubViewport" index="0" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_muem4")
-camera = NodePath("../../../Node3D/Camera3D")
+camera = NodePath("../../../Camera Pivot/Camera3D")
 
 [node name="Outline" parent="Gas Giant" index="2"]
 texture = SubResource("ViewportTexture_jkv2x")
 
-[node name="Green Planet2" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
-position = Vector2(-164, -40)
-meshFile = "res://meshes/planet2.obj"
-camera = NodePath("../Node3D/Camera3D")
-front_colour = Color(0.560784, 0.815686, 0.196078, 1)
-back_colour = Color(0.380392, 0.647059, 0.247059, 1)
+[node name="Icosahedron" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+position = Vector2(167, -55)
+meshFile = "res://meshes/dysonSwarm.obj"
+camera = NodePath("../Camera Pivot/Camera3D")
+front_colour = Color(0.501961, 0.482353, 0.478431, 1)
+back_colour = Color(0.34902, 0.341176, 0.341176, 1)
+mesh_scale = 1.525
 
-[node name="Raymarch" parent="Green Planet2/SubViewport" index="0" node_paths=PackedStringArray("camera")]
-material = SubResource("ShaderMaterial_dp3eg")
-camera = NodePath("../../../Node3D/Camera3D")
+[node name="Raymarch" parent="Icosahedron/SubViewport" index="0" node_paths=PackedStringArray("camera")]
+material = SubResource("ShaderMaterial_jbj1t")
+camera = NodePath("../../../Camera Pivot/Camera3D")
 
-[node name="Outline" parent="Green Planet2" index="2"]
-material = SubResource("ShaderMaterial_jkv2x")
-texture = SubResource("ViewportTexture_jbj1t")
+[node name="Outline" parent="Icosahedron" index="2"]
+material = SubResource("ShaderMaterial_0ld40")
+texture = SubResource("ViewportTexture_muem4")
 
-[node name="Label" parent="Green Planet2" index="3"]
-text = "Green Planet"
-label_settings = SubResource("LabelSettings_jbj1t")
+[node name="Label" parent="Icosahedron" index="3"]
+text = "Dyson Swarm"
+label_settings = SubResource("LabelSettings_gqmmt")
 
+[editable path="Earth Like"]
 [editable path="Gas Giant"]
-[editable path="Green Planet2"]
+[editable path="Icosahedron"]
