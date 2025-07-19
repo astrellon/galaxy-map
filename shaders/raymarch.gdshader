@@ -18,10 +18,10 @@ uniform vec3 uCameraPosition = vec3(0.0, 0.0, 5.0);
 uniform float uCameraFov = 50.0;
 uniform float uReveal = 2.0;
 
-uniform vec3 uPlanetNoiseScale = vec3(1.0);
-uniform vec3 uPlanetNoiseOffset = vec3(0.0);
+uniform vec4 uPlanetNoiseScale = vec4(1.0);
+uniform vec4 uPlanetNoiseOffset = vec4(0.0);
 uniform vec3 uRingParams = vec3(1.1, 0.75, 0.015);
-uniform float uFlags = 0.0;
+uniform bvec4 uFlags = bvec4(false);
 uniform int uScene = 0;
 
 // Taken from: https://github.com/dmnsgn/glsl-rotate/blob/main/rotation-3d.glsl
@@ -130,28 +130,29 @@ vec2 planetScene(vec3 samplePoint)
     }
 	if (uScene == 2)
 	{
-		mat3 rotation = rotation3d(vec3(0.0, 1.0, 0.0), uFlags);
-		float innerSphere = sdfSphere(samplePoint, 0.73);
-		float platforms1 = opSubtraction(innerSphere, sdfIcosahedron(samplePoint, 0.82));
-		//float platforms2 = opSubtraction(innerSphere, sdfIcosahedron(rotation * samplePoint, 0.79));
-
-		//return vec2(opUnion(platforms1, platforms2), METAL);
-		return vec2(platforms1, METAL);
+		return vec2(sdfSphere(samplePoint, 0.25), STAR);
 	}
 
     return vec2(100.0, CLOUD);
 }
 
-float ringScene(vec3 samplePoint)
+vec2 ringScene(vec3 samplePoint)
 {
     if (uScene == 1)
     {
-        return opSubtraction(
+        return vec2(opSubtraction(
             sdfCappedCylinder(samplePoint, uRingParams.z + 1.0, uRingParams.y),
-            sdfCappedCylinder(samplePoint, uRingParams.z, uRingParams.x));
+            sdfCappedCylinder(samplePoint, uRingParams.z, uRingParams.x)), RING);
     }
+	if (uScene == 2 || uScene == 3)
+	{
+		float innerSphere = sdfSphere(samplePoint, 0.73);
+		float platforms1 = opSubtraction(innerSphere, sdfIcosahedron(samplePoint, 0.82));
 
-    return 100.0;
+		return vec2(platforms1, METAL);
+	}
+
+    return vec2(100.0, RING);
 }
 
 vec2 objMin(vec2 d1, vec2 d2)
@@ -161,10 +162,7 @@ vec2 objMin(vec2 d1, vec2 d2)
 
 float starScene(vec3 samplePoint)
 {
-	if (uScene == 2)
-	{
-		return sdfSphere(samplePoint, 0.25);
-	}
+	
 
 	return 100.0;
 }
@@ -173,7 +171,7 @@ vec2 sceneSDF(vec3 samplePoint, bool shadow)
 {
 	vec2 sphereDist = planetScene(samplePoint);
 	vec2 cloudDist = vec2(cloudScene(samplePoint), CLOUD);
-	vec2 ringDist = vec2(ringScene(samplePoint), RING);
+	vec2 ringDist = ringScene(samplePoint);
 	vec2 starDist = shadow ? vec2(100.0, STAR) : vec2(starScene(samplePoint), STAR);
 
 	return objMin(objMin(sphereDist, objMin(cloudDist, ringDist)), starDist);
@@ -208,9 +206,9 @@ vec3 estimateNormalRing(vec3 point, float currentDepth)
 {
     vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
     return normalize(vec3(
-        ringScene(point + eps_zero.xyy) - ringScene(point - eps_zero.xyy),
-        ringScene(point + eps_zero.yxy) - ringScene(point - eps_zero.yxy),
-        ringScene(point + eps_zero.yyx) - ringScene(point - eps_zero.yyx)
+        ringScene(point + eps_zero.xyy).x - ringScene(point - eps_zero.xyy).x,
+        ringScene(point + eps_zero.yxy).x - ringScene(point - eps_zero.yxy).x,
+        ringScene(point + eps_zero.yyx).x - ringScene(point - eps_zero.yyx).x
     ));
 }
 
@@ -281,25 +279,48 @@ float phongIllumination(float currentDepth, float alpha, vec3 point, vec3 eye, v
     return phongContribForLight(alpha, point, eye, normal, lightPos) * shadow;
 }
 
-vec2 rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far)
+vec3 rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far)
 {
     float depth = near;
-    for (int i = 0; i < MAX_MARCHING_STEPS; i++)
+	int i = 0;
+    for (; i < MAX_MARCHING_STEPS; i++)
     {
         vec2 dist = sceneSDF(rayOrigin + depth * rayDirection, false);
         if (dist.x < EPSILON)
         {
-            return vec2(depth, dist.y);
+            return vec3(depth, dist.y, float(i));
         }
 
         depth += dist.x * 0.5;
         if (depth >= far)
         {
-            return vec2(far, 0.0);
+            return vec3(far, 0.0, float(i));
         }
     }
 
-    return vec2(far, 0.0);
+    return vec3(far, 0.0, float(i));
+}
+
+vec3 rayMarchPlanet(vec3 rayOrigin, vec3 rayDirection, float near, float far)
+{
+    float depth = near;
+	int i = 0;
+    for (; i < MAX_MARCHING_STEPS; i++)
+    {
+        float dist = planetScene(rayOrigin + depth * rayDirection).x;
+        if (dist < EPSILON)
+        {
+            return vec3(depth, STAR, float(i));
+        }
+
+        depth += dist * 0.5;
+        if (depth >= far)
+        {
+            return vec3(far, 0.0, float(i));
+        }
+    }
+
+    return vec3(far, 0.0, float(i));
 }
 
 bool approxEquals(float x, float y)
@@ -314,19 +335,57 @@ void fragment()
 
     vec3 rayDir = uCameraMatrix * rayDirection(uCameraFov, oPosition);
     vec3 rayOrigin = uCameraPosition;
+	vec4 extraColour = vec4(0.0);
+	
+	COLOR = vec4(0.0);
 
-    vec2 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+    vec3 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+	//if (uScene == 2)
+	{
+		float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
+		if (noise > uReveal)
+		{
+			discard;
+		}
+		
+		float numSteps = dist.z;
+		vec3 starDist = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+		if (starDist.x < dist.x + 0.1 || dist.x > 5.0)
+		{
+			numSteps += starDist.z * 6.0;
+			
+			float colour = 0.0;
+			
+			//if (uScene == 0)
+			//{
+				//colour = pow(numSteps / 600.0, 3.5);
+			//}
+			//else if (uScene == 1)
+			//{
+				//colour = pow(numSteps / 600.0, 3.5);
+			//}
+			if (uScene == 2)
+			{
+				colour = pow(numSteps / 250.0, 3.5);
+			}
+			extraColour = vec4(colour);
+		}
+	}
+	
     if (dist.x > MAX_DIST - EPSILON)
     {
-		discard;
+		if (extraColour.x <= 0.0)
+		{
+			discard;
+		}
     }
     else
     {
         // The closest point on the surface to the eyepoint along the view ray
         vec3 p = rayOrigin + dist.x * rayDir;
 
-		float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale + uPlanetNoiseOffset) - 0.6;
-		if (noise > uReveal)
+		float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
+		if (noise - 0.6 > uReveal && extraColour.x <= 0.0)
 		{
 			discard;
 		}
@@ -342,7 +401,7 @@ void fragment()
 			fresnel = round(fresnel * 2.0);
 			lighting = max(lighting, fresnel * 0.5);
 
-			vec3 planetColour = texture(uPlanetTexture, vec2(noise, 1.2 - lighting)).rgb;
+			vec3 planetColour = texture(uPlanetTexture, vec2(noise * uPlanetNoiseScale.w, 1.2 - lighting)).rgb;
 
 	        COLOR = vec4(planetColour, 1.0);
 		}
@@ -357,8 +416,8 @@ void fragment()
 			vec3 normal = estimateNormalRing(p, dist.x);
 			normal.y = abs(normal.y);
         	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1, defaultLightPos, true) / 2.0;
-			float dist = sin(length(p) * 50.0) * 0.2 + 0.7;
-			COLOR = vec4(vec3(dist * lighting * vec3(0.7, 0.3, 0.2)), 1.0);
+			float dist = sin(length(p) * 50.0) * 0.2 + 1.0;
+			COLOR = vec4(vec3(dist * lighting * vec3(0.75, 0.5, 0.4)), 1.0);
 		}
         else if (approxEquals(dist.y, METAL))
 		{
@@ -368,5 +427,10 @@ void fragment()
 			vec3 planetColour = texture(uPlanetTexture, vec2(noise, 1.2 - lighting)).rgb;
 			COLOR = vec4(planetColour, 1.0);
 		}
+		else if (approxEquals(dist.y, STAR))
+		{
+			COLOR = vec4(1.0);
+		}
     }
+	COLOR += extraColour;
 }

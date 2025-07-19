@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://xrnrgaclsms6"]
+[gd_scene load_steps=16 format=3 uid="uid://xrnrgaclsms6"]
 
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="1_x5fnd"]
+[ext_resource type="Animation" uid="uid://b1wvjyirk77jd" path="res://show_wireframe_2.res" id="2_ix6hq"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="2_wu8c0"]
 [ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="3_x5fnd"]
 [ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="4_wu8c0"]
@@ -78,7 +79,8 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lquwl"]
 _data = {
 &"RESET": SubResource("Animation_1bvp3"),
-&"show_wireframe": SubResource("Animation_h2yge")
+&"show_wireframe": SubResource("Animation_h2yge"),
+&"show_wireframe_2": ExtResource("2_ix6hq")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cegan"]
@@ -89,10 +91,10 @@ shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/uCameraPosition = Vector3(0, 0, 5)
 shader_parameter/uCameraFov = 50.0
 shader_parameter/uReveal = 2.0
-shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
-shader_parameter/uPlanetNoiseOffset = Vector3(0, 0, 0)
+shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
+shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = 0.0
+shader_parameter/uFlags = false
 shader_parameter/uScene = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yaehf"]
@@ -100,7 +102,9 @@ shader = ExtResource("6_w8pnv")
 shader_parameter/color = Color(0.909804, 0.541176, 0.211765, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
-shader_parameter/inside = false
+shader_parameter/threshold = 0.0
+shader_parameter/inside = true
+shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_82xsv"]

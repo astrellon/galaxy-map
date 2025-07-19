@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=29 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://textures/galaxy5.png" id="1_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -26,10 +26,10 @@ shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/uCameraPosition = Vector3(0, 0, 5)
 shader_parameter/uCameraFov = 50.0
 shader_parameter/uReveal = 1.99
-shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
-shader_parameter/uPlanetNoiseOffset = Vector3(0, 0, 0)
+shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 0.6)
+shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, -0.05)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = 0.0
+shader_parameter/uFlags = false
 shader_parameter/uScene = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jkv2x"]
@@ -37,7 +37,9 @@ shader = ExtResource("14_yq6so")
 shader_parameter/color = Color(0.560784, 0.815686, 0.196078, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
+shader_parameter/threshold = 0.0
 shader_parameter/inside = false
+shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jbj1t"]
@@ -59,11 +61,21 @@ shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/uCameraPosition = Vector3(0, 0, 5)
 shader_parameter/uCameraFov = 50.0
 shader_parameter/uReveal = 2.0
-shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
-shader_parameter/uPlanetNoiseOffset = Vector3(0, 0, 0)
+shader_parameter/uPlanetNoiseScale = Vector4(0.5, 3, 0.5, 0.865)
+shader_parameter/uPlanetNoiseOffset = Vector4(0.115, 0, 0, 0.035)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = -0.1
+shader_parameter/uFlags = false
 shader_parameter/uScene = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqmmt"]
+shader = ExtResource("14_yq6so")
+shader_parameter/color = Color(0.909804, 0.541176, 0.211765, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/threshold = 0.0
+shader_parameter/inside = false
+shader_parameter/only_border = false
+shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jkv2x"]
 viewport_path = NodePath("Gas Giant/SubViewport")
@@ -75,19 +87,21 @@ shader_parameter/uPlanetTexture = ExtResource("17_dp3eg")
 shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/uCameraPosition = Vector3(0, 0, 5)
 shader_parameter/uCameraFov = 50.0
-shader_parameter/uReveal = 2.0
-shader_parameter/uPlanetNoiseScale = Vector3(1, 1, 1)
-shader_parameter/uPlanetNoiseOffset = Vector3(0.575, 0.11, 0)
+shader_parameter/uReveal = 0.705
+shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
+shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = 5.29
+shader_parameter/uFlags = false
 shader_parameter/uScene = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0ld40"]
 shader = ExtResource("14_yq6so")
-shader_parameter/color = Color(0.501961, 0.482353, 0.478431, 1)
+shader_parameter/color = Color(0.803815, 0.724172, 0.884842, 1)
 shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
+shader_parameter/pattern = 3
+shader_parameter/threshold = 0.8
+shader_parameter/inside = true
+shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_muem4"]
@@ -264,6 +278,7 @@ material = SubResource("ShaderMaterial_muem4")
 camera = NodePath("../../../Camera Pivot/Camera3D")
 
 [node name="Outline" parent="Gas Giant" index="2"]
+material = SubResource("ShaderMaterial_gqmmt")
 texture = SubResource("ViewportTexture_jkv2x")
 
 [node name="Icosahedron" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
@@ -272,7 +287,7 @@ meshFile = "res://meshes/dysonSwarm.obj"
 camera = NodePath("../Camera Pivot/Camera3D")
 front_colour = Color(0.501961, 0.482353, 0.478431, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
-mesh_scale = 1.525
+mesh_scale = 1.45
 
 [node name="Raymarch" parent="Icosahedron/SubViewport" index="0" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_jbj1t")
