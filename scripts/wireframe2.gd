@@ -35,7 +35,7 @@ func _draw() -> void:
 	
 	var back_colour = Color(self.back_colour, self.alpha)
 	var front_colour = Color(self.front_colour, self.alpha)
-
+	
 	front_faces.clear()
 
 	for f in self.mesh.faces:

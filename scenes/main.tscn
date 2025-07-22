@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=30 format=3 uid="uid://b2einv4kauowa"]
 
-[ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://textures/galaxy5.png" id="1_jbj1t"]
+[ext_resource type="PackedScene" uid="uid://cma8owwcgffwn" path="res://scenes/background.tscn" id="1_muem4"]
+[ext_resource type="Script" uid="uid://dpq1hq4hke2to" path="res://scripts/stars.gd" id="2_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
 [ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://scripts/star_twinkle.gd" id="3_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://pq4nexk1h18c" path="res://textures/bigStar1.png" id="4_0ld40"]
@@ -118,11 +119,24 @@ shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 [node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
 
-[node name="Background" type="Sprite2D" parent="."]
-texture = ExtResource("1_jbj1t")
-centered = false
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 531.0
+offset_bottom = 323.0
+color = Color(0.0352941, 0.0431373, 0.0509804, 1)
 
-[node name="BigStar4" type="Sprite2D" parent="Background"]
+[node name="Background" parent="." instance=ExtResource("1_muem4")]
+position = Vector2(228, 128)
+rotation = -4.74206
+
+[node name="Stars" type="Node2D" parent="Background"]
+position = Vector2(-228, -128)
+script = ExtResource("2_dp3eg")
+num_stars = 1000
+colour = Color(0.94353, 0.954091, 0.955823, 0.133333)
+
+[node name="BigStar4" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(126, 113)
 texture = ExtResource("2_muem4")
 centered = false
@@ -130,7 +144,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.3
 
-[node name="BigStar1" type="Sprite2D" parent="Background"]
+[node name="BigStar1" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(249, 155)
 texture = ExtResource("4_0ld40")
 centered = false
@@ -138,7 +152,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 11.575
 noise_amp = 0.245
 
-[node name="BigStar2" type="Sprite2D" parent="Background"]
+[node name="BigStar2" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(281, 102)
 texture = ExtResource("5_gqmmt")
 centered = false
@@ -146,7 +160,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.25
 
-[node name="BigStar3" type="Sprite2D" parent="Background"]
+[node name="BigStar3" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(122, 171)
 texture = ExtResource("6_yc10j")
 centered = false
@@ -154,7 +168,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 8.0
 noise_amp = 0.2
 
-[node name="BigStar5" type="Sprite2D" parent="Background"]
+[node name="BigStar5" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(158, 166)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -162,7 +176,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar6" type="Sprite2D" parent="Background"]
+[node name="BigStar6" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(223, 214)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -170,7 +184,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar7" type="Sprite2D" parent="Background"]
+[node name="BigStar7" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(199, 168)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -178,7 +192,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar8" type="Sprite2D" parent="Background"]
+[node name="BigStar8" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(313, 118)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -186,7 +200,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar9" type="Sprite2D" parent="Background"]
+[node name="BigStar9" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(232, 67)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -194,7 +208,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar10" type="Sprite2D" parent="Background"]
+[node name="BigStar10" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(188, 198)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -202,7 +216,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar11" type="Sprite2D" parent="Background"]
+[node name="BigStar11" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(215, 27)
 texture = ExtResource("8_pm3ni")
 centered = false
@@ -210,7 +224,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 
-[node name="BigStar12" type="Sprite2D" parent="Background"]
+[node name="BigStar12" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(171, 68)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -218,7 +232,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar13" type="Sprite2D" parent="Background"]
+[node name="BigStar13" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(280, 172)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -226,7 +240,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar14" type="Sprite2D" parent="Background"]
+[node name="BigStar14" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(264, 55)
 texture = ExtResource("7_jscy8")
 centered = false
@@ -234,7 +248,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 
-[node name="BigStar15" type="Sprite2D" parent="Background"]
+[node name="BigStar15" type="Sprite2D" parent="Background/Stars"]
 position = Vector2(161, 119)
 texture = ExtResource("8_pm3ni")
 centered = false

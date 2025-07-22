@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://drrarjj0668n"]
+
+[ext_resource type="Script" uid="uid://dtiys8sevuh65" path="res://addons/curved_lines_2d/scalable_vector_shapes_2d_dock.gd" id="1_1mm15"]
+[ext_resource type="PackedScene" uid="uid://cfeemeccrtef7" path="res://addons/curved_lines_2d/import_svg_file_tab.tscn" id="2_0fwlu"]
+[ext_resource type="PackedScene" uid="uid://dwns40mbgt82s" path="res://addons/curved_lines_2d/scalable_vector_shape_edit_tab.tscn" id="3_psho1"]
+
+[node name="ScalableVectorShapes2DDock" type="TabContainer"]
+custom_minimum_size = Vector2(0, 326)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+script = ExtResource("1_1mm15")
+
+[node name="Scalable Vector Shapes" parent="." instance=ExtResource("3_psho1")]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Import SVG File" parent="." instance=ExtResource("2_0fwlu")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
