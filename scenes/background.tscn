@@ -1135,7 +1135,7 @@ texture = ExtResource("1_bkp1e")
 metadata/_edit_lock_ = true
 
 [node name="Galaxy 5-4" type="Node2D" parent="."]
-position = Vector2(-140, -122)
+position = Vector2(-140, -121)
 scale = Vector2(3.78, 3.78)
 metadata/svg_root = true
 
@@ -1904,7 +1904,7 @@ arc_list = SubResource("Resource_2vx4c")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path76"]
 points = PackedVector2Array(4.10304, -7.123, 2.33217, -6.69511, 1.5883, -6.43262, 0.940774, -6.1427, 0.391084, -5.82907, -0.0592921, -5.49542, -0.246774, -5.32226, -0.408871, -5.14548, -0.545398, -4.96554, -0.65617, -4.78293, -1.31827, -3.57929, -1.57002, -2.98414, -1.77877, -2.22149, -2.19184, -0.351802, -2.42136, 0.500033, -2.66421, 1.16213, -2.72283, 1.30579, -2.77449, 1.46792, -2.85864, 1.8356, -2.96265, 2.66026, -3.01206, 3.99236, -3.0151, 4.04276, -3.02396, 4.10169, -3.05764, 4.24296, -3.17808, 4.60381, -3.91923, 6.44929, -4.04708, 6.83609, -4.08558, 6.99422, -4.09713, 7.06255, -4.10304, 7.123)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -1918,7 +1918,7 @@ arc_list = SubResource("Resource_hd36b")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path77"]
 points = PackedVector2Array(-11.7241, -3.31247, -10.2082, -1.02774, -9.61403, -0.235192, -9.22591, 0.213455, -7.48271, 1.40523, -6.22867, 2.12786, -5.66169, 2.40607, -5.19402, 2.58516, -3.79867, 2.94091, -2.47447, 3.10693, -2.13357, 3.11184, -1.83732, 3.08692, -1.32617, 2.99428, -1.08496, 2.9499, -0.835776, 2.92238, -0.565471, 2.9234, -0.260887, 2.96463, 1.2234, 3.2097, 2.7907, 3.31248, 2.99062, 3.29791, 3.21977, 3.26192, 3.74778, 3.13633, 4.95685, 2.74524, 6.9807, 2.00013, 10.1113, 1.08308, 11.2142, 0.830095, 11.5388, 0.727322, 11.6483, 0.676677, 11.6904, 0.650891, 11.7241, 0.62455)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -1932,7 +1932,7 @@ arc_list = SubResource("Resource_atqu3")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path78"]
 points = PackedVector2Array(-0.798473, 0.790565, 0.474338, -0.515847, 0.726825, -0.736959, 0.79847, -0.790569)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -1946,7 +1946,7 @@ arc_list = SubResource("Resource_a1ros")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path79"]
 points = PackedVector2Array(-1.16213, 0.60083, -0.485456, 0.353038, 0.195667, 0.0296475, 0.778958, -0.308567, 1.00195, -0.464241, 1.16214, -0.60083)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -1960,7 +1960,7 @@ arc_list = SubResource("Resource_h30us")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path80"]
 points = PackedVector2Array(-1.1226, 1.47045, -0.829628, 0.913473, -0.489407, 0.388364, 0.231243, -0.521775, 1.092, -1.43326, 1.11118, -1.4552, 1.1226, -1.47046)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -1974,7 +1974,7 @@ arc_list = SubResource("Resource_60ai7")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path81"]
 points = PackedVector2Array(-0.57711, 0.822189, -0.46396, 0.544657, -0.31227, 0.265087, 0.0474372, -0.254957, 0.383427, -0.647523, 0.50547, -0.767745, 0.548518, -0.803896, 0.564739, -0.815363, 0.571422, -0.819367, 0.577114, -0.822189)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -1988,7 +1988,7 @@ arc_list = SubResource("Resource_vqi1d")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path82"]
 points = PackedVector2Array(-1.57718, 6.21385, -0.0434799, 1.96061, 0.193691, -0.948679, 0.226023, -1.20799, 0.292264, -1.53197, 0.810329, -3.55755, 0.890128, -3.96074, 1.00995, -4.38764, 1.16831, -4.80269, 1.26148, -4.99465, 1.36373, -5.17031, 1.41294, -5.25498, 1.45427, -5.34225, 1.51591, -5.52013, 1.55383, -5.69504, 1.57323, -5.8581, 1.57718, -6.11306, 1.56927, -6.21385)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2002,7 +2002,7 @@ arc_list = SubResource("Resource_tur7q")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path83"]
 points = PackedVector2Array(0.173923, 0.65617, 0.154435, 0.454514, 0.112898, 0.237664, -0.00593249, -0.189736, -0.173923, -0.65617)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2016,7 +2016,7 @@ arc_list = SubResource("Resource_iyatq")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path84"]
 points = PackedVector2Array(0.426907, 1.16213, 0.309062, 0.383179, 0.21929, 0.0417836, 0.112656, -0.266815, -0.0080594, -0.542062, -0.140078, -0.783401, -0.28062, -0.990277, -0.426907, -1.16213)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2030,7 +2030,7 @@ arc_list = SubResource("Resource_g0uo3")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path85"]
 points = PackedVector2Array(-0.213455, -0.980303, -0.106727, -0.227041, 0.0355763, 0.39726, 0.213455, 0.980303)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2044,7 +2044,7 @@ arc_list = SubResource("Resource_dpsoi")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path86"]
 points = PackedVector2Array(0.735226, 1.69181, 0.541659, 1.43448, 0.393304, 1.20438, 0.280524, 0.996144, 0.193685, 0.804401, -0.0869675, 0.0948677, -0.488177, -0.816261, -0.653949, -1.2948, -0.708023, -1.50804, -0.735229, -1.69181)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2058,7 +2058,7 @@ arc_list = SubResource("Resource_g7e8g")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path87"]
 points = PackedVector2Array(-2.38751, 1.16213, -1.52993, 0.893, -0.685323, 0.556607, 0.841953, -0.195666, 1.94825, -0.850106, 2.26664, -1.06421, 2.35369, -1.1296, 2.37749, -1.15021, 2.38426, -1.15729, 2.38751, -1.16213)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2072,7 +2072,7 @@ arc_list = SubResource("Resource_g7xxy")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path88"]
 points = PackedVector2Array(-1.38349, 3.4943, -1.30372, 2.95385, -1.1693, 2.42877, -0.796497, 1.45662, -0.0553398, 0.0474339, 0.753015, -1.70565, 1.16534, -2.74746, 1.30805, -3.17675, 1.38349, -3.4943)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2086,7 +2086,7 @@ arc_list = SubResource("Resource_2qrga")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path89"]
 points = PackedVector2Array(0.474339, 1.33606, -0.213452, -0.314249, -0.406152, -0.907421, -0.456921, -1.14277, -0.469938, -1.24473, -0.474339, -1.33606)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2100,7 +2100,7 @@ arc_list = SubResource("Resource_5ick5")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path90"]
 points = PackedVector2Array(0.300415, 1.40721, 0.264344, 0.473845, 0.130443, -0.332039, 0.0369956, -0.675132, -0.0686805, -0.971903, -0.182509, -1.21754, -0.241207, -1.31967, -0.300415, -1.40721)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2114,7 +2114,7 @@ arc_list = SubResource("Resource_1ea3h")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path91"]
 points = PackedVector2Array(0.466434, 1.41512, 0.149436, 0.884942, -0.0862209, 0.372556, -0.25258, -0.105737, -0.361684, -0.533632, -0.456305, -1.173, -0.466434, -1.41511)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2128,7 +2128,7 @@ arc_list = SubResource("Resource_4igvc")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path92"]
 points = PackedVector2Array(0.585018, 0.608736, -0.0780689, 0.0160583, -0.274352, -0.119728, -0.40319, -0.195665, -0.447644, -0.22225, -0.465812, -0.234633, -0.481629, -0.247145, -0.495361, -0.26034, -0.507276, -0.274772, -0.517638, -0.290993, -0.526716, -0.309556, -0.534774, -0.331015, -0.542079, -0.355921, -0.555497, -0.41829, -0.585018, -0.608736)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2142,7 +2142,7 @@ arc_list = SubResource("Resource_7av5l")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path93"]
 points = PackedVector2Array(3.43106, 2.07919, 2.47027, 1.0018, 1.508, 0.124514, 1.04809, -0.224725, 0.613923, -0.506704, 0.214223, -0.715679, 0.030019, -0.790995, -0.142303, -0.845906, -3.43106, -2.07919)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2156,7 +2156,7 @@ arc_list = SubResource("Resource_d5nix")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path94"]
 points = PackedVector2Array(0.45853, 0.537585, 0.0284122, -0.0128466, -0.112655, -0.225312, -0.147521, -0.275216, -0.168764, -0.298408, -0.197395, -0.325121, -0.45853, -0.537586)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2170,7 +2170,7 @@ arc_list = SubResource("Resource_q054y")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path95"]
 points = PackedVector2Array(1.45464, 0.845906, 0.447908, 0.48447, -0.237416, 0.158855, -0.347138, 0.109414, -0.505962, 0.0553408, -0.601733, 0.0196842, -0.693289, -0.026835, -0.78049, -0.0824796, -0.863198, -0.145513, -1.01458, -0.286796, -1.14632, -0.436787, -1.41258, -0.800046, -1.43669, -0.829704, -1.44644, -0.839595, -1.45074, -0.843212, -1.45464, -0.845905)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2184,7 +2184,7 @@ arc_list = SubResource("Resource_my52t")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path96"]
 points = PackedVector2Array(4.1821, 1.1147, 3.58337, 0.92697, 3.13065, 0.8254, 2.79354, 0.790905, 2.65885, 0.792847, 2.54167, 0.804401, 2.34465, 0.846801, 2.17209, 0.899022, 1.99359, 0.941978, 1.89262, 0.954018, 1.77878, 0.956585, 1.6507, 0.947548, 1.51085, 0.927278, 1.20364, 0.858505, 0.533635, 0.646287, -0.592922, 0.229263, -0.761164, 0.168272, -0.904207, 0.10302, -1.15027, -0.0454584, -1.73134, -0.450624, -1.83512, -0.509325, -1.95013, -0.561519, -2.20988, -0.649995, -3.499, -0.924222, -4.18209, -1.1147)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2198,7 +2198,7 @@ arc_list = SubResource("Resource_2u3jl")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path97"]
 points = PackedVector2Array(-0.356379, -0.018775, 0.0816453, 0.0170472, 0.289911, 0.0187765, 0.315979, 0.01614, 0.334288, 0.0128781, 0.340945, 0.0111068, 0.346158, 0.00929203, 0.350091, 0.00747148, 0.351629, 0.00657079, 0.352909, 0.00568277, 0.353952, 0.00481212, 0.354778, 0.00396354, 0.355408, 0.00314175, 0.355863, 0.00235144, 0.356162, 0.00159732, 0.356327, 0.000884089, 0.356379, 0.00021646, 0.356337, -0.000400866, 0.356224, -0.000963185, 0.356058, -0.00146579, 0.355861, -0.00190398, 0.355654, -0.00227305, 0.355291, -0.002785, 0.355133, -0.00296402)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2212,7 +2212,7 @@ arc_list = SubResource("Resource_kqlun")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path98"]
 points = PackedVector2Array(0.664076, 0.166018, -0.426904, -0.124515, -0.61664, -0.160831, -0.664074, -0.166019)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2226,7 +2226,7 @@ arc_list = SubResource("Resource_d56tc")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path99"]
 points = PackedVector2Array(3.52592, 0.154872, 3.08, 0.151939, 2.89585, 0.171653, 2.73338, 0.202554, 2.58944, 0.242441, 2.46088, 0.289115, 2.2373, 0.394019, 2.03744, 0.499665, 1.83609, 0.588449, 1.72698, 0.621017, 1.60806, 0.642769, 1.47616, 0.651505, 1.32815, 0.645024, 0.917241, 0.570507, -3.08389, -0.5718, -3.52593, -0.651505)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2240,7 +2240,7 @@ arc_list = SubResource("Resource_d66eo")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path100"]
 points = PackedVector2Array(2.52191, -0.276698, 1.00007, -0.261381, -0.343897, -0.106726, -2.52191, 0.276698)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2254,7 +2254,7 @@ arc_list = SubResource("Resource_ryatb")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path101"]
 points = PackedVector2Array(0.537586, 1.07517, 0.442101, 0.720774, 0.316228, 0.374531, 0.0118594, -0.260887, -0.298439, -0.765861, -0.537586, -1.07517)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2268,7 +2268,7 @@ arc_list = SubResource("Resource_1ij8l")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path102"]
 points = PackedVector2Array(2.75908, 1.99223, 2.05621, 1.12779, 1.40523, 0.472363, 1.10429, 0.219783, 0.822433, 0.0155641, 0.561701, -0.141592, 0.324131, -0.252981, 0.201087, -0.309687, 0.058704, -0.388675, -0.275465, -0.600337, -1.0811, -1.14632, -1.95493, -1.68045, -2.37433, -1.87729, -2.57211, -1.94664, -2.75908, -1.99223)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2282,7 +2282,7 @@ arc_list = SubResource("Resource_pmrqs")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path103"]
 points = PackedVector2Array(1.28072, 0.260887, -1.28072, -0.260887)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2296,7 +2296,7 @@ arc_list = SubResource("Resource_4rrbs")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path104"]
 points = PackedVector2Array(3.65242, -1.06726, 2.29808, -0.914586, 1.3914, -0.735226, 0.721886, -0.520291, 0.0790577, -0.260887, -3.65242, 1.06726)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2310,7 +2310,7 @@ arc_list = SubResource("Resource_0p3tj")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path105"]
 points = PackedVector2Array(1.51789, -1.86574, 0.449881, -0.802426, -0.444694, 0.30832, -1.51789, 1.86574)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2324,7 +2324,7 @@ arc_list = SubResource("Resource_u2mbi")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path106"]
 points = PackedVector2Array(0.608736, -0.276699, -0.373542, 0.207523, -0.558584, 0.26805, -0.597279, 0.275616, -0.608736, 0.276697)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2338,7 +2338,7 @@ arc_list = SubResource("Resource_mkd6j")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path107"]
 points = PackedVector2Array(0.632452, -0.648266, 0.114631, -0.0387884, -0.284605, 0.361683, -0.541539, 0.581313, -0.632454, 0.648264)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2352,7 +2352,7 @@ arc_list = SubResource("Resource_pqffe")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path108"]
 points = PackedVector2Array(0.838001, -1.47836, -0.837999, 1.47836)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2366,7 +2366,7 @@ arc_list = SubResource("Resource_6srld")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path109"]
 points = PackedVector2Array(0.252981, -0.442717, -0.189736, 0.278676, -0.2263, 0.358505, -0.245076, 0.408872, -0.251993, 0.435153, -0.252858, 0.440939, -0.252981, 0.442719)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2380,7 +2380,7 @@ arc_list = SubResource("Resource_qtt6x")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path110"]
 points = PackedVector2Array(0.316227, -0.482244, -0.0427398, -0.0313749, -0.231241, 0.266817, -0.278706, 0.36468, -0.304121, 0.431601, -0.314343, 0.469986, -0.316227, 0.482246)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2394,7 +2394,7 @@ arc_list = SubResource("Resource_o7sts")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path111"]
 points = PackedVector2Array(1.8183, -3.94493, 1.22538, -2.56934, 1.15404, -2.39869, 1.11124, -2.25954, 1.10019, -2.19587, 1.09586, -2.13299, 1.09811, -2.06853, 1.10679, -2.00013, 1.11456, -1.92778, 1.11411, -1.85267, 1.10537, -1.77428, 1.08827, -1.69206, 1.0287, -1.51403, 0.934846, -1.31432, 0.205547, -0.213453, -0.381942, 0.680874, -1.01983, 1.8183, -1.55099, 2.97945, -1.72745, 3.50036, -1.7848, 3.7339, -1.8183, 3.94493)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2408,7 +2408,7 @@ arc_list = SubResource("Resource_oedra")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path112"]
 points = PackedVector2Array(0.648264, -1.00402, 0.517326, -0.726425, 0.347849, -0.434564, -0.648265, 1.00402)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2422,7 +2422,7 @@ arc_list = SubResource("Resource_55rvs")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path113"]
 points = PackedVector2Array(0.664076, -1.20166, 0.19863, -0.586007, -0.213453, 0.071152, -0.518809, 0.692735, -0.614789, 0.966097, -0.645686, 1.08921, -0.664076, 1.20166)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2436,7 +2436,7 @@ arc_list = SubResource("Resource_kc3aw")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path114"]
 points = PackedVector2Array(-0.165649, -1.69181, -0.373174, -0.523748, -0.400504, -0.259062, -0.403561, -0.00864443, -0.393729, 0.110693, -0.375119, 0.225838, -0.346827, 0.336583, -0.307951, 0.442719, 0.107097, 1.26886, 0.292386, 1.56779, 0.360016, 1.6563, 0.373377, 1.67051, 0.385146, 1.68126, 0.390406, 1.68529, 0.395235, 1.68841, 0.399623, 1.69059, 0.403559, 1.69181)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2450,7 +2450,7 @@ arc_list = SubResource("Resource_tktq7")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path115"]
 points = PackedVector2Array(-1.45464, -1.76296, -0.722628, -1.22439, -0.235194, -0.940773, -0.0503063, -0.829723, 0.0331858, -0.770538, 0.112903, -0.704591, 0.190489, -0.628638, 0.267588, -0.539436, 0.426907, -0.308319, 1.45464, 1.76297)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2464,7 +2464,7 @@ arc_list = SubResource("Resource_q1wrm")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path116"]
 points = PackedVector2Array(-1.05145, -1.78668, -0.669759, -1.20216, -0.405167, -0.679889, 0.039526, 0.332035, 0.335495, 0.846151, 0.652216, 1.2906, 1.05145, 1.78668)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2478,7 +2478,7 @@ arc_list = SubResource("Resource_mqrtm")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path117"]
 points = PackedVector2Array(-0.869623, -0.996113, -0.462482, -0.460503, 0.11068, 0.158115, 0.868141, 0.993828, 0.869438, 0.995735, 0.8696, 0.996042, 0.86962, 0.996098, 0.869623, 0.996113)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2492,7 +2492,7 @@ arc_list = SubResource("Resource_0fl3o")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path118"]
 points = PackedVector2Array(-1.06727, -0.324131, -0.41579, -0.280653, 0.14823, -0.201597, 0.401613, -0.128346, 0.521877, -0.0797226, 0.638134, -0.021742, 0.750594, 0.046615, 0.859463, 0.126367, 0.96495, 0.218534, 1.06726, 0.324135)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2506,7 +2506,7 @@ arc_list = SubResource("Resource_q34v3")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path119"]
 points = PackedVector2Array(-0.592922, -0.252979, 0.0474369, 0.112657, 0.170469, 0.163766, 0.296465, 0.202831, 0.434319, 0.231889, 0.592926, 0.252979)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2520,7 +2520,7 @@ arc_list = SubResource("Resource_3sdpj")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path120"]
 points = PackedVector2Array(-1.47836, -0.474342, -0.986846, -0.383643, -0.531653, -0.26163, 0.272748, 0.029645, 0.940776, 0.306096, 1.2255, 0.40958, 1.47836, 0.474339)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2534,7 +2534,7 @@ arc_list = SubResource("Resource_toigr")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path121"]
 points = PackedVector2Array(-2.24521, 0.0676193, -1.98302, -0.0212577, -1.74863, -0.068259, -1.53425, -0.0819083, -1.3321, -0.0707291, -0.490154, 0.0517998, -0.290258, 0.0553528, -0.217952, 0.0479456, -0.159845, 0.0357438, -0.112762, 0.0197434, -0.0735309, 0.000940319, 0.0287832, -0.062325, 0.0683385, -0.082379, 0.115908, -0.100256, 0.174664, -0.11496, 0.24778, -0.125494, 0.338429, -0.130864, 0.585018, -0.122124, 1.10012, -0.0581351, 1.86351, 0.0935546, 2.24521, 0.130859)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2548,7 +2548,7 @@ arc_list = SubResource("Resource_m0ygj")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path122"]
 points = PackedVector2Array(-2.94091, 0.60083, -1.40128, 0.632448, -0.6663, 0.591933, -0.296494, 0.529059, 0.0790558, 0.426903, 1.8776, -0.102776, 2.6227, -0.373545, 2.75177, -0.439847, 2.80512, -0.472662, 2.85036, -0.505223, 2.88704, -0.537506, 2.90202, -0.553535, 2.91467, -0.569487, 2.92495, -0.585358, 2.93279, -0.601144, 2.93813, -0.616844, 2.94091, -0.632454)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2562,7 +2562,7 @@ arc_list = SubResource("Resource_g6xe7")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path123"]
 points = PackedVector2Array(-0.822189, 0.600834, 0.0770789, -0.160088, 0.460751, -0.441975, 0.64323, -0.539468, 0.733022, -0.575001, 0.822189, -0.60083)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2576,7 +2576,7 @@ arc_list = SubResource("Resource_wv48x")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path124"]
 points = PackedVector2Array(-2.63259, -0.673958, -1.61449, -0.144772, -0.677911, 0.239147, 0.095608, 0.486693, 0.624546, 0.606762, 1.06726, 0.655186, 1.59299, 0.673962, 2.13651, 0.651233, 2.39455, 0.620599, 2.63259, 0.575142)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2590,7 +2590,7 @@ arc_list = SubResource("Resource_sym3s")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path125"]
 points = PackedVector2Array(-2.66421, 1.05936, -2.13095, 0.96684, -1.61473, 0.829108, -0.660125, 0.474341, 0.751038, -0.158112, 1.90329, -0.650239, 2.40307, -0.898526, 2.57227, -0.994042, 2.629, -1.031, 2.64943, -1.04632, 2.66421, -1.05936)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2604,7 +2604,7 @@ arc_list = SubResource("Resource_865xp")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path126"]
 points = PackedVector2Array(-0.51387, 0.695698, -0.133164, 0.24038, 0.513866, -0.695698)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2618,7 +2618,7 @@ arc_list = SubResource("Resource_s0t1u")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path127"]
 points = PackedVector2Array(-0.853813, 0.434814, -0.598856, 0.244399, -0.337969, 0.0765886, 0.166017, -0.189734, 0.586993, -0.361188, 0.744118, -0.410414, 0.853809, -0.434811)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2632,7 +2632,7 @@ arc_list = SubResource("Resource_ikfv7")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path128"]
 points = PackedVector2Array(-1.00402, 1.22538, -0.702432, 1.12526, -0.387873, 0.975854, -0.0740546, 0.772345, 0.0782916, 0.648796, 0.225311, 0.509914, 0.365289, 0.355097, 0.496512, 0.183744, 0.617267, -0.0047493, 0.725839, -0.210984, 0.820514, -0.435562, 0.899579, -0.679086, 0.961319, -0.942158, 1.00402, -1.22538)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
@@ -2646,6 +2646,6 @@ arc_list = SubResource("Resource_3j6v2")
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path129"]
 points = PackedVector2Array(-1.36768, -1.75506, -1.27738, -1.27998, -1.14928, -0.806378, -0.966342, -0.338709, -0.848977, -0.108487, -0.711508, 0.118585, -0.551804, 0.341951, -0.367735, 0.561055, -0.15717, 0.775342, 0.0820228, 0.984255, 0.654812, 1.38374, 1.36768, 1.75506)
 width = 0.264583
-default_color = Color(1, 0.878431, 0.717647, 1)
+default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
