@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=41 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://cma8owwcgffwn" path="res://scenes/background.tscn" id="1_muem4"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://xrnrgaclsms6" path="res://scenes/celestial_object.tscn" id="16_tel4y"]
 [ext_resource type="Texture2D" uid="uid://b723b2kuuysie" path="res://textures/planet3Gradient.png" id="17_dp3eg"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="17_muem4"]
+[ext_resource type="Texture2D" uid="uid://rrg0ydujwppb" path="res://textures/blackHoleGradient.png" id="20_gqmmt"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_dp3eg"]
 
@@ -139,20 +140,20 @@ shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yc10j"]
 shader = ExtResource("17_muem4")
 shader_parameter/uNoiseTexture = ExtResource("12_jkv2x")
-shader_parameter/uPlanetTexture = ExtResource("13_jbj1t")
+shader_parameter/uPlanetTexture = ExtResource("20_gqmmt")
 shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/uCameraPosition = Vector3(0, 0, 5)
 shader_parameter/uCameraFov = 50.1
 shader_parameter/uReveal = 2.555
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
-shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
+shader_parameter/uPlanetNoiseOffset = Vector4(0.025, 0.11, 0.015, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
 shader_parameter/uFlags = 0
 shader_parameter/uScene = 4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jscy8"]
 shader = ExtResource("14_yq6so")
-shader_parameter/color = Color(1, 0.44, 0.44, 1)
+shader_parameter/color = Color(0.788235, 0.831373, 0.992157, 1)
 shader_parameter/width = 1.0
 shader_parameter/pattern = 0
 shader_parameter/threshold = 0.8
@@ -160,8 +161,16 @@ shader_parameter/inside = false
 shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_muem4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_gqmmt"]
 viewport_path = NodePath("Black Hole/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yc10j"]
+font = ExtResource("15_fv21b")
+font_size = 9
+font_color = Color(0.788235, 0.831373, 0.992157, 1)
+outline_color = Color(0.972549, 0.772549, 0.227451, 1)
+shadow_size = 0
+shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
 [node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
@@ -380,11 +389,11 @@ camera = NodePath("../../../Camera Pivot/Camera3D")
 
 [node name="Outline" parent="Black Hole" index="2"]
 material = SubResource("ShaderMaterial_jscy8")
-texture = SubResource("ViewportTexture_muem4")
+texture = SubResource("ViewportTexture_gqmmt")
 
 [node name="Label" parent="Black Hole" index="3"]
 text = "Black Hole"
-label_settings = SubResource("LabelSettings_gqmmt")
+label_settings = SubResource("LabelSettings_yc10j")
 
 [editable path="Earth Like"]
 [editable path="Gas Giant"]

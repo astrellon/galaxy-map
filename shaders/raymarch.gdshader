@@ -340,10 +340,8 @@ vec2 map(vec3 p)
     vec2 acc = vec2(1000., -1.);
 
 	acc = objMin(acc, vec2(length(p) - 0.2, 0.0));
-	//acc = objMin(acc, vec2(length(p) - 1.0, 0.0));
 
     float plane = max(abs(p.y) * 3.0 - 0.001, length(p.xz) - 0.9);
-	//float plane = max(abs(p.y) - 0.01, length(p.xz) - 3.0);
     acc = objMin(acc, vec2(plane, 1.0));
 
     return acc;
@@ -351,17 +349,7 @@ vec2 map(vec3 p)
 
 vec3 gradient(float f)
 {
-    vec3 colors[8];
-    colors[0] = vec3(1.0);
-    colors[1] = vec3(1.0);
-    colors[2] = vec3(1.000, 0.784, 0.322);
-    colors[3] = vec3(1.000, 0.682, 0.322);
-    colors[4] = vec3(0.973, 0.325, 0.051);
-    colors[5] = vec3(0.882, 0.176, 0.529) * 0.7;
-    colors[6] = vec3(0.349, 0.141, 0.600) * 0.5;
-    colors[7] = vec3(0.349, 0.141, 0.600) * 0.25;
-    f = saturate(f);
-    return colors[int(7.0 * f)];
+	return texture(uPlanetTexture, vec2(f, 0.5)).xyz;
 }
 
 mat3 trace(vec3 rayOrigin, vec3 rayDir, int steps)
@@ -382,7 +370,6 @@ mat3 trace(vec3 rayOrigin, vec3 rayDir, int steps)
         }
 		
         rayDir = normalize(rayDir - normalize(pos) * 0.01 * pow(1.0 - saturate(length(pos) - 1.5), 1.5));
-        //accCol += 0.007 * gradient(length(pos) - 1.6) * (1.0 - saturate(res.x / 0.5));
 		accCol += 0.01 * gradient(length(pos * 3.0) - 1.6) * (1.0 - saturate(res.x / 0.5));
         pos += rayDir * res.x * 0.15;
         finalPos = pos;
@@ -400,7 +387,6 @@ vec4 rdr(vec3 rayOrigin, vec3 rayDir)
 	vec3 finalPos = traced[1];
 	vec3 accCol = traced[2];
 	
-    bool isHorizon = false;
 	float alpha = res.y >= 0.0 ? 1.0 : 0.0;
     if (res.y > 0.0)
     {
@@ -408,24 +394,18 @@ vec4 rdr(vec3 rayOrigin, vec3 rayDir)
         float idx = floor(length(finalPos) * 7.0);
         if (res.z == 1.0)
 		{
-            col += gradient(length(finalPos * 3.0) - 1.6) * mix(0.7, 1.0, (saturate(length(finalPos) - 1.5)) * saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x))));
+            col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) * mix(0.7, 1.0, (saturate(length(finalPos) - 1.5)) * saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x))));
 			alpha = 1.0;
 		}
         else
         {
             col = vec3(0.0);
-            isHorizon = true;
         }
     }
 	
     col += accCol;
     vec3 finalDir = normalize(rayOrigin - finalPos);
-    if (!isHorizon)
-    {
-        //col += 1.5 * saturate(length(rayOrigin.xy * 0.1)) * pow(texture(uNoiseTexture, 3.0 * vec2(atan(finalDir.z, finalDir.x), acos(finalDir.y))).x, 10.0);
-        //vec2 uvSky = 1.0 * vec2(atan(finalDir.z, finalDir.x), acos(finalDir.y));
-        //col += 1.2 * vec3(0.984, 0.639, 0.455) * pow(texture(uNoiseTexture, uvSky).x, 2.0) * (1.0 - saturate(5.0 * abs(dot(finalDir, vec3(0.0, 1.0, 0.0)))));
-    }
+
     return vec4(col, alpha);
 }
 // -------
