@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=39 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://cma8owwcgffwn" path="res://scenes/background.tscn" id="1_muem4"]
@@ -99,7 +99,7 @@ shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jkv2x"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("Gas Giant/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbj1t"]
 shader = ExtResource("17_muem4")
@@ -125,8 +125,8 @@ shader_parameter/inside = true
 shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_muem4"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="ViewportTexture" id="ViewportTexture_0ld40"]
+viewport_path = NodePath("Icosahedron/SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_gqmmt"]
 font = ExtResource("15_fv21b")
@@ -135,6 +135,33 @@ font_color = Color(0.501961, 0.482353, 0.478431, 1)
 outline_color = Color(0.34902, 0.341176, 0.341176, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yc10j"]
+shader = ExtResource("17_muem4")
+shader_parameter/uNoiseTexture = ExtResource("12_jkv2x")
+shader_parameter/uPlanetTexture = ExtResource("13_jbj1t")
+shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
+shader_parameter/uCameraPosition = Vector3(0, 0, 5)
+shader_parameter/uCameraFov = 50.1
+shader_parameter/uReveal = 2.555
+shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
+shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
+shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
+shader_parameter/uFlags = 0
+shader_parameter/uScene = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jscy8"]
+shader = ExtResource("14_yq6so")
+shader_parameter/color = Color(1, 0.44, 0.44, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/threshold = 0.8
+shader_parameter/inside = false
+shader_parameter/only_border = false
+shader_parameter/add_margins = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_muem4"]
+viewport_path = NodePath("Black Hole/SubViewport")
 
 [node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
@@ -333,12 +360,33 @@ camera = NodePath("../../../Camera Pivot/Camera3D")
 
 [node name="Outline" parent="Icosahedron" index="2"]
 material = SubResource("ShaderMaterial_0ld40")
-texture = SubResource("ViewportTexture_muem4")
+texture = SubResource("ViewportTexture_0ld40")
 
 [node name="Label" parent="Icosahedron" index="3"]
 text = "Dyson Swarm"
 label_settings = SubResource("LabelSettings_gqmmt")
 
+[node name="Black Hole" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+position = Vector2(167, 46)
+meshFile = "res://meshes/dysonSwarm.obj"
+camera = NodePath("../Camera Pivot/Camera3D")
+front_colour = Color(0.501961, 0.482353, 0.478431, 1)
+back_colour = Color(0.34902, 0.341176, 0.341176, 1)
+mesh_scale = 1.45
+
+[node name="Raymarch" parent="Black Hole/SubViewport" index="0" node_paths=PackedStringArray("camera")]
+material = SubResource("ShaderMaterial_yc10j")
+camera = NodePath("../../../Camera Pivot/Camera3D")
+
+[node name="Outline" parent="Black Hole" index="2"]
+material = SubResource("ShaderMaterial_jscy8")
+texture = SubResource("ViewportTexture_muem4")
+
+[node name="Label" parent="Black Hole" index="3"]
+text = "Black Hole"
+label_settings = SubResource("LabelSettings_gqmmt")
+
 [editable path="Earth Like"]
 [editable path="Gas Giant"]
 [editable path="Icosahedron"]
+[editable path="Black Hole"]

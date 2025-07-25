@@ -10,6 +10,8 @@ const float CLOUD = 2.0;
 const float RING = 3.0;
 const float STAR = 4.0;
 const float METAL = 5.0;
+const float BLACK_HOLE_CENTER = 6.0;
+const float BLACK_HOLE_RING = 7.0;
 
 uniform sampler2D uNoiseTexture: repeat_enable, filter_linear;
 uniform sampler2D uPlanetTexture: repeat_disable, filter_nearest;
@@ -23,6 +25,8 @@ uniform vec4 uPlanetNoiseOffset = vec4(0.0);
 uniform vec3 uRingParams = vec3(1.1, 0.75, 0.015);
 uniform bvec4 uFlags = bvec4(false);
 uniform int uScene = 0;
+
+#define saturate(x) clamp(x, 0.0, 1.0)
 
 // Taken from: https://github.com/dmnsgn/glsl-rotate/blob/main/rotation-3d.glsl
 mat3 rotation3d(vec3 axis, float angle)
@@ -328,6 +332,104 @@ bool approxEquals(float x, float y)
 	return abs(x - y) < EPSILON;
 }
 
+
+// Taken from Shader Toy https://www.shadertoy.com/view/NdV3Rd
+// -------
+vec2 map(vec3 p)
+{
+    vec2 acc = vec2(1000., -1.);
+
+	acc = objMin(acc, vec2(length(p) - 0.2, 0.0));
+	//acc = objMin(acc, vec2(length(p) - 1.0, 0.0));
+
+    float plane = max(abs(p.y) * 3.0 - 0.001, length(p.xz) - 0.9);
+	//float plane = max(abs(p.y) - 0.01, length(p.xz) - 3.0);
+    acc = objMin(acc, vec2(plane, 1.0));
+
+    return acc;
+}
+
+vec3 gradient(float f)
+{
+    vec3 colors[8];
+    colors[0] = vec3(1.0);
+    colors[1] = vec3(1.0);
+    colors[2] = vec3(1.000, 0.784, 0.322);
+    colors[3] = vec3(1.000, 0.682, 0.322);
+    colors[4] = vec3(0.973, 0.325, 0.051);
+    colors[5] = vec3(0.882, 0.176, 0.529) * 0.7;
+    colors[6] = vec3(0.349, 0.141, 0.600) * 0.5;
+    colors[7] = vec3(0.349, 0.141, 0.600) * 0.25;
+    f = saturate(f);
+    return colors[int(7.0 * f)];
+}
+
+mat3 trace(vec3 rayOrigin, vec3 rayDir, int steps)
+{
+    vec3 accCol = vec3(0.0);
+    vec3 finalPos = rayOrigin;
+    vec3 pos = rayOrigin;
+    for (int i = 0; i < steps; ++i)
+    {
+        vec2 res = map(pos);
+        if (res.x < 0.01)
+        {
+            if (res.y == 0.0)
+			{
+                accCol *= 0.5;
+			}
+            return mat3(vec3(res.x, distance(pos, rayOrigin), res.y), finalPos, accCol);
+        }
+		
+        rayDir = normalize(rayDir - normalize(pos) * 0.01 * pow(1.0 - saturate(length(pos) - 1.5), 1.5));
+        //accCol += 0.007 * gradient(length(pos) - 1.6) * (1.0 - saturate(res.x / 0.5));
+		accCol += 0.01 * gradient(length(pos * 3.0) - 1.6) * (1.0 - saturate(res.x / 0.5));
+        pos += rayDir * res.x * 0.15;
+        finalPos = pos;
+    }
+	
+    return mat3(vec3(-1.0), finalPos, accCol);
+}
+
+vec4 rdr(vec3 rayOrigin, vec3 rayDir)
+{
+    vec3 col = vec3(0.078, 0.043, 0.157) * 0.35;
+    
+	mat3 traced = trace(rayOrigin, rayDir, 512);
+	vec3 res = traced[0];
+	vec3 finalPos = traced[1];
+	vec3 accCol = traced[2];
+	
+    bool isHorizon = false;
+	float alpha = res.y >= 0.0 ? 1.0 : 0.0;
+    if (res.y > 0.0)
+    {
+        vec3 p = rayOrigin + rayDir * res.x;
+        float idx = floor(length(finalPos) * 7.0);
+        if (res.z == 1.0)
+		{
+            col += gradient(length(finalPos * 3.0) - 1.6) * mix(0.7, 1.0, (saturate(length(finalPos) - 1.5)) * saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x))));
+			alpha = 1.0;
+		}
+        else
+        {
+            col = vec3(0.0);
+            isHorizon = true;
+        }
+    }
+	
+    col += accCol;
+    vec3 finalDir = normalize(rayOrigin - finalPos);
+    if (!isHorizon)
+    {
+        //col += 1.5 * saturate(length(rayOrigin.xy * 0.1)) * pow(texture(uNoiseTexture, 3.0 * vec2(atan(finalDir.z, finalDir.x), acos(finalDir.y))).x, 10.0);
+        //vec2 uvSky = 1.0 * vec2(atan(finalDir.z, finalDir.x), acos(finalDir.y));
+        //col += 1.2 * vec3(0.984, 0.639, 0.455) * pow(texture(uNoiseTexture, uvSky).x, 2.0) * (1.0 - saturate(5.0 * abs(dot(finalDir, vec3(0.0, 1.0, 0.0)))));
+    }
+    return vec4(col, alpha);
+}
+// -------
+
 void fragment()
 {
 	vec2 oPosition = UV * 2.0 - 1.0;
@@ -338,38 +440,32 @@ void fragment()
 	vec4 extraColour = vec4(0.0);
 	
 	COLOR = vec4(0.0);
-
-    vec3 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
-	//if (uScene == 2)
+	
+	if (uScene == 4)
 	{
-		float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
-		if (noise > uReveal)
-		{
-			discard;
-		}
+		COLOR = rdr(rayOrigin, rayDir);
+	}
+	else
+	{
+    vec3 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+	float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
+	if (noise > uReveal)
+	{
+		discard;
+	}
+	
+	float numSteps = dist.z;
+	vec3 starDist = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+	if (starDist.x < dist.x + 0.1 || dist.x > 5.0)
+	{
+		numSteps += starDist.z * 6.0;
 		
-		float numSteps = dist.z;
-		vec3 starDist = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
-		if (starDist.x < dist.x + 0.1 || dist.x > 5.0)
+		float colour = 0.0;
+		if (uScene == 2)
 		{
-			numSteps += starDist.z * 6.0;
-			
-			float colour = 0.0;
-			
-			//if (uScene == 0)
-			//{
-				//colour = pow(numSteps / 600.0, 3.5);
-			//}
-			//else if (uScene == 1)
-			//{
-				//colour = pow(numSteps / 600.0, 3.5);
-			//}
-			if (uScene == 2)
-			{
-				colour = pow(numSteps / 250.0, 3.5);
-			}
-			extraColour = vec4(colour);
+			colour = pow(numSteps / 250.0, 3.5);
 		}
+		extraColour = vec4(colour);
 	}
 	
     if (dist.x > MAX_DIST - EPSILON)
@@ -393,9 +489,9 @@ void fragment()
 		if (approxEquals(dist.y, PLANET))
 		{
 			vec3 normal = estimateNormalPlanet(p, dist.x);
-        	float lighting = clamp(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true), 0.0, 1.0);
+        	float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 			float fresnel = dot(normal, rayDir);
-			fresnel = clamp(fresnel + 1.0, 0.0, 1.0);
+			fresnel = saturate(fresnel + 1.0);
 
 			fresnel = pow(fresnel, 2.5);
 			fresnel = round(fresnel * 2.0);
@@ -433,4 +529,5 @@ void fragment()
 		}
     }
 	COLOR += extraColour;
+	}
 }

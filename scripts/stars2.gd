@@ -27,10 +27,8 @@ func _process(delta: float) -> void:
 		var position = (parent_rotation * Vector2(x, y)).round()
 		var trans = Transform2D(0.0, position)
 		var alpha = self.random.randf_range(self.alpha_range.x, self.alpha_range.y)
-		#var inst_colour = Color(self.colour, alpha)
 		var sample_point = self.random.randf()
 		var colour = self.gradient.sample(sample_point)
-		#print(str(sample_point) + " | " + str(colour))
 		var inst_colour = Color(colour, alpha)
 		
 		self.multimesh.set_instance_transform_2d(i, trans)
