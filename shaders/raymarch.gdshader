@@ -89,6 +89,11 @@ float sdfSphere(vec3 samplePoint, float radius)
     return length(samplePoint) - radius;
 }
 
+float sdfDisk(vec3 samplePoint, float height, float thickness, float radius)
+{
+	return max(abs(samplePoint.y) / height - thickness, length(samplePoint.xz) - radius);
+}
+
 float sdfCappedCylinder(vec3 point, float height, float radius)
 {
     vec2 d = abs(vec2(length(point.xz), point.y)) - vec2(radius, height);
@@ -335,14 +340,14 @@ bool approxEquals(float x, float y)
 
 // Taken from Shader Toy https://www.shadertoy.com/view/NdV3Rd
 // -------
-vec2 map(vec3 p)
+vec2 blackHoleScene(vec3 p)
 {
     vec2 acc = vec2(1000., -1.);
 
-	acc = objMin(acc, vec2(length(p) - 0.2, 0.0));
+	acc = objMin(acc, vec2(sdfSphere(p, 0.2), BLACK_HOLE_CENTER));
 
-    float plane = max(abs(p.y) * 3.0 - 0.001, length(p.xz) - 0.9);
-    acc = objMin(acc, vec2(plane, 1.0));
+	float plane = sdfDisk(p, 0.3, 0.001, 0.9);
+    acc = objMin(acc, vec2(plane, BLACK_HOLE_RING));
 
     return acc;
 }
@@ -352,17 +357,17 @@ vec3 gradient(float f)
 	return texture(uPlanetTexture, vec2(f, 0.5)).xyz;
 }
 
-mat3 trace(vec3 rayOrigin, vec3 rayDir, int steps)
+mat3 blackHoleRayMarch(vec3 rayOrigin, vec3 rayDir, int steps)
 {
     vec3 accCol = vec3(0.0);
     vec3 finalPos = rayOrigin;
     vec3 pos = rayOrigin;
     for (int i = 0; i < steps; ++i)
     {
-        vec2 res = map(pos);
+        vec2 res = blackHoleScene(pos);
         if (res.x < 0.01)
         {
-            if (res.y == 0.0)
+            if (approxEquals(res.y, BLACK_HOLE_CENTER))
 			{
                 accCol *= 0.5;
 			}
@@ -378,11 +383,11 @@ mat3 trace(vec3 rayOrigin, vec3 rayDir, int steps)
     return mat3(vec3(-1.0), finalPos, accCol);
 }
 
-vec4 rdr(vec3 rayOrigin, vec3 rayDir)
+vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
 {
     vec3 col = vec3(0.078, 0.043, 0.157) * 0.35;
     
-	mat3 traced = trace(rayOrigin, rayDir, 512);
+	mat3 traced = blackHoleRayMarch(rayOrigin, rayDir, 512);
 	vec3 res = traced[0];
 	vec3 finalPos = traced[1];
 	vec3 accCol = traced[2];
@@ -392,10 +397,13 @@ vec4 rdr(vec3 rayOrigin, vec3 rayDir)
     {
         vec3 p = rayOrigin + rayDir * res.x;
         float idx = floor(length(finalPos) * 7.0);
-        if (res.z == 1.0)
+        if (res.z == BLACK_HOLE_RING)
 		{
-            col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) * mix(0.7, 1.0, (saturate(length(finalPos) - 1.5)) * saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x))));
-			alpha = 1.0;
+            col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) * 
+				mix(0.7, 1.0, 
+					saturate(length(finalPos) - 1.5) * 
+						saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x)))
+				);
 		}
         else
         {
@@ -404,8 +412,6 @@ vec4 rdr(vec3 rayOrigin, vec3 rayDir)
     }
 	
     col += accCol;
-    vec3 finalDir = normalize(rayOrigin - finalPos);
-
     return vec4(col, alpha);
 }
 // -------
@@ -414,6 +420,12 @@ void fragment()
 {
 	vec2 oPosition = UV * 2.0 - 1.0;
 	oPosition.y = -oPosition.y;
+	
+	float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
+	if (noise > uReveal)
+	{
+		discard;
+	}
 
     vec3 rayDir = uCameraMatrix * rayDirection(uCameraFov, oPosition);
     vec3 rayOrigin = uCameraPosition;
@@ -423,91 +435,86 @@ void fragment()
 	
 	if (uScene == 4)
 	{
-		COLOR = rdr(rayOrigin, rayDir);
+		COLOR = getBlackHoleColour(rayOrigin, rayDir);
 	}
 	else
 	{
-    vec3 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
-	float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
-	if (noise > uReveal)
-	{
-		discard;
-	}
-	
-	float numSteps = dist.z;
-	vec3 starDist = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
-	if (starDist.x < dist.x + 0.1 || dist.x > 5.0)
-	{
-		numSteps += starDist.z * 6.0;
+	    vec3 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+
+		float numSteps = dist.z;
+		vec3 starDist = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+		if (starDist.x < dist.x + 0.1 || dist.x > 5.0)
+		{
+			numSteps += starDist.z * 6.0;
+			
+			float colour = 0.0;
+			if (uScene == 2)
+			{
+				colour = pow(numSteps / 250.0, 3.5);
+			}
+			extraColour = vec4(colour);
+		}
 		
-		float colour = 0.0;
-		if (uScene == 2)
-		{
-			colour = pow(numSteps / 250.0, 3.5);
-		}
-		extraColour = vec4(colour);
-	}
-	
-    if (dist.x > MAX_DIST - EPSILON)
-    {
-		if (extraColour.x <= 0.0)
-		{
-			discard;
-		}
-    }
-    else
-    {
-        // The closest point on the surface to the eyepoint along the view ray
-        vec3 p = rayOrigin + dist.x * rayDir;
+	    if (dist.x > MAX_DIST - EPSILON)
+	    {
+			if (extraColour.x <= 0.0)
+			{
+				discard;
+			}
+	    }
+	    else
+	    {
+	        // The closest point on the surface to the eyepoint along the view ray
+	        vec3 p = rayOrigin + dist.x * rayDir;
 
-		float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
-		if (noise - 0.6 > uReveal && extraColour.x <= 0.0)
-		{
-			discard;
-		}
+			float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
+			if (noise - 0.6 > uReveal && extraColour.x <= 0.0)
+			{
+				discard;
+			}
 
-		if (approxEquals(dist.y, PLANET))
-		{
-			vec3 normal = estimateNormalPlanet(p, dist.x);
-        	float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
-			float fresnel = dot(normal, rayDir);
-			fresnel = saturate(fresnel + 1.0);
+			if (approxEquals(dist.y, PLANET))
+			{
+				vec3 normal = estimateNormalPlanet(p, dist.x);
+	        	float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				float fresnel = dot(normal, rayDir);
+				fresnel = saturate(fresnel + 1.0);
 
-			fresnel = pow(fresnel, 2.5);
-			fresnel = round(fresnel * 2.0);
-			lighting = max(lighting, fresnel * 0.5);
+				fresnel = pow(fresnel, 2.5);
+				fresnel = round(fresnel * 2.0);
+				lighting = max(lighting, fresnel * 0.5);
 
-			vec3 planetColour = texture(uPlanetTexture, vec2(noise * uPlanetNoiseScale.w, 1.2 - lighting)).rgb;
+				vec3 planetColour = texture(uPlanetTexture, vec2(noise * uPlanetNoiseScale.w, 1.2 - lighting)).rgb;
 
-	        COLOR = vec4(planetColour, 1.0);
-		}
-		else if (approxEquals(dist.y, CLOUD))
-		{
-			vec3 normal = estimateNormalCloud(p, dist.x);
-        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true) * 0.5 + 0.5;
-			COLOR = vec4(vec3(lighting), 1.0);
-		}
-		else if (approxEquals(dist.y, RING))
-		{
-			vec3 normal = estimateNormalRing(p, dist.x);
-			normal.y = abs(normal.y);
-        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1, defaultLightPos, true) / 2.0;
-			float dist = sin(length(p) * 50.0) * 0.2 + 1.0;
-			COLOR = vec4(vec3(dist * lighting * vec3(0.75, 0.5, 0.4)), 1.0);
-		}
-        else if (approxEquals(dist.y, METAL))
-		{
-			vec3 normal = estimateNormalPlanet(p, dist.x);
+		        COLOR = vec4(planetColour, 1.0);
+			}
+			else if (approxEquals(dist.y, CLOUD))
+			{
+				vec3 normal = estimateNormalCloud(p, dist.x);
+	        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true) * 0.5 + 0.5;
+				COLOR = vec4(vec3(lighting), 1.0);
+			}
+			else if (approxEquals(dist.y, RING))
+			{
+				vec3 normal = estimateNormalRing(p, dist.x);
+				normal.y = abs(normal.y);
+	        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1, defaultLightPos, true) / 2.0;
+				float dist = sin(length(p) * 50.0) * 0.2 + 1.0;
+				COLOR = vec4(vec3(dist * lighting * vec3(0.75, 0.5, 0.4)), 1.0);
+			}
+	        else if (approxEquals(dist.y, METAL))
+			{
+				vec3 normal = estimateNormalPlanet(p, dist.x);
 
-        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, vec3(0.0), false) * 0.5 + 0.5;
-			vec3 planetColour = texture(uPlanetTexture, vec2(noise, 1.2 - lighting)).rgb;
-			COLOR = vec4(planetColour, 1.0);
-		}
-		else if (approxEquals(dist.y, STAR))
-		{
-			COLOR = vec4(1.0);
-		}
-    }
-	COLOR += extraColour;
+	        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, vec3(0.0), false) * 0.5 + 0.5;
+				vec3 planetColour = texture(uPlanetTexture, vec2(noise, 1.2 - lighting)).rgb;
+				COLOR = vec4(planetColour, 1.0);
+			}
+			else if (approxEquals(dist.y, STAR))
+			{
+				COLOR = vec4(1.0);
+			}
+	    }
+		COLOR += extraColour;
 	}
 }

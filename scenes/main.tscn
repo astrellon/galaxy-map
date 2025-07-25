@@ -65,7 +65,7 @@ shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jbj1t"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("Earth Like/SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_jbj1t"]
 font = ExtResource("15_fv21b")
@@ -329,6 +329,7 @@ meshFile = "res://meshes/planet2.obj"
 camera = NodePath("../Camera Pivot/Camera3D")
 front_colour = Color(0.560784, 0.815686, 0.196078, 1)
 back_colour = Color(0.380392, 0.647059, 0.247059, 1)
+alpha = 0.0
 
 [node name="Raymarch" parent="Earth Like/SubViewport" index="0" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_dp3eg")
@@ -343,9 +344,10 @@ text = "Earth Like"
 label_settings = SubResource("LabelSettings_jbj1t")
 
 [node name="Gas Giant" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
-position = Vector2(-165, 54)
+position = Vector2(-165, 55)
 meshFile = "res://meshes/gas_giant.obj"
 camera = NodePath("../Camera Pivot/Camera3D")
+alpha = 0.0
 
 [node name="Raymarch" parent="Gas Giant/SubViewport" index="0" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_muem4")
@@ -356,12 +358,13 @@ material = SubResource("ShaderMaterial_gqmmt")
 texture = SubResource("ViewportTexture_jkv2x")
 
 [node name="Icosahedron" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
-position = Vector2(167, -55)
+position = Vector2(167, -40)
 meshFile = "res://meshes/dysonSwarm.obj"
 camera = NodePath("../Camera Pivot/Camera3D")
 front_colour = Color(0.501961, 0.482353, 0.478431, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 mesh_scale = 1.45
+alpha = 0.0
 
 [node name="Raymarch" parent="Icosahedron/SubViewport" index="0" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_jbj1t")
@@ -376,12 +379,13 @@ text = "Dyson Swarm"
 label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Black Hole" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
-position = Vector2(167, 46)
-meshFile = "res://meshes/dysonSwarm.obj"
+position = Vector2(167, 55)
+meshFile = "res://meshes/black_hole.obj"
 camera = NodePath("../Camera Pivot/Camera3D")
 front_colour = Color(0.501961, 0.482353, 0.478431, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
-mesh_scale = 1.45
+mesh_scale = 0.95
+alpha = 0.0
 
 [node name="Raymarch" parent="Black Hole/SubViewport" index="0" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_yc10j")

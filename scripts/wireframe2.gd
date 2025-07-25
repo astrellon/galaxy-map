@@ -12,6 +12,7 @@ extends Node2D
 @export var ignore_line: Vector4
 
 var mesh: MeshFile
+var frame_wait = 2
 
 var front_faces: Array[ScreenFace]
 var screen_positions: Array[Vector2] = []
@@ -25,6 +26,10 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	if self.wireframe_scale < 0.0001 || self.alpha < 0.0001:
+		return
+		
+	if self.frame_wait > 0:
+		self.frame_wait = self.frame_wait - 1
 		return
 
 	var fov = lerpf(180, self.max_scale_fov, self.wireframe_scale)
