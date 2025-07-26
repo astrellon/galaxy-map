@@ -9,7 +9,7 @@ func _init() -> void:
 	self.noise_offset = randf() * 10.0
 
 func _ready() -> void:
-	self.parent = self.get_parent().get_parent()
+	self.parent = self.get_parent()
 
 func _process(delta: float) -> void:
 	var t = (Time.get_ticks_msec() / 1000.0) * self.noise_speed

@@ -2,6 +2,7 @@ extends ColorRect
 
 @export var camera: Camera3D
 @export var reveal: float = 0.0;
+@export var fudge_fov_factor: float = 1.0
 
 func _process(delta: float) -> void:
 	var cameraTrans = self.camera.get_global_transform_interpolated()
@@ -11,6 +12,6 @@ func _process(delta: float) -> void:
 	self.material.set_shader_parameter('uCameraMatrix', basis)
 	
 	var fov = self.camera.fov * 0.5
-	self.material.set_shader_parameter('uCameraFov', fov)
+	self.material.set_shader_parameter('uCameraFov', fov * self.fudge_fov_factor)
 	self.material.set_shader_parameter('uReveal', self.reveal)
 	

@@ -155,7 +155,7 @@ vec2 ringScene(vec3 samplePoint)
     }
 	if (uScene == 2 || uScene == 3)
 	{
-		float innerSphere = sdfSphere(samplePoint, 0.73);
+		float innerSphere = sdfSphere(samplePoint, 0.715);
 		float platforms1 = opSubtraction(innerSphere, sdfIcosahedron(samplePoint, 0.82));
 
 		return vec2(platforms1, METAL);

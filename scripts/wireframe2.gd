@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	queue_redraw()
-
+	
 func _draw() -> void:
 	if self.wireframe_scale < 0.0001 || self.alpha < 0.0001:
 		return

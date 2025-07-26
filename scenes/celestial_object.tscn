@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://xrnrgaclsms6"]
+[gd_scene load_steps=17 format=3 uid="uid://xrnrgaclsms6"]
 
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="1_x5fnd"]
 [ext_resource type="Animation" uid="uid://b1wvjyirk77jd" path="res://show_wireframe_2.res" id="2_ix6hq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bxpcytrpp8b4r" path="res://scripts/raymarch.gd" id="5_38sfh"]
 [ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://shaders/outline.gdshader" id="6_w8pnv"]
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="7_33sgm"]
+[ext_resource type="Script" uid="uid://ckjfs3kccwh4u" path="res://scripts/rotator.gd" id="9_ix6hq"]
 
 [sub_resource type="Animation" id="Animation_1bvp3"]
 length = 0.001
@@ -137,11 +138,12 @@ autoplay = "show_wireframe"
 transparent_bg = true
 size = Vector2i(128, 128)
 
-[node name="Raymarch" type="ColorRect" parent="SubViewport"]
+[node name="Raymarch" type="ColorRect" parent="SubViewport" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_cegan")
 offset_right = 128.0
 offset_bottom = 128.0
 script = ExtResource("5_38sfh")
+camera = NodePath("../../Camera Pivot/Camera3D")
 reveal = 0.0582358
 
 [node name="Outline" type="Sprite2D" parent="."]
@@ -158,3 +160,11 @@ offset_bottom = 111.0
 text = "Gas Giant"
 label_settings = SubResource("LabelSettings_yaehf")
 horizontal_alignment = 1
+
+[node name="Camera Pivot" type="Node3D" parent="."]
+script = ExtResource("9_ix6hq")
+
+[node name="Camera3D" type="Camera3D" parent="Camera Pivot"]
+transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 5)
+fov = 62.1
+far = 400.0

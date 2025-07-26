@@ -1,4 +1,4 @@
-[gd_scene load_steps=230 format=3 uid="uid://cma8owwcgffwn"]
+[gd_scene load_steps=298 format=3 uid="uid://cma8owwcgffwn"]
 
 [ext_resource type="Texture2D" uid="uid://cofljk3f7rpaf" path="res://textures/galaxy5.png" id="1_bkp1e"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="1_wisxt"]
@@ -598,7 +598,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_4sjfp"]
 _data = {
-"points": PackedVector2Array(0, 0, 1.05936, 1.72344, -11.7241, -3.31247, -0.347851, -0.332039, 0.347848, 0.332036, -9.22591, 0.213455, -1.07517, -0.316231, 1.07517, 0.316227, -5.19402, 2.58516, -0.980301, -0.0632477, 0.980302, 0.06325, -2.47447, 3.10693, -0.869621, -0.173923, 0.869624, 0.173927, -0.260887, 2.96463, -0.980301, 0.0158119, 0.980303, -0.01582, 2.7907, 3.31248, -0.790565, 0.252983, 0.790564, -0.252981, 6.9807, 2.00013, -0.948677, 0.205547, 0.94868, -0.205547, 10.1113, 1.08308, -0.158112, 0.1423, 0, 0, 11.7241, 0.62455)
+"points": PackedVector2Array(0, 0, 1.05936, 1.72344, -11.7241, -3.31247, -0.347851, -0.332039, 0.347848, 0.332036, -9.22591, 0.213455, -1.07517, -0.316231, 1.07517, 0.316227, -6.20025, 2.50689, -0.980305, -0.0632477, 0.980302, 0.06325, -2.9105, 2.90569, -0.883648, -0.0752106, 0.992607, 0.08449, -0.294426, 3.27768, -0.980305, 0.0158081, 0.980303, -0.01582, 2.7907, 3.31248, -0.790565, 0.252983, 0.790564, -0.252981, 6.98071, 2.00013, -0.948677, 0.205547, 0.94868, -0.205547, 10.1113, 1.08308, -0.158112, 0.1423, 0, 0, 11.7241, 0.62455)
 }
 point_count = 9
 
@@ -758,7 +758,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_xtqy7"]
 _data = {
-"points": PackedVector2Array(0, 0, -1.24909, -1.54951, 3.43106, 2.07919, 0.885433, 0.23717, -0.885433, -0.23717, -0.142303, -0.845906, 0.758938, 0.284604, 0, 0, -3.43106, -2.07919)
+"points": PackedVector2Array(0, 0, -1.62922, -1.2141, 3.47019, 2.14627, 0.788952, 0.46669, -0.930154, -0.550218, -0.181435, -0.912988, 0.814842, 0.206342, 0, 0, -3.47019, -2.14627)
 }
 point_count = 3
 
@@ -778,7 +778,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_yuosy"]
 _data = {
-"points": PackedVector2Array(0, 0, -1.83411, -0.616641, 1.45464, 0.845906, 0.521774, 0.158113, -0.52177, -0.158113, -0.505962, 0.0553408, 0.0790558, 0.0474339, 0, 0, -1.45464, -0.845905)
+"points": PackedVector2Array(0, 0, -1.83411, -0.616641, 1.72856, 0.862677, 0.521774, 0.158113, -0.52177, -0.158113, -0.399754, -0.028512, 0.0790558, 0.0474339, 0, 0, -1.72856, -0.862676)
 }
 point_count = 3
 
@@ -828,7 +828,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_vp6j8"]
 _data = {
-"points": PackedVector2Array(0, 0, -2.15034, -0.110679, 2.52191, -0.276698, 1.23328, -0.173924, 0, 0, -2.52191, 0.276698)
+"points": PackedVector2Array(0, 0, -2.21742, 0.302992, 2.52191, -0.276698, 1.23328, 0.00496101, 0, 0, -2.52191, 0.276698)
 }
 point_count = 2
 
@@ -868,7 +868,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_qd6te"]
 _data = {
-"points": PackedVector2Array(0, 0, -2.19777, 0.189736, 3.65242, -1.06726, 0.932867, -0.379471, -0.932868, 0.379472, 0.0790577, -0.260887, 0.917057, -0.189737, 0, 0, -3.65242, 1.06726)
+"points": PackedVector2Array(0, 0, -2.14187, 0.424522, 3.65242, -1.06726, 0.932867, -0.379471, -0.932868, 0.379472, 0.045517, -0.037281, 0.917057, -0.189737, 0, 0, -3.65242, 1.06726)
 }
 point_count = 3
 
@@ -878,7 +878,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_1ex1q"]
 _data = {
-"points": PackedVector2Array(0, 0, -1.51789, 1.29653, 1.51789, -1.86574, 0.332039, -0.47434, 0, 0, -1.51789, 1.86574)
+"points": PackedVector2Array(0, 0, -1.51789, 1.29653, 1.59056, -1.80424, 0.332039, -0.474339, 0, 0, -1.59056, 1.80424)
 }
 point_count = 2
 
@@ -888,7 +888,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_351og"]
 _data = {
-"points": PackedVector2Array(0, 0, -0.996113, 0.553396, 0.608736, -0.276699, 0, 0, 0, 0, -0.608736, 0.276697)
+"points": PackedVector2Array(0, 0, -1.24208, 0.229167, 1.06154, -0.36614, 0, 0, 0, 0, -1.06154, 0.36614)
 }
 point_count = 2
 
@@ -928,7 +928,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_awwf1"]
 _data = {
-"points": PackedVector2Array(0, 0, -0.616642, 0.711509, 0.316227, -0.482244, 0, 0, 0, 0, -0.316227, 0.482246)
+"points": PackedVector2Array(0, 0, -0.38792, 0.79728, 0.316227, -0.482244, 0.000789642, 0.000293732, 0, 0, -0.316227, 0.482246)
 }
 point_count = 2
 
@@ -948,7 +948,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_6grqw"]
 _data = {
-"points": PackedVector2Array(0, 0, -0.284604, 0.71151, 0.648264, -1.00402, 0.158113, -0.316225, 0, 0, -0.648265, 1.00402)
+"points": PackedVector2Array(0, 0, -0.854799, 0.789772, 0.648264, -1.00402, 0.158113, -0.316225, 0, 0, -0.648265, 1.00402)
 }
 point_count = 2
 
@@ -978,7 +978,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_6s7vs"]
 _data = {
-"points": PackedVector2Array(0, 0, 1.18585, 0.980303, -1.45464, -1.76296, -0.442719, -0.727322, 0.442717, 0.727321, 0.426907, -0.308319, -0.221359, -0.363663, 0, 0, 1.45464, 1.76297)
+"points": PackedVector2Array(0, 0, 1.18585, 0.980303, -1.52172, -1.7406, -0.442719, -0.727322, 0.442717, 0.727321, 0.359825, -0.285961, -0.221359, -0.363663, 0, 0, 1.52172, 1.7406)
 }
 point_count = 3
 
@@ -988,7 +988,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_5rte4"]
 _data = {
-"points": PackedVector2Array(0, 0, 0.616641, 0.838002, -1.05145, -1.78668, -0.347847, -0.71151, 0.347851, 0.71151, 0.039526, 0.332035, -0.0632458, -0.0948677, 0, 0, 1.05145, 1.78668)
+"points": PackedVector2Array(0, 0, 0.616641, 0.838002, -0.956421, -1.85935, -0.347849, -0.71151, 0.347851, 0.71151, -0.0219631, 0.214645, -0.0632458, -0.0948639, 0, 0, 0.956421, 1.85935)
 }
 point_count = 3
 
@@ -998,7 +998,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_lldf3"]
 _data = {
-"points": PackedVector2Array(0, 0, 0.537585, 0.71151, -0.869623, -0.996113, -0.758945, -0.822189, 0.758944, 0.822187, 0.11068, 0.158115, 0, 0, 0, 0, 0.869623, 0.996113)
+"points": PackedVector2Array(0, 0, 0.537585, 0.71151, -1.10102, -1.05761, -0.758944, -0.822189, 0.758944, 0.822187, 0.438301, 0.107803, 0, 0, 0, 0, 1.09662, 1.05761)
 }
 point_count = 3
 
@@ -1008,7 +1008,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_w0dak"]
 _data = {
-"points": PackedVector2Array(0, 0, 0.932868, 0.06324, -1.06727, -0.324131, -0.537586, -0.600838, 0, 0, 1.06726, 0.324135)
+"points": PackedVector2Array(0, 0, 0.888147, 0.298027, -1.35795, -0.614819, -0.537582, -0.600834, 0, 0, 1.35795, 0.614822)
 }
 point_count = 2
 
@@ -1018,7 +1018,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_b5nv8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0.58502, 0.347848, -0.592922, -0.252979, -0.458527, -0.0474281, 0, 0, 0.592926, 0.252979)
+"points": PackedVector2Array(0, 0, 0.198054, 0.170053, -1.15753, -0.275341, -1.15525, -0.36755, 0, 0, 1.15753, 0.275341)
 }
 point_count = 2
 
@@ -1038,7 +1038,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_33qfe"]
 _data = {
-"points": PackedVector2Array(0, 0, 0.743133, -0.300416, -2.24521, 0.0676193, -0.648262, -0.0474205, 0.648267, 0.04744, -0.490154, 0.0517998, -0.790569, -0.0632477, 0.790567, 0.06325, 0.585018, -0.122124, -0.553398, -0.0158119, 0, 0, 2.24521, 0.130859)
+"points": PackedVector2Array(0, 0, 0.743133, -0.300416, -2.24521, 0.172245, -0.648262, -0.0474205, 0.648267, 0.04744, -0.490154, 0.156425, -0.790569, -0.0632477, 0.790567, 0.06325, 0.585018, -0.229923, -0.553398, -0.0158119, 0, 0, 2.24521, 0.235485)
 }
 point_count = 4
 
@@ -1048,7 +1048,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_aghq5"]
 _data = {
-"points": PackedVector2Array(0, 0, 1.09098, -0.01582, -2.94091, 0.60083, -1.01192, 0.332039, 1.01192, -0.332036, 0.0790558, 0.426903, -0.03162, 0.332035, 0, 0, 2.94091, -0.632454)
+"points": PackedVector2Array(0, 0, 1.09098, -0.01582, -2.9465, 0.773167, -1.01192, 0.332043, 1.01192, -0.332036, -0.0383415, 0.364452, -0.0316238, 0.332035, 0, 0, 2.9465, -0.773167)
 }
 point_count = 3
 
@@ -1058,7 +1058,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_uuggv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0.679886, -0.537586, -0.822189, 0.600834, -0.474342, 0.11068, 0, 0, 0.822189, -0.60083)
+"points": PackedVector2Array(0, 0, 0.46746, -0.872995, -1.12406, 0.679096, -1.35758, 0.222485, 0, 0, 1.12405, -0.679092)
 }
 point_count = 2
 
@@ -1068,7 +1068,7 @@ arcs = Array[ExtResource("3_wisxt")]([])
 
 [sub_resource type="Curve2D" id="Curve2D_rer4q"]
 _data = {
-"points": PackedVector2Array(0, 0, 1.37559, 0.806379, -2.63259, -0.673958, -0.505962, -0.0790596, 0.505963, 0.07906, 0.624546, 0.606762, -0.600834, 0.1423, 0, 0, 2.63259, 0.575142)
+"points": PackedVector2Array(0, 0, 1.37559, 0.806379, -3.21396, -0.668011, -0.505962, -0.0790558, 0.505963, 0.07906, 0.434483, 0.500904, -0.60083, 0.1423, 0, 0, 3.21396, 0.614628)
 }
 point_count = 3
 
@@ -1126,6 +1126,346 @@ point_count = 2
 script = ExtResource("4_wax1t")
 arcs = Array[ExtResource("3_wisxt")]([])
 
+[sub_resource type="Curve2D" id="Curve2D_iq88l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0.514294, 1.96773, -0.290688, -1.57083, 0, 0, 0, 0, 0.290689, 1.57083)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_d6paa"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_1gx2k"]
+_data = {
+"points": PackedVector2Array(0, 0, -0.290689, 0.715538, 0.237407, -1.83916, -0.156524, -1.34164, 0, 0, -0.198626, 1.83916)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_ewd22"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_rjsdu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0.7379, 1.82239, -1.1907, -3.30378, 0.0782623, -0.816162, -0.07826, 0.816163, -0.542244, 0.385719, -0.760262, -1.29691, 0, 0, 1.1907, 3.30378)
+}
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_v4b2d"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_jvxjv"]
+_data = {
+"points": PackedVector2Array(0, 0, 1.21865, 0.838523, -0.78821, -0.916786, -0.0447206, -0.234791, 0, 0, 0.788211, 0.916786)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_0m5jn"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_uobd2"]
+_data = {
+"points": PackedVector2Array(0, 0, 2.1019, 1.96773, -1.35282, -2.11867, -0.122982, -1.43108, 0, 0, 1.35282, 2.11866)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_pakgd"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_d6504"]
+_data = {
+"points": PackedVector2Array(0, 0, -1.30809, 1.52052, 0.821751, -2.02922, 0.0670815, -0.603733, 0, 0, -0.821753, 2.02922)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_l17v2"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_8lxdy"]
+_data = {
+"points": PackedVector2Array(0, 0, 1.82239, 0.927966, -1.51493, -0.384922, -0.536655, 0.290688, 0, 0, 1.51493, 0.196453)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_jt61d"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_vcfp1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0.726718, 0.0559, -0.547836, 0.130322, -0.111801, 0.36895, 0, 0, 0.547832, -0.16037)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_xwin1"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_1wmtb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0.190066, 1.21865, 0.207405, -1.24101, 0.212425, -0.301867, 0, 0, -0.250988, 1.24101)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_tsuao"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_bnpki"]
+_data = {
+"points": PackedVector2Array(0, 0, 2.35904, -0.279507, -2.16898, 0.106212, -0.983866, -0.212427, 0, 0, 2.16898, 0.050312)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_guleb"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_m3b31"]
+_data = {
+"points": PackedVector2Array(0, 0, 0.995045, 0.592556, -0.816162, -0.329819, -0.63728, -0.0670815, 0, 0, 0.816162, 0.329819)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_ben5t"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_8ha1c"]
+_data = {
+"points": PackedVector2Array(0, 0, -0.693179, 0.827342, 0.782621, -0.626097, 0.514295, -0.245967, 0, 0, -0.78262, 0.626097)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_vpywd"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_nfhv1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1.20956, -9.77931, 0, 0, 0, 0, 4.70387, -10.3011, 0, 0, 0, 0, 7.61316, -11.6292, 0, 0, 0, 0, 11.9929, -9.41565, 0, 0, 0, 0, 15.4398, -5.17822, 0, 0, 0, 0, 18.3807, -6.19014, 0, 0, 0, 0, 16.6634, -10.1057, 0, 0, 0, 0, 12.1826, -13.4792, 0, 0, 0, 0, 8.46238, -16.1904, 0, 0, 0, 0, 4.49413, -15.6613, 0, 0, 0, 0, -0.796883, -15.9258, 0.08605, 0.0102463, 0, 0, -2.11963, -14.3385, 0, 0, 0, 0, -5.55878, -13.8094, 0, 0, 0, 0, -10.8498, -11.1639, 0, 0, 0, 0, -14.0244, -7.98933, 0, 0, 0, 0, -15.6117, -5.87293, 0, 0, 0, 0, -16.1408, -2.16923, 0, 0, 0, 0, -16.1408, 1.00537, 0, 0, 0, 0, -18.5217, 3.12178, 0, 0, 0, 0, -17.9926, 6.03183, 0, 0, 0, 0, -17.7281, 8.14823, 0, 0, 0, 0, -18.2572, 10.5292, 0, 0, 0, 0, -17.199, 14.4974, 0, 0, 0, 0, -17.4635, 16.0847)
+}
+point_count = 24
+
+[sub_resource type="Resource" id="Resource_1bpy5"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_l80eg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -0.891533, 0.432318, 0, 0, 0, 0, 1.75397, 0.432318)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_rjhjx"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_6gs4j"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1.17794, -1.80249, 0, 0, 0, 0, 1.82585, -0.209963, 0, 0, 0, 0, 0.767654, 1.90644, 0, 0, 0, 0, -1.79459, -0.869623)
+}
+point_count = 4
+
+[sub_resource type="Resource" id="Resource_xbidt"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_a23qd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -0.758141, -1.61158, 0, 0, 0, 0, 0.829155, -0.553383, 0, 0, 0, 0, 0.0355072, 1.82757)
+}
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_o18jr"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_4gbbf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -0.864738, 0.0699959, 0, 0, 0, 0, 0.987114, -0.194553)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_mmq4u"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_ne61u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0.976124, -0.0647964, 0, 0, 0, 0, -0.346626, -1.38755)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_lkdlt"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_548m6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1.87898, 3.75212, 0, 0, 0, 0, -0.0271301, 2.95847, 0, 0, 0, 0, 0.766521, 0.577517, 0, 0, 0, 0, 2.08927, -1.80344, 0, 0, 0, 0, 2.08927, -3.91984)
+}
+point_count = 5
+
+[sub_resource type="Resource" id="Resource_oqhy3"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_pmp1q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1.49471, -18.4262, 0, 0, 0, 0, -3.08201, -16.3097, 0, 0, 0, 0, -6.52116, -16.0452, 0, 0, 0, 0, -10.754, -13.6642, 0, 0, 0, 0, -12.3413, -8.10869, 0, 0, 0, 0, -14.9868, -6.25684, 0, 0, 0, 0, -12.8704, -4.40499, 0, 0, 0, 0, -14.4577, -0.965836, 0, 0, 0, 0, -14.4577, 2.47332, 0, 0, 0, 0, -12.3413, 4.58972, 0, 0, 0, 0, -10.2249, 6.17702, 0, 0, 0, 0, -8.90211, 10.4098, 0.0316238, 0.0632439, -0.03162, -0.06325, -7.05026, 12.5262, 0, 0, 0, 0, -2.81746, 15.9654, 0, 0, 0, 0, 2.209, 16.4945, 0, 0, 0, 0, 4.58995, 17.2881, 0, 0, 0, 0, 9.61641, 18.3463, 0, 0, 0, 0, 14.9074, 17.8172)
+}
+point_count = 18
+
+[sub_resource type="Resource" id="Resource_uddl1"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_2urm7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0.532799, 1.14361, 0, 0, 0, 0, -0.260857, -1.23734)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_j556l"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_crufx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1.2153, 0.296745, 0, 0, 0, 0, 1.16565, -0.232353)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_re5uh"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_2l0rx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0.352913, -2.2346, 0, 0, 0, 0, -1.76349, 0.410896, 0, 0, 0, 0, 1.67566, 1.9982)
+}
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_vpejb"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_sklm7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0.516235, -2.64395, 0, 0, 0, 0, -1.05145, 0.65617, 0, 0, 0, 0, 1.04534, 2.64705)
+}
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_bcvdj"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_xv7a4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0.158113, -1.28072, -0.276646, 1.91955, 0, 0, 0, 0, 0.252457, -1.78416)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_hulbh"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_l5et2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 12.5119, 9.31093, 0, 0, 0, 0, 11.7182, 11.6919, 0, 0, 0, 0, 9.60183, 14.3374, 0, 0, 0, 0, 6.16268, 15.131, 0, 0, 0, 0, 8.27908, 18.0411, 0, 0, 0.198895, 0.0597019, 10.9902, 16.6586, 0, 0, 0, 0, 14.8928, 15.131, 0, 0, 0, 0, 15.1574, 11.6919, 0, 0, 0, 0, 16.8711, 7.17775, 0, 0, 0, 0, 19.1256, 5.34268, 0, 0, 0, 0, 18.0674, 2.43263, 0, 0, 0, 0, 18.332, -1.53563, 0, 0, 0, 0, 16.2156, -4.97478, 0, 0, 0, 0, 15.1574, -8.41393, 0, 0, 0, 0, 10.66, -11.0594, 0, 0, 0, 0, 7.74998, -15.0277, 0, 0, 0, 0, 2.45897, -15.8213, 0, 0, 0, 0, -2.03838, -17.4086, 0, 0, 0, 0, -6.53574, -17.1441, 0, 0, 0, 0, -9.44579, -18.2023, 0, 0, 0, 0, -13.6786, -16.615, 0, 0, 0, 0, -18.9696, -15.5568)
+}
+point_count = 22
+
+[sub_resource type="Resource" id="Resource_1tkpl"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_r3lyw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -4.61273, -0.362463, 0, 0, 0, 0, -2.23178, 1.22484, 0, 0, 0, 0, -0.115379, -0.627013, 0, 0, 0, 0, 2.26558, -1.15611, 0, 0, 0, 0, 4.38198, 0.960288)
+}
+point_count = 5
+
+[sub_resource type="Resource" id="Resource_7nvb6"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_hdvj4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0.203583, -2.0419, 0, 0, 0, 0, -2.17737, 0.074501, 0, 0, 0, 0, -0.0609665, 1.92635, 0, 0, 0, 0, 2.31998, 0.868153)
+}
+point_count = 4
+
+[sub_resource type="Resource" id="Resource_ktnx6"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_mpnxl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 7.73169, 2.18351, 0, 0, 0, 0, 5.61529, 3.24171, 0, 0, 0, 0, 1.38248, 1.91896, 0, 0, 0, 0, -2.58577, -0.726543, 0, 0, 0, 0, -3.64397, -3.10749, 0, 0, 0, 0, -7.87677, -3.10749, 0, 0, 0, 0, -6.02492, -0.461994, 0, 0, 0, 0, -3.64397, -3.10749)
+}
+point_count = 8
+
+[sub_resource type="Resource" id="Resource_tgo63"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_qgtyw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1.78759, 0.0187531, 0, 0, 0, 0, 1.65157, -0.245796)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_o2a31"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_qpjfi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -12.5107, -9.01132, 0, 0, 0, 0, -13.0474, -7.69205, 0, 0, 0, 0, -17.1618, -4.85225, 0, 0, 0, 0, -18.4363, -1.81121, 0, 0, 0, 0, -17.4301, 0.536652, 0, 0, 0, 0, -19.0177, 1.34163, 0, 0, 0, 0, -18.9059, 4.62864, 0, 0, 0, 0, -18.973, 7.20011, 0, 0, 0, 0, -17.6537, 10.912, 0, 0, 0, 0, -14.1207, 13.1928, 0, 0, 0, 0, -11.9965, 12.7679, 0, 0, 0, 0, -9.33578, 15.5764, 0, 0, 0, 0, -6.69028, 14.2537, 0, 0, 0, 0, -5.10298, 16.1055, 0, 0, 0, 0, -0.870178, 14.5182, 0, 0, 0, 0, 2.03987, 15.3119, 0, 0, 0, 0, 6.00813, 14.7828, 0, 0, 0, 0, 9.97638, 11.8727, 0, 0, 0, 0, 12.8864, 9.22724, 0, 0, 0, 0, 13.4155, 7.11084, 0, 0, 0, 0, 15.7965, 4.72989, 0, 0, 0, 0, 16.5901, 1.29073, 0, 0, 0, 0, 18.9711, -2.94207, 0, 0, 0, 0, 17.6483, -5.32302, 0, 0, 0, 0, 18.7065, -9.29128, 0, 0, 0, 0, 17.9129, -12.2013, 0, 0, 0, 0, 17.6483, -15.905)
+}
+point_count = 27
+
+[sub_resource type="Resource" id="Resource_tjd84"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_tsnga"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -5.40938, 1.39258, 0, 0, 0, 0, -1.44112, 0.334377, 0, 0, 0, 0, 2.79168, -1.25293, 0, 0, 0, 0, 5.43718, -1.25293)
+}
+point_count = 4
+
+[sub_resource type="Resource" id="Resource_ptb80"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_3jlsk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0.201245, 0.04472, -1.97915, -0.333118, 0, 0, 0, 0, 2.25365, 0.19598)
+}
+point_count = 2
+
+[sub_resource type="Resource" id="Resource_cdh80"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
+[sub_resource type="Curve2D" id="Curve2D_b06q4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2.63729, -2.76514, 0, 0, 0, 0, 0.559017, -0.391308, 0, 0, 0, 0, 2.59383, 2.60501)
+}
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_f6fgn"]
+script = ExtResource("4_wax1t")
+arcs = Array[ExtResource("3_wisxt")]([])
+
 [node name="Background" type="Node2D"]
 script = ExtResource("1_wisxt")
 
@@ -1135,7 +1475,7 @@ texture = ExtResource("1_bkp1e")
 metadata/_edit_lock_ = true
 
 [node name="Galaxy 5-4" type="Node2D" parent="."]
-position = Vector2(-140, -121)
+position = Vector2(-139, -121)
 scale = Vector2(3.78, 3.78)
 metadata/svg_root = true
 
@@ -1916,7 +2256,7 @@ curve = SubResource("Curve2D_4sjfp")
 arc_list = SubResource("Resource_hd36b")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path77"]
-points = PackedVector2Array(-11.7241, -3.31247, -10.2082, -1.02774, -9.61403, -0.235192, -9.22591, 0.213455, -7.48271, 1.40523, -6.22867, 2.12786, -5.66169, 2.40607, -5.19402, 2.58516, -3.79867, 2.94091, -2.47447, 3.10693, -2.13357, 3.11184, -1.83732, 3.08692, -1.32617, 2.99428, -1.08496, 2.9499, -0.835776, 2.92238, -0.565471, 2.9234, -0.260887, 2.96463, 1.2234, 3.2097, 2.7907, 3.31248, 2.99062, 3.29791, 3.21977, 3.26192, 3.74778, 3.13633, 4.95685, 2.74524, 6.9807, 2.00013, 10.1113, 1.08308, 11.2142, 0.830095, 11.5388, 0.727322, 11.6483, 0.676677, 11.6904, 0.650891, 11.7241, 0.62455)
+points = PackedVector2Array(-11.7241, -3.31247, -10.2082, -1.02774, -9.61403, -0.235192, -9.22591, 0.213455, -7.98582, 1.3661, -7.07768, 2.06183, -6.62468, 2.33117, -6.40759, 2.43267, -6.20025, 2.50689, -5.37049, 2.69372, -4.5198, 2.80116, -2.9105, 2.90569, -0.294426, 3.27768, 2.7907, 3.31248, 2.99062, 3.29791, 3.21977, 3.26192, 3.74778, 3.13633, 4.95686, 2.74524, 6.98071, 2.00013, 10.1113, 1.08308, 11.2142, 0.830095, 11.5388, 0.727322, 11.6483, 0.676677, 11.6904, 0.650891, 11.7241, 0.62455)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2133,14 +2473,14 @@ sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path93" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(45.3311, 14.2065)
+position = Vector2(45.3702, 14.2736)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_xtqy7")
 arc_list = SubResource("Resource_7av5l")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path93"]
-points = PackedVector2Array(3.43106, 2.07919, 2.47027, 1.0018, 1.508, 0.124514, 1.04809, -0.224725, 0.613923, -0.506704, 0.214223, -0.715679, 0.030019, -0.790995, -0.142303, -0.845906, -3.43106, -2.07919)
+points = PackedVector2Array(3.47019, 2.14627, 0.492861, -0.408827, 0.135163, -0.697341, -0.181435, -0.912988, -0.973124, -1.30879, -1.86905, -1.65858, -3.47019, -2.14627)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2161,14 +2501,14 @@ sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path95" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(41.9316, 10.6806)
+position = Vector2(41.8254, 10.7644)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_yuosy")
 arc_list = SubResource("Resource_q054y")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path95"]
-points = PackedVector2Array(1.45464, 0.845906, 0.447908, 0.48447, -0.237416, 0.158855, -0.347138, 0.109414, -0.505962, 0.0553408, -0.601733, 0.0196842, -0.693289, -0.026835, -0.78049, -0.0824796, -0.863198, -0.145513, -1.01458, -0.286796, -1.14632, -0.436787, -1.41258, -0.800046, -1.43669, -0.829704, -1.44644, -0.839595, -1.45074, -0.843212, -1.45464, -0.845905)
+points = PackedVector2Array(1.72856, 0.862677, 0.695617, 0.485518, -0.105004, 0.0907248, -0.233724, 0.0298849, -0.399754, -0.028512, -0.603413, -0.107805, -0.816384, -0.218884, -1.23018, -0.487099, -1.72856, -0.862676)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2238,7 +2578,7 @@ curve = SubResource("Curve2D_vp6j8")
 arc_list = SubResource("Resource_d66eo")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path100"]
-points = PackedVector2Array(2.52191, -0.276698, 1.00007, -0.261381, -0.343897, -0.106726, -2.52191, 0.276698)
+points = PackedVector2Array(2.52191, -0.276698, -2.52191, 0.276698)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2294,35 +2634,35 @@ curve = SubResource("Curve2D_qd6te")
 arc_list = SubResource("Resource_4rrbs")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path104"]
-points = PackedVector2Array(3.65242, -1.06726, 2.29808, -0.914586, 1.3914, -0.735226, 0.721886, -0.520291, 0.0790577, -0.260887, -3.65242, 1.06726)
+points = PackedVector2Array(3.65242, -1.06726, 1.39559, -0.535379, 0.045517, -0.037281, -3.65242, 1.06726)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path105" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(21.3137, 22.2624)
+position = Vector2(21.3863, 22.3238)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_1ex1q")
 arc_list = SubResource("Resource_0p3tj")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path105"]
-points = PackedVector2Array(1.51789, -1.86574, 0.449881, -0.802426, -0.444694, 0.30832, -1.51789, 1.86574)
+points = PackedVector2Array(1.59056, -1.80424, 0.499843, -0.760149, -0.444694, 0.308321, -1.59056, 1.80424)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path106" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(24.5787, 24.5629)
+position = Vector2(24.7632, 24.4287)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_351og")
 arc_list = SubResource("Resource_u2mbi")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path106"]
-points = PackedVector2Array(0.608736, -0.276699, -0.373542, 0.207523, -0.558584, 0.26805, -0.597279, 0.275616, -0.608736, 0.276697)
+points = PackedVector2Array(1.06154, -0.36614, 0.205806, -0.155042, -0.465779, 0.0859376, -1.06154, 0.36614)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2378,7 +2718,7 @@ curve = SubResource("Curve2D_awwf1")
 arc_list = SubResource("Resource_qtt6x")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path110"]
-points = PackedVector2Array(0.316227, -0.482244, -0.0427398, -0.0313749, -0.231241, 0.266817, -0.278706, 0.36468, -0.304121, 0.431601, -0.314343, 0.469986, -0.316227, 0.482246)
+points = PackedVector2Array(0.316227, -0.482244, 0.0538633, 0.00485103, -0.145174, 0.299091, -0.218051, 0.387425, -0.271624, 0.443786, -0.304735, 0.473589, -0.316012, 0.482136, -0.316227, 0.482246)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2406,7 +2746,7 @@ curve = SubResource("Curve2D_6grqw")
 arc_list = SubResource("Resource_oedra")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path112"]
-points = PackedVector2Array(0.648264, -1.00402, 0.517326, -0.726425, 0.347849, -0.434564, -0.648265, 1.00402)
+points = PackedVector2Array(0.648264, -1.00402, 0.353618, -0.703955, 0.107298, -0.401547, -0.0959201, -0.104975, -0.261258, 0.17758, -0.648265, 1.00402)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2441,70 +2781,70 @@ sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path115" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(24.4759, 44.9595)
+position = Vector2(24.543, 44.9372)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_6s7vs")
 arc_list = SubResource("Resource_tktq7")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path115"]
-points = PackedVector2Array(-1.45464, -1.76296, -0.722628, -1.22439, -0.235194, -0.940773, -0.0503063, -0.829723, 0.0331858, -0.770538, 0.112903, -0.704591, 0.190489, -0.628638, 0.267588, -0.539436, 0.426907, -0.308319, 1.45464, 1.76297)
+points = PackedVector2Array(-1.52172, -1.7406, -0.789709, -1.20203, -0.302275, -0.918415, -0.117388, -0.807365, -0.0338956, -0.74818, 0.0458213, -0.682233, 0.123407, -0.60628, 0.200507, -0.517079, 0.359825, -0.285961, 1.52172, 1.7406)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path116" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(27.488, 49.4262)
+position = Vector2(27.583, 49.3535)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_5rte4")
 arc_list = SubResource("Resource_q1wrm")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path116"]
-points = PackedVector2Array(-1.05145, -1.78668, -0.669759, -1.20216, -0.405167, -0.679889, 0.039526, 0.332035, 0.335495, 0.846151, 0.652216, 1.2906, 1.05145, 1.78668)
+points = PackedVector2Array(-0.956421, -1.85935, -0.753492, -1.55882, -0.599183, -1.28181, -0.388395, -0.774919, -0.0219631, 0.214645, 0.956421, 1.85935)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path117" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(30.168, 51.5133)
+position = Vector2(29.941, 51.4518)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_lldf3")
 arc_list = SubResource("Resource_mqrtm")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path117"]
-points = PackedVector2Array(-0.869623, -0.996113, -0.462482, -0.460503, 0.11068, 0.158115, 0.868141, 0.993828, 0.869438, 0.995735, 0.8696, 0.996042, 0.86962, 0.996098, 0.869623, 0.996113)
+points = PackedVector2Array(-1.10102, -1.05761, -0.911655, -0.836971, -0.82437, -0.756301, -0.74043, -0.690963, -0.658647, -0.637629, -0.577834, -0.592976, -0.240522, -0.434648, -0.0467985, -0.321097, 0.176308, -0.149148, 0.438301, 0.107803, 0.861343, 0.60307, 0.980118, 0.769639, 1.05207, 0.891025, 1.074, 0.93685, 1.08844, 0.97387, 1.0968, 1.00292, 1.10049, 1.02482, 1.10102, 1.03335, 1.10091, 1.04041, 1.10033, 1.0461, 1.09946, 1.05052, 1.09848, 1.05377, 1.09757, 1.05597, 1.09689, 1.05721, 1.09662, 1.05761)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path118" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(32.3105, 54.4147)
+position = Vector2(32.3328, 54.2358)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_w0dak")
 arc_list = SubResource("Resource_0fl3o")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path118"]
-points = PackedVector2Array(-1.06727, -0.324131, -0.41579, -0.280653, 0.14823, -0.201597, 0.401613, -0.128346, 0.521877, -0.0797226, 0.638134, -0.021742, 0.750594, 0.046615, 0.859463, 0.126367, 0.96495, 0.218534, 1.06726, 0.324135)
+points = PackedVector2Array(-1.35795, -0.614819, 0.131462, -0.113551, 0.49656, 0.0402993, 0.831695, 0.211124, 1.12334, 0.401705, 1.24862, 0.505273, 1.35795, 0.614822)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path119" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(35.9471, 54.6281)
+position = Vector2(35.8073, 54.5387)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_b5nv8")
 arc_list = SubResource("Resource_q34v3")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path119"]
-points = PackedVector2Array(-0.592922, -0.252979, 0.0474369, 0.112657, 0.170469, 0.163766, 0.296465, 0.202831, 0.434319, 0.231889, 0.592926, 0.252979)
+points = PackedVector2Array(-1.15753, -0.275341, -1.13674, -0.259843, -1.11159, -0.245171, -1.04858, -0.21793, -0.874707, -0.169243, 0.336278, 0.0581506, 1.15753, 0.275341)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2525,56 +2865,56 @@ sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path121" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(43.8764, 56.0784)
+position = Vector2(43.8764, 55.9738)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_33qfe")
 arc_list = SubResource("Resource_toigr")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path121"]
-points = PackedVector2Array(-2.24521, 0.0676193, -1.98302, -0.0212577, -1.74863, -0.068259, -1.53425, -0.0819083, -1.3321, -0.0707291, -0.490154, 0.0517998, -0.290258, 0.0553528, -0.217952, 0.0479456, -0.159845, 0.0357438, -0.112762, 0.0197434, -0.0735309, 0.000940319, 0.0287832, -0.062325, 0.0683385, -0.082379, 0.115908, -0.100256, 0.174664, -0.11496, 0.24778, -0.125494, 0.338429, -0.130864, 0.585018, -0.122124, 1.10012, -0.0581351, 1.86351, 0.0935546, 2.24521, 0.130859)
+points = PackedVector2Array(-2.24521, 0.172245, -1.98302, 0.083368, -1.74863, 0.0363667, -1.53425, 0.0227174, -1.3321, 0.0338966, -0.490154, 0.156425, -0.379934, 0.15921, -0.290258, 0.150851, -0.252132, 0.142999, -0.217952, 0.132968, -0.187322, 0.12096, -0.159845, 0.107178, -0.135124, 0.0918241, -0.112762, 0.0751005, -0.0735309, 0.0383533, -0.00593143, -0.0426768, 0.0287832, -0.0837231, 0.0683385, -0.122966, 0.090923, -0.141405, 0.115908, -0.158787, 0.143689, -0.174908, 0.174664, -0.189568, 0.209228, -0.202562, 0.24778, -0.21369, 0.338429, -0.229536, 0.449784, -0.235486, 0.585018, -0.229923, 0.860636, -0.192414, 1.10012, -0.132743, 1.86351, 0.164989, 2.04741, 0.213542, 2.14405, 0.228347, 2.24521, 0.235485)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path122" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(50.1535, 56.9524)
+position = Vector2(50.1591, 56.7801)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_aghq5")
 arc_list = SubResource("Resource_m0ygj")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path122"]
-points = PackedVector2Array(-2.94091, 0.60083, -1.40128, 0.632448, -0.6663, 0.591933, -0.296494, 0.529059, 0.0790558, 0.426903, 1.8776, -0.102776, 2.6227, -0.373545, 2.75177, -0.439847, 2.80512, -0.472662, 2.85036, -0.505223, 2.88704, -0.537506, 2.90202, -0.553535, 2.91467, -0.569487, 2.92495, -0.585358, 2.93279, -0.601144, 2.93813, -0.616844, 2.94091, -0.632454)
+points = PackedVector2Array(-2.9465, 0.773167, -1.46277, 0.687393, -0.766226, 0.56617, -0.0383415, 0.364452, 1.82169, -0.204357, 2.60908, -0.502029, 2.74601, -0.573337, 2.85067, -0.642573, 2.88959, -0.676284, 2.90547, -0.69289, 2.91888, -0.709321, 2.92975, -0.725571, 2.93802, -0.741632, 2.94362, -0.7575, 2.9465, -0.773167)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path123" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(54.4226, 56.4464)
+position = Vector2(54.7245, 56.3682)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_uuggv")
 arc_list = SubResource("Resource_g6xe7")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path123"]
-points = PackedVector2Array(-0.822189, 0.600834, 0.0770789, -0.160088, 0.460751, -0.441975, 0.64323, -0.539468, 0.733022, -0.575001, 0.822189, -0.60083)
+points = PackedVector2Array(-1.12406, 0.679096, -0.948929, 0.379217, -0.766491, 0.129871, -0.668945, 0.0220612, -0.565271, -0.0756206, -0.454033, -0.164009, -0.333798, -0.24394, -0.203132, -0.316247, -0.0606003, -0.381766, 0.265793, -0.49578, 1.12405, -0.679092)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
 
 [node name="path124" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
-position = Vector2(44.6117, 50.195)
+position = Vector2(44.7794, 50.0102)
 script = ExtResource("2_cbsqf")
 line = NodePath("Stroke")
 curve = SubResource("Curve2D_rer4q")
 arc_list = SubResource("Resource_wv48x")
 
 [node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path124"]
-points = PackedVector2Array(-2.63259, -0.673958, -1.61449, -0.144772, -0.677911, 0.239147, 0.095608, 0.486693, 0.624546, 0.606762, 1.06726, 0.655186, 1.59299, 0.673962, 2.13651, 0.651233, 2.39455, 0.620599, 2.63259, 0.575142)
+points = PackedVector2Array(-3.21396, -0.668011, -2.683, -0.389507, -2.13472, -0.156294, -1.06363, 0.189193, 0.434483, 0.500904, 1.78865, 0.640776, 2.59734, 0.668009, 2.94278, 0.65384, 3.08929, 0.63767, 3.21396, 0.614628)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
 sharp_limit = 4.0
@@ -2647,5 +2987,510 @@ arc_list = SubResource("Resource_3j6v2")
 points = PackedVector2Array(-1.36768, -1.75506, -1.27738, -1.27998, -1.14928, -0.806378, -0.966342, -0.338709, -0.848977, -0.108487, -0.711508, 0.118585, -0.551804, 0.341951, -0.367735, 0.561055, -0.15717, 0.775342, 0.0820228, 0.984255, 0.654812, 1.38374, 1.36768, 1.75506)
 width = 0.264583
 default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path132" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(12.9691, 42.3007)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_iq88l")
+arc_list = SubResource("Resource_d6paa")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path132"]
+points = PackedVector2Array(-0.290688, -1.57083, 0.192861, 0.737899, 0.290689, 1.57083)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path133" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(9.51181, 39.4161)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_1gx2k")
+arc_list = SubResource("Resource_ewd22")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path133"]
+points = PackedVector2Array(0.237407, -1.83916, 0.128792, -1.53069, 0.0246313, -1.15122, -0.148314, -0.234785, -0.237407, 0.799043, -0.236752, 1.32526, -0.198626, 1.83916)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path134" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(13.1089, 47.4995)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_rjsdu")
+arc_list = SubResource("Resource_v4b2d")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path134"]
+points = PackedVector2Array(-1.1907, -3.30378, -0.767073, -2.07325, -0.560412, -1.0817, -0.506781, -0.27881, -0.542244, 0.385719, -0.546316, 0.462217, -0.544032, 0.538742, -0.535651, 0.615385, -0.521433, 0.692239, -0.476529, 0.846948, -0.411399, 1.00361, -0.22878, 1.32572, 0.00978366, 1.66447, 1.1907, 3.30378)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path135" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(14.4394, 51.9884)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_jvxjv")
+arc_list = SubResource("Resource_0m5jn")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path135"]
+points = PackedVector2Array(-0.78821, -0.916786, -0.372421, -0.606882, -0.0340642, -0.309556, 0.234328, -0.0300486, 0.440225, 0.2264, 0.591093, 0.454548, 0.694402, 0.649155, 0.757618, 0.804982, 0.788211, 0.916786)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path136" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(23.4115, 49.1095)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_uobd2")
+arc_list = SubResource("Resource_pakgd")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path136"]
+points = PackedVector2Array(-1.35282, -2.11867, -0.0606177, -0.827693, 0.394521, -0.290558, 0.742093, 0.201244, 0.996903, 0.66789, 1.17376, 1.12956, 1.28746, 1.60642, 1.35282, 2.11866)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path137" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(19.4705, 37.6385)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_d6504")
+arc_list = SubResource("Resource_l17v2")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path137"]
+points = PackedVector2Array(0.821751, -2.02922, 0.378316, -1.44304, 0.022534, -0.838522, -0.255423, -0.236097, -0.465381, 0.343794, -0.720606, 1.35421, -0.821753, 2.02922)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path138" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(38.2087, 42.3446)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_8lxdy")
+arc_list = SubResource("Resource_jt61d")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path138"]
+points = PackedVector2Array(-1.51493, -0.384922, -0.348161, 0.138281, 0.10309, 0.283472, 0.48215, 0.362761, 0.648335, 0.380434, 0.800942, 0.384924, 0.941462, 0.377328, 1.07139, 0.358742, 1.19221, 0.330265, 1.30541, 0.292992, 1.51493, 0.196453)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path139" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(41.423, 40.6889)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_vcfp1")
+arc_list = SubResource("Resource_xwin1")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path139"]
+points = PackedVector2Array(-0.547836, 0.130322, -0.0857759, 0.160367, 0.0887198, 0.160192, 0.163496, 0.154471, 0.230592, 0.144295, 0.290481, 0.12914, 0.34364, 0.108482, 0.367843, 0.095926, 0.390542, 0.0817977, 0.411795, 0.0660316, 0.431663, 0.0485623, 0.450204, 0.0293243, 0.467477, 0.00825196, 0.483543, -0.0147201, 0.498461, -0.0396575, 0.525087, -0.0956901, 0.547832, -0.16037)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path140" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(49.5896, 28.5098)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_1wmtb")
+arc_list = SubResource("Resource_tsuao")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path140"]
+points = PackedVector2Array(0.207405, -1.24101, 0.250991, -0.796858, 0.245838, -0.381527, 0.201902, 0.000262842, 0.129143, 0.343795, 0.0375164, 0.644353, -0.0630192, 0.897219, -0.162506, 1.09768, -0.250988, 1.24101)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path141" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(27.906, 15.1214)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_bnpki")
+arc_list = SubResource("Resource_guleb")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path141"]
+points = PackedVector2Array(-2.16898, 0.106212, 0.51569, -0.106213, 1.40784, -0.069877, 2.16898, 0.050312)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path142" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(34.7819, 5.83053)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_m3b31")
+arc_list = SubResource("Resource_ben5t")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path142"]
+points = PackedVector2Array(-0.816162, -0.329819, 0.134162, 0.197053, 0.281995, 0.247866, 0.432187, 0.281779, 0.816162, 0.329819)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path143" type="Node2D" parent="Galaxy 5-4/layer7" node_paths=PackedStringArray("line")]
+position = Vector2(16.3009, 8.75417)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_8ha1c")
+arc_list = SubResource("Resource_vpywd")
+
+[node name="Stroke" type="Line2D" parent="Galaxy 5-4/layer7/path143"]
+points = PackedVector2Array(0.782621, -0.626097, 0.31794, -0.115996, -0.0670812, 0.218016, -0.418562, 0.443019, -0.78262, 0.626097)
+width = 0.264583
+default_color = Color(0.6, 0.556863, 0.392157, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="layer8" type="Node2D" parent="."]
+position = Vector2(-139, -121.001)
+scale = Vector2(3.78, 3.78)
+metadata/svg_style = {
+"fill": "#afdde9"
+}
+
+[node name="path144" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(29.0059, 32.2314)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_nfhv1")
+arc_list = SubResource("Resource_1bpy5")
+
+[node name="Stroke" type="Line2D" parent="layer8/path144"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-1.20956, -9.77931, 4.70387, -10.3011, 7.61316, -11.6292, 11.9929, -9.41565, 15.4398, -5.17822, 18.3807, -6.19014, 16.7679, -10.0955, 12.1826, -13.4792, 8.38791, -16.1355, 4.37183, -15.7402, -0.751041, -15.8825, -2.20568, -14.3488, -6.71191, -13.2262, -11.0284, -11.0126, -13.8903, -8.04006, -15.6295, -5.88972, -16.2778, -1.82621, -16.3884, 0.988205, -18.3807, 2.94881, -18.0961, 6.1427, -17.6217, 8.30885, -18.3174, 10.6173, -17.1316, 14.5385, -17.3687, 16.1355)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path145" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(46.5608, 21.6933)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_l80eg")
+arc_list = SubResource("Resource_rjhjx")
+
+[node name="Stroke" type="Line2D" parent="layer8/path145"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-0.52177, 0.371567, 0.521774, -0.371565)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path146" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(46.2244, 27.8912)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_6gs4j")
+arc_list = SubResource("Resource_xbidt")
+
+[node name="Stroke" type="Line2D" parent="layer8/path146"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(1.17794, -1.80249, 1.79459, -0.426903, 0.751038, 1.80249, -1.79459, -0.869623)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path147" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(47.7502, 31.4092)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_a23qd")
+arc_list = SubResource("Resource_o18jr")
+
+[node name="Stroke" type="Line2D" parent="layer8/path147"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-0.822189, -1.73134, 0.822189, -0.529678, 0.11068, 1.73134)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path148" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(11.6134, 42.6906)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_4gbbf")
+arc_list = SubResource("Resource_mmq4u")
+
+[node name="Stroke" type="Line2D" parent="layer8/path148"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-0.956585, 0.189735, 0.956585, -0.189739)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path149" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(10.8308, 46.7936)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_ne61u")
+arc_list = SubResource("Resource_lkdlt")
+
+[node name="Stroke" type="Line2D" parent="layer8/path149"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(0.996114, 0.00790024, -0.996114, -0.00789642)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path150" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(14.7441, 26.3101)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_548m6")
+arc_list = SubResource("Resource_oqhy3")
+
+[node name="Stroke" type="Line2D" parent="layer8/path150"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-2.03176, 3.9054, -0.166021, 2.89347, 0.909149, 0.553396, 1.9527, -1.72343, 2.03176, -3.9054)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path151" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(35.2593, 40.2873)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_pmp1q")
+arc_list = SubResource("Resource_uddl1")
+
+[node name="Stroke" type="Line2D" parent="layer8/path151"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-1.61275, -18.3728, -2.97253, -16.254, -6.67238, -15.8588, -10.7359, -13.6136, -12.2854, -8.19027, -14.9259, -6.34034, -12.823, -4.41136, -14.4199, -0.901245, -14.4516, 2.60887, -12.5542, 4.49042, -10.1509, 6.35616, -8.98083, 10.4355, -6.66182, 12.7441, -6.64469, 12.7586, -6.64101, 12.7609, -6.64075, 12.7597, -6.63955, 12.7592, -6.6331, 12.7635, -6.60512, 12.7859, -3.00415, 16.0169, 1.2491, 16.3331, 4.71178, 17.3767, 9.55005, 18.3728, 14.9259, 17.7087)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path152" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(44.3429, 57.49)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_2urm7")
+arc_list = SubResource("Resource_j556l")
+
+[node name="Stroke" type="Line2D" parent="layer8/path152"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(0.387375, 1.10679, -0.387379, -1.10679)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path153" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(28.8952, 51.9876)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_crufx")
+arc_list = SubResource("Resource_re5uh")
+
+[node name="Stroke" type="Line2D" parent="layer8/path153"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-1.17794, 0.300415, 1.17794, -0.300415)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path154" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(24.6815, 48.6989)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_2l0rx")
+arc_list = SubResource("Resource_vpejb")
+
+[node name="Stroke" type="Line2D" parent="layer8/path154"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(0.363659, -2.08709, -1.64438, 0.553398, 1.64438, 2.0871)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path155" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(19.7563, 36.6744)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_sklm7")
+arc_list = SubResource("Resource_bcvdj")
+
+[node name="Stroke" type="Line2D" parent="layer8/path155"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(0.640358, -2.71164, -1.05145, 0.65617, 1.05145, 2.71164)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path156" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(22.6655, 33.9627)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_xv7a4")
+arc_list = SubResource("Resource_hulbh")
+
+[node name="Stroke" type="Line2D" parent="layer8/path156"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-0.260887, 1.86574, 0.260887, -1.86573)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path157" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(35.2738, 23.9258)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_l5et2")
+arc_list = SubResource("Resource_1tkpl")
+
+[node name="Stroke" type="Line2D" parent="layer8/path157"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(12.5555, 9.0784, 11.8623, 11.8064, 9.51443, 14.2437, 6.1827, 15.1381, 8.1728, 18.1344, 10.9902, 16.6586, 15.0375, 15.004, 15.1493, 11.717, 16.8711, 7.17775, 19.0177, 5.23238, 18.168, 2.54911, 18.3469, -1.52052, 16.2226, -5.0535, 14.9033, -8.31814, 10.7666, -11.0685, 7.61379, -15.004, 2.51557, -15.9655, -2.09071, -17.3742, -6.40631, -17.1282, -9.2461, -18.1344, -13.8971, -16.5245, -19.0177, -15.5406)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path158" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(33.3508, 7.14421)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_r3lyw")
+arc_list = SubResource("Resource_7nvb6")
+
+[node name="Stroke" type="Line2D" parent="layer8/path158"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-4.5951, -0.39131, -2.40377, 1.26337, -0.0335426, -0.659638, 2.04599, -1.26337, 4.5951, 0.771441)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path159" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(41.2329, 41.0988)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_hdvj4")
+arc_list = SubResource("Resource_ktnx6")
+
+[node name="Stroke" type="Line2D" parent="layer8/path159"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(0.134167, -1.96774, -2.10189, 0.156525, 0.0223618, 1.96773, 2.1019, 0.961506)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path160" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(33.4403, 40.8416)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_mpnxl")
+arc_list = SubResource("Resource_tgo63")
+
+[node name="Stroke" type="Line2D" parent="layer8/path160"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(7.70322, 2.13544, 5.53425, 3.16402, 1.66587, 1.88947, -2.51557, -0.592556, -3.56651, -3.09694, -7.70322, -3.16402, -5.89202, -0.301868, -3.72304, -3.07458)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path161" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(29.2029, 40.3609)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_qgtyw")
+arc_list = SubResource("Resource_o2a31")
+
+[node name="Stroke" type="Line2D" parent="layer8/path161"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-1.72177, 0.156525, 1.72177, -0.156525)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path162" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(44.6876, 33.0042)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_qpjfi")
+arc_list = SubResource("Resource_tjd84")
+
+[node name="Stroke" type="Line2D" parent="layer8/path162"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-12.5107, -9.01132, -13.0474, -7.69205, -17.1618, -4.85225, -18.4363, -1.81121, -17.4301, 0.536652, -19.0177, 1.34163, -18.9059, 4.62864, -18.973, 7.20011, -17.6537, 10.912, -14.1207, 13.1928, -11.9965, 12.7679, -9.51443, 15.6301, -6.65228, 14.0648, -4.99759, 16.1891, -0.927963, 14.4673, 2.02364, 15.3841, 6.02618, 14.6462, 9.93929, 11.8735, 12.7344, 9.25729, 13.2263, 7.22248, 15.7307, 4.69573, 16.7593, 1.27456, 19.0177, -2.83979, 17.6984, -5.47834, 18.8612, -9.43617, 17.7879, -12.3207, 17.6313, -16.1891)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path163" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(49.2268, 46.1299)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_tsnga")
+arc_list = SubResource("Resource_ptb80")
+
+[node name="Stroke" type="Line2D" parent="layer8/path163"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-5.51189, 1.364, -1.48698, 0.26833, 3.0075, -1.36399, 5.51189, -1.31927)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path164" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(37.331, 48.9138)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_3jlsk")
+arc_list = SubResource("Resource_cdh80")
+
+[node name="Stroke" type="Line2D" parent="layer8/path164"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-2.35904, -0.36895, 2.35904, 0.36895)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
+sharp_limit = 4.0
+metadata/_edit_lock_ = true
+
+[node name="path165" type="Node2D" parent="layer8" node_paths=PackedStringArray("line")]
+position = Vector2(30.0526, 43.1448)
+script = ExtResource("2_cbsqf")
+line = NodePath("Stroke")
+curve = SubResource("Curve2D_b06q4")
+arc_list = SubResource("Resource_f6fgn")
+
+[node name="Stroke" type="Line2D" parent="layer8/path165"]
+self_modulate = Color(1, 1, 1, 0.399976)
+points = PackedVector2Array(-2.59383, -2.60501, 0.559017, -0.391308, 2.59383, 2.60501)
+width = 0.264583
+default_color = Color(0.686275, 0.866667, 0.913725, 1)
 sharp_limit = 4.0
 metadata/_edit_lock_ = true
