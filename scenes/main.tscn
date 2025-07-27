@@ -3575,7 +3575,6 @@ meshFile = "res://meshes/planet2.obj"
 camera = NodePath("Camera Pivot/Camera3D")
 front_colour = Color(0.560784, 0.815686, 0.196078, 1)
 back_colour = Color(0.380392, 0.647059, 0.247059, 1)
-alpha = 0.0
 
 [node name="Raymarch" parent="Earth Like/SubViewport" index="0"]
 material = SubResource("ShaderMaterial_dp3eg")
@@ -3592,7 +3591,6 @@ label_settings = SubResource("LabelSettings_jbj1t")
 position = Vector2(-165, 55)
 meshFile = "res://meshes/gas_giant.obj"
 camera = NodePath("Camera Pivot/Camera3D")
-alpha = 0.0
 
 [node name="Raymarch" parent="Gas Giant/SubViewport" index="0"]
 material = SubResource("ShaderMaterial_muem4")
@@ -3634,8 +3632,7 @@ meshFile = "res://meshes/black_hole.obj"
 camera = NodePath("Camera Pivot/Camera3D")
 front_colour = Color(0.77, 0.582633, 0.2079, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
-mesh_scale = 0.95
-alpha = 0.0
+mesh_scale = 0.85
 
 [node name="Raymarch" parent="Black Hole/SubViewport" index="0"]
 material = SubResource("ShaderMaterial_yc10j")
