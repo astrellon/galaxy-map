@@ -1,0 +1,20 @@
+extends Node2D
+
+class_name ShowCelestial
+
+@export_file var meshFile
+@export var backface_culling: bool = true
+@export var wireframe_front_colour: Color = Color.GREEN
+@export var wireframe_back_colour: Color = Color.DARK_GREEN
+@export var wireframe_scale: float = 0.75
+@export var wireframe_mesh_scale: float = 1.0
+@export var max_scale_fov: float = 45
+@export var ignore_line: Vector4
+@export var outline_colour: Color = Color.RED
+
+@export var label: String = "Celestial"
+@export var planet_texture: Texture2D
+@export var raymarch_planet_noise: Vector4
+@export var raymarch_planet_offset: Vector4
+@export var raymarch_ring_params: Vector4 = Vector4(1.1, 0.75, 0.015, 0)
+@export var raymarch_scene: int

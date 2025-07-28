@@ -1,4 +1,4 @@
-[gd_scene load_steps=302 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=306 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="12_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://textures/planet1Gradient.png" id="13_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="13_muem4"]
+[ext_resource type="Script" uid="uid://bd1rfio32u1gx" path="res://scripts/trigger_animation.gd" id="14_fv21b"]
 [ext_resource type="Script" uid="uid://cxjny58riah5m" path="res://scripts/follow_rotation.gd" id="14_y6deb"]
 [ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://shaders/outline.gdshader" id="14_yq6so"]
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="15_fv21b"]
@@ -28,6 +29,8 @@
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="17_muem4"]
 [ext_resource type="Texture2D" uid="uid://rrg0ydujwppb" path="res://textures/blackHoleGradient.png" id="20_gqmmt"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
+[ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
+[ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
 
 [sub_resource type="Curve2D" id="Curve2D_wisxt"]
 _data = {
@@ -1283,6 +1286,8 @@ viewport_path = NodePath("Background/Galaxy 5-4/SubViewport")
 use_colors = true
 mesh = SubResource("QuadMesh_vxglm")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_2f3dj"]
+
 [sub_resource type="QuadMesh" id="QuadMesh_dp3eg"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_0ld40"]
@@ -1313,7 +1318,6 @@ shader_parameter/uReveal = 1.99
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 0.6)
 shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, -0.05)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = false
 shader_parameter/uScene = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jkv2x"]
@@ -1327,7 +1331,7 @@ shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jbj1t"]
-viewport_path = NodePath("Earth Like/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_jbj1t"]
 font = ExtResource("15_fv21b")
@@ -1348,7 +1352,6 @@ shader_parameter/uReveal = 2.0
 shader_parameter/uPlanetNoiseScale = Vector4(0.5, 3, 0.5, 0.865)
 shader_parameter/uPlanetNoiseOffset = Vector4(0.115, 0, 0, 0.035)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = false
 shader_parameter/uScene = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gqmmt"]
@@ -1362,7 +1365,7 @@ shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_jkv2x"]
-viewport_path = NodePath("Gas Giant/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbj1t"]
 shader = ExtResource("17_muem4")
@@ -1375,7 +1378,6 @@ shader_parameter/uReveal = 0.705
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
 shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = false
 shader_parameter/uScene = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0ld40"]
@@ -1389,7 +1391,7 @@ shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0ld40"]
-viewport_path = NodePath("Icosahedron/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_gqmmt"]
 font = ExtResource("15_fv21b")
@@ -1410,7 +1412,6 @@ shader_parameter/uReveal = 2.555
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
 shader_parameter/uPlanetNoiseOffset = Vector4(0.025, 0.11, 0.015, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = 0
 shader_parameter/uScene = 4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jscy8"]
@@ -1424,7 +1425,7 @@ shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gqmmt"]
-viewport_path = NodePath("Black Hole/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_yc10j"]
 font = ExtResource("15_fv21b")
@@ -3469,6 +3470,14 @@ script = ExtResource("3_dp3eg")
 noise_speed = 11.575
 noise_amp = 0.245
 
+[node name="Area2D" type="Area2D" parent="Stars/BigStar1" node_paths=PackedStringArray("target")]
+script = ExtResource("14_fv21b")
+target = NodePath("../../../Earth Like")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar1/Area2D"]
+position = Vector2(9, 9)
+shape = SubResource("CircleShape2D_2f3dj")
+
 [node name="BigStar2" type="Sprite2D" parent="Stars"]
 position = Vector2(54, -26)
 texture = ExtResource("5_gqmmt")
@@ -3585,6 +3594,7 @@ alpha_range = Vector2(0.05, 0.2)
 gradient = SubResource("Gradient_gqmmt")
 
 [node name="Earth Like" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+visible = false
 position = Vector2(-164, -40)
 meshFile = "res://meshes/planet2.obj"
 camera = NodePath("Camera Pivot/Camera3D")
@@ -3603,6 +3613,7 @@ text = "Erathia"
 label_settings = SubResource("LabelSettings_jbj1t")
 
 [node name="Gas Giant" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+visible = false
 position = Vector2(-165, 55)
 meshFile = "res://meshes/gas_giant.obj"
 camera = NodePath("Camera Pivot/Camera3D")
@@ -3620,6 +3631,7 @@ offset_right = 262.0
 text = "Thunders Rest"
 
 [node name="Icosahedron" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+visible = false
 position = Vector2(159, -40)
 meshFile = "res://meshes/dysonSwarm.obj"
 camera = NodePath("Camera Pivot/Camera3D")
@@ -3642,6 +3654,7 @@ text = "The Swarm"
 label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Black Hole" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+visible = false
 position = Vector2(159, 55)
 meshFile = "res://meshes/black_hole.obj"
 camera = NodePath("Camera Pivot/Camera3D")
@@ -3668,6 +3681,13 @@ offset_bottom = 28.0
 text = "Spiral Galaxy"
 label_settings = SubResource("LabelSettings_vxglm")
 horizontal_alignment = 1
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("30_fv21b")
+
+[node name="CelestialParent" type="Node2D" parent="."]
+position = Vector2(-164, -40)
+script = ExtResource("31_tel4y")
 
 [editable path="Earth Like"]
 [editable path="Gas Giant"]

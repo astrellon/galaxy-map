@@ -119,7 +119,7 @@ outline_color = Color(0.690196, 0.356863, 0.172549, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
-[node name="Gas Giant" type="Node2D"]
+[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("animation")]
 script = ExtResource("1_x5fnd")
 meshFile = "res://gasGiant.obj"
 backface_culling = false
@@ -127,12 +127,12 @@ front_colour = Color(0.909804, 0.541176, 0.211765, 1)
 back_colour = Color(0.690196, 0.356863, 0.172549, 1)
 wireframe_scale = 0.0
 max_scale_fov = 100.505
+animation = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_lquwl")
 }
-autoplay = "show_wireframe"
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true

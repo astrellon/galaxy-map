@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Wireframe
+
 @export_file var meshFile
 @export var camera: Camera3D
 @export var backface_culling: bool = true
@@ -10,6 +12,7 @@ extends Node2D
 @export var alpha: float = 1.0
 @export var max_scale_fov: float = 45
 @export var ignore_line: Vector4
+@export var animation: AnimationPlayer
 
 var mesh: MeshFile
 var frame_wait = 2
@@ -20,6 +23,8 @@ var screen_positions: Array[Vector2] = []
 func _ready() -> void:
 	self.mesh = MeshFile.create(self.meshFile)
 	print("Mesh loaded " + str(len(mesh.vertices)))
+	
+	self.animation.play()
 
 func _process(delta: float) -> void:
 	queue_redraw()

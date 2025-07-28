@@ -23,7 +23,6 @@ uniform float uReveal = 2.0;
 uniform vec4 uPlanetNoiseScale = vec4(1.0);
 uniform vec4 uPlanetNoiseOffset = vec4(0.0);
 uniform vec3 uRingParams = vec3(1.1, 0.75, 0.015);
-uniform bvec4 uFlags = bvec4(false);
 uniform int uScene = 0;
 
 #define saturate(x) clamp(x, 0.0, 1.0)
