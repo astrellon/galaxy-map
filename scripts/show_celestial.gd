@@ -2,7 +2,7 @@ extends Node2D
 
 class_name ShowCelestial
 
-@export_file var meshFile
+@export_file var mesh_file
 @export var backface_culling: bool = true
 @export var wireframe_front_colour: Color = Color.GREEN
 @export var wireframe_back_colour: Color = Color.DARK_GREEN
@@ -18,3 +18,12 @@ class_name ShowCelestial
 @export var raymarch_planet_offset: Vector4
 @export var raymarch_ring_params: Vector4 = Vector4(1.1, 0.75, 0.015, 0)
 @export var raymarch_scene: int
+
+@export var target: CelestialParent
+
+func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_mask & MOUSE_BUTTON_MASK_LEFT > 0:
+			print("Clicked")
+			self.target.trigger(self)
+			#self.target.animation.play("show_wireframe")

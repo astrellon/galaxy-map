@@ -95,7 +95,6 @@ shader_parameter/uReveal = 2.0
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
 shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
 shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
-shader_parameter/uFlags = false
 shader_parameter/uScene = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yaehf"]
@@ -119,15 +118,17 @@ outline_color = Color(0.690196, 0.356863, 0.172549, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
-[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("animation")]
+[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label")]
 script = ExtResource("1_x5fnd")
 meshFile = "res://gasGiant.obj"
+camera = NodePath("Camera Pivot/Camera3D")
 backface_culling = false
 front_colour = Color(0.909804, 0.541176, 0.211765, 1)
 back_colour = Color(0.690196, 0.356863, 0.172549, 1)
 wireframe_scale = 0.0
 max_scale_fov = 100.505
 animation = NodePath("AnimationPlayer")
+label = NodePath("Label")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

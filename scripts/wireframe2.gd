@@ -13,21 +13,31 @@ class_name Wireframe
 @export var max_scale_fov: float = 45
 @export var ignore_line: Vector4
 @export var animation: AnimationPlayer
+@export var label: Label
 
 var mesh: MeshFile
 var frame_wait = 2
 
 var front_faces: Array[ScreenFace]
 var screen_positions: Array[Vector2] = []
+var inited = false
 
-func _ready() -> void:
+func init(info: ShowCelestial) -> void:
+	if self.inited:
+		return
+	
+	self.meshFile = info.mesh_file
+	self.label.text = info.label
+	
+	self.inited = true
 	self.mesh = MeshFile.create(self.meshFile)
 	print("Mesh loaded " + str(len(mesh.vertices)))
 	
-	self.animation.play()
+	self.animation.play("show_wireframe")
 
 func _process(delta: float) -> void:
-	queue_redraw()
+	if self.inited:
+		queue_redraw()
 	
 func _draw() -> void:
 	if self.wireframe_scale < 0.0001 || self.alpha < 0.0001:

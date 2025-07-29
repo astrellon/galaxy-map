@@ -1,4 +1,4 @@
-[gd_scene load_steps=306 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=305 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://h45v08kavbbi" path="res://textures/noise.png" id="12_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://textures/planet1Gradient.png" id="13_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="13_muem4"]
-[ext_resource type="Script" uid="uid://bd1rfio32u1gx" path="res://scripts/trigger_animation.gd" id="14_fv21b"]
 [ext_resource type="Script" uid="uid://cxjny58riah5m" path="res://scripts/follow_rotation.gd" id="14_y6deb"]
 [ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://shaders/outline.gdshader" id="14_yq6so"]
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="15_fv21b"]
@@ -3471,8 +3470,11 @@ noise_speed = 11.575
 noise_amp = 0.245
 
 [node name="Area2D" type="Area2D" parent="Stars/BigStar1" node_paths=PackedStringArray("target")]
-script = ExtResource("14_fv21b")
-target = NodePath("../../../Earth Like")
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/planet2.obj"
+label = "Earth Like 2"
+planet_texture = ExtResource("13_jbj1t")
+target = NodePath("../../../CelestialParent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar1/Area2D"]
 position = Vector2(9, 9)
@@ -3681,9 +3683,6 @@ offset_bottom = 28.0
 text = "Spiral Galaxy"
 label_settings = SubResource("LabelSettings_vxglm")
 horizontal_alignment = 1
-
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("30_fv21b")
 
 [node name="CelestialParent" type="Node2D" parent="."]
 position = Vector2(-164, -40)
