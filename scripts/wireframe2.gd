@@ -14,6 +14,7 @@ class_name Wireframe
 @export var ignore_line: Vector4
 @export var animation: AnimationPlayer
 @export var label: Label
+@export var raymarch_node: Raymarch
 
 var mesh: MeshFile
 var frame_wait = 2
@@ -32,6 +33,8 @@ func init(info: ShowCelestial) -> void:
 	self.inited = true
 	self.mesh = MeshFile.create(self.meshFile)
 	print("Mesh loaded " + str(len(mesh.vertices)))
+	
+	self.raymarch_node.init(info)
 	
 	self.animation.play("show_wireframe")
 

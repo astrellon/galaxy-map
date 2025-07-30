@@ -14,7 +14,6 @@ func trigger(info: ShowCelestial) -> void:
 	add_child(self.current_scene)
 	
 	self.current_scene.init(info)
-	#self.current_scene.jk
 
 func remove_current_scene() -> void:
 	remove_child(self.current_scene)

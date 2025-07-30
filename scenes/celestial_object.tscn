@@ -118,7 +118,7 @@ outline_color = Color(0.690196, 0.356863, 0.172549, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
-[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label")]
+[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label", "raymarch_node")]
 script = ExtResource("1_x5fnd")
 meshFile = "res://gasGiant.obj"
 camera = NodePath("Camera Pivot/Camera3D")
@@ -129,6 +129,7 @@ wireframe_scale = 0.0
 max_scale_fov = 100.505
 animation = NodePath("AnimationPlayer")
 label = NodePath("Label")
+raymarch_node = NodePath("SubViewport/Raymarch")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
