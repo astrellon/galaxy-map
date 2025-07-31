@@ -39,7 +39,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_h2yge"]
 resource_name = "show_wireframe"
-length = 7.0
+length = 4.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -47,7 +47,7 @@ tracks/0/path = NodePath(".:wireframe_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.633333, 2.63333),
+"times": PackedFloat32Array(0.0333331, 1.2),
 "transitions": PackedFloat32Array(0.5, 0.5),
 "update": 0,
 "values": [0.0, 1.0]
@@ -59,7 +59,7 @@ tracks/1/path = NodePath("SubViewport/Raymarch:reveal")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2.73333, 6.93333),
+"times": PackedFloat32Array(1.3, 4.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-0.2, 1.6]
@@ -71,7 +71,7 @@ tracks/2/path = NodePath(".:alpha")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(4.33333, 4.66667),
+"times": PackedFloat32Array(2.33333, 2.66667),
 "transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [1.0, 0.0]
@@ -119,7 +119,6 @@ shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
 [node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label", "raymarch_node", "outline_node")]
 script = ExtResource("1_x5fnd")
-meshFile = "res://gasGiant.obj"
 camera = NodePath("Camera Pivot/Camera3D")
 backface_culling = false
 front_colour = Color(0.909804, 0.541176, 0.211765, 1)

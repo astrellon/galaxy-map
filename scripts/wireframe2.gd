@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Wireframe
 
-@export_file var meshFile
+@export_file var mesh_file
 @export var camera: Camera3D
 @export var backface_culling: bool = true
 @export var front_colour: Color = Color.GREEN
@@ -16,6 +16,7 @@ class_name Wireframe
 @export var label: Label
 @export var raymarch_node: Raymarch
 @export var outline_node: Outline
+@export var auto_start = false
 
 var mesh: MeshFile
 var frame_wait = 2
@@ -27,28 +28,39 @@ var inited = false
 var do_hide = false
 var wireframe_hidden = false
 
+func _ready() -> void:
+	if self.auto_start:
+		self.mesh = MeshFile.create(self.mesh_file)
+		self.inited = true
+		print("Mesh loaded " + str(len(mesh.vertices)))
+		self.animation.play("show_wireframe")
+
 func init(info: ShowCelestial) -> void:
 	if self.inited:
 		return
-	
-	self.meshFile = info.mesh_file
+
+	self.mesh_file = info.mesh_file
+	self.mesh_scale = info.wireframe_mesh_scale
+	self.wireframe_scale = info.wireframe_scale
+	self.max_scale_fov = info.max_scale_fov
+	self.backface_culling = info.backface_culling
 	if info.label_colour.a < 0.01:
 		self.label.label_settings.font_color = info.wireframe_front_colour
 	else:
 		self.label.label_settings.font_color = info.label_colour
-	
+
 	self.label.text = info.label
-	
+
 	self.inited = true
-	self.mesh = MeshFile.create(self.meshFile)
+	self.mesh = MeshFile.create(self.mesh_file)
 	print("Mesh loaded " + str(len(mesh.vertices)))
-	
+
 	self.front_colour = info.wireframe_front_colour
 	self.back_colour = info.wireframe_back_colour
-	
+
 	self.outline_node.init(info)
 	self.raymarch_node.init(info)
-	
+
 	self.animation.play("show_wireframe")
 
 func hide_wireframe() -> void:
@@ -58,23 +70,22 @@ func hide_wireframe() -> void:
 func _process(delta: float) -> void:
 	if self.wireframe_hidden:
 		return
-		
+
 	if self.inited:
 		if self.do_hide:
 			self.alpha = clampf(self.alpha - delta, 0.0, 1.0)
 			self.raymarch_node.reveal = clamp(self.raymarch_node.reveal - delta, 0.0, 1.0)
-			print('Hiding: ' + str(self.alpha) + ', ' + str(self.raymarch_node.reveal))
 			if self.alpha <= 0.0 and self.raymarch_node.reveal <= 0.0:
 				print('Hidden!')
 				self.wireframe_hidden = true
 				return
-			
+
 		queue_redraw()
-	
+
 func _draw() -> void:
 	if self.wireframe_scale < 0.0001 || self.alpha < 0.0001:
 		return
-		
+
 	if self.frame_wait > 0:
 		self.frame_wait = self.frame_wait - 1
 		return
@@ -84,10 +95,10 @@ func _draw() -> void:
 
 	var has_ignore = self.ignore_line.length() > 0.1
 	var ignore_dir = Vector3(self.ignore_line.x, self.ignore_line.y, self.ignore_line.z)
-	
+
 	var back_colour = Color(self.back_colour, self.alpha)
 	var front_colour = Color(self.front_colour, self.alpha)
-	
+
 	front_faces.clear()
 
 	for f in self.mesh.faces:

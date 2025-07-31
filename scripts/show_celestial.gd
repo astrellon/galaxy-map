@@ -3,7 +3,7 @@ extends Node2D
 class_name ShowCelestial
 
 @export_file var mesh_file
-@export var backface_culling: bool = true
+@export var backface_culling: bool = false
 @export var wireframe_front_colour: Color = Color.GREEN
 @export var wireframe_back_colour: Color = Color.DARK_GREEN
 @export var wireframe_scale: float = 0.75
@@ -13,6 +13,7 @@ class_name ShowCelestial
 @export var outline_colour: Color = Color.RED
 @export var outline_inside: bool
 @export var outline_pattern: int
+@export var outline_threshold = 0.0
 
 @export var label: String = "Celestial"
 @export var label_colour = Color.TRANSPARENT
