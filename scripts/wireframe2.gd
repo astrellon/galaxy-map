@@ -24,6 +24,9 @@ var front_faces: Array[ScreenFace]
 var screen_positions: Array[Vector2] = []
 var inited = false
 
+var do_hide = false
+var wireframe_hidden = false
+
 func init(info: ShowCelestial) -> void:
 	if self.inited:
 		return
@@ -48,8 +51,24 @@ func init(info: ShowCelestial) -> void:
 	
 	self.animation.play("show_wireframe")
 
+func hide_wireframe() -> void:
+	self.animation.stop(true)
+	self.do_hide = true
+
 func _process(delta: float) -> void:
+	if self.wireframe_hidden:
+		return
+		
 	if self.inited:
+		if self.do_hide:
+			self.alpha = clampf(self.alpha - delta, 0.0, 1.0)
+			self.raymarch_node.reveal = clamp(self.raymarch_node.reveal - delta, 0.0, 1.0)
+			print('Hiding: ' + str(self.alpha) + ', ' + str(self.raymarch_node.reveal))
+			if self.alpha <= 0.0 and self.raymarch_node.reveal <= 0.0:
+				print('Hidden!')
+				self.wireframe_hidden = true
+				return
+			
 		queue_redraw()
 	
 func _draw() -> void:
