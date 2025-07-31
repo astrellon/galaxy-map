@@ -10,6 +10,8 @@ func _process(delta: float) -> void:
 	var cameraTrans = self.camera.get_global_transform_interpolated()
 	var basis = cameraTrans.basis
 	
+	#print('Raymarch reveal: ' + str(selfreveal) + " - " + str(self.material.get_shader_parameter('uScene')))
+	
 	self.material.set_shader_parameter('uCameraPosition', cameraTrans.origin)
 	self.material.set_shader_parameter('uCameraMatrix', basis)
 	

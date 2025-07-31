@@ -15,6 +15,7 @@ class_name Wireframe
 @export var animation: AnimationPlayer
 @export var label: Label
 @export var raymarch_node: Raymarch
+@export var outline_node: Outline
 
 var mesh: MeshFile
 var frame_wait = 2
@@ -28,12 +29,21 @@ func init(info: ShowCelestial) -> void:
 		return
 	
 	self.meshFile = info.mesh_file
+	if info.label_colour.a < 0.01:
+		self.label.label_settings.font_color = info.wireframe_front_colour
+	else:
+		self.label.label_settings.font_color = info.label_colour
+	
 	self.label.text = info.label
 	
 	self.inited = true
 	self.mesh = MeshFile.create(self.meshFile)
 	print("Mesh loaded " + str(len(mesh.vertices)))
 	
+	self.front_colour = info.wireframe_front_colour
+	self.back_colour = info.wireframe_back_colour
+	
+	self.outline_node.init(info)
 	self.raymarch_node.init(info)
 	
 	self.animation.play("show_wireframe")

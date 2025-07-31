@@ -1,4 +1,4 @@
-[gd_scene load_steps=305 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=306 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -1284,6 +1284,8 @@ viewport_path = NodePath("Background/Galaxy 5-4/SubViewport")
 [sub_resource type="MultiMesh" id="MultiMesh_2f3dj"]
 use_colors = true
 mesh = SubResource("QuadMesh_vxglm")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fv21b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2f3dj"]
 
@@ -3454,16 +3456,26 @@ script = ExtResource("14_y6deb")
 follow = NodePath("../Background")
 
 [node name="BigStar4" type="Sprite2D" parent="Stars"]
-position = Vector2(-101, -15)
-texture = ExtResource("2_muem4")
+position = Vector2(25, 30)
+texture = ExtResource("4_0ld40")
 centered = false
 script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.3
 
+[node name="Area2D" type="Area2D" parent="Stars/BigStar4" node_paths=PackedStringArray("target")]
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/torus_knot.obj"
+planet_texture = ExtResource("13_muem4")
+target = NodePath("../../../CelestialParent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar4/Area2D"]
+position = Vector2(9, 9)
+shape = SubResource("CircleShape2D_fv21b")
+
 [node name="BigStar1" type="Sprite2D" parent="Stars"]
-position = Vector2(22, 27)
-texture = ExtResource("4_0ld40")
+position = Vector2(-105, -17)
+texture = ExtResource("2_muem4")
 centered = false
 script = ExtResource("3_dp3eg")
 noise_speed = 11.575
@@ -3472,8 +3484,13 @@ noise_amp = 0.245
 [node name="Area2D" type="Area2D" parent="Stars/BigStar1" node_paths=PackedStringArray("target")]
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
+wireframe_front_colour = Color(0.560784, 0.815686, 0.196078, 1)
+wireframe_back_colour = Color(0.380392, 0.647059, 0.247059, 1)
+outline_colour = Color(0.560784, 0.815686, 0.196078, 1)
 label = "Earth Like 2"
 planet_texture = ExtResource("13_jbj1t")
+raymarch_planet_noise = Vector4(1, 1, 1, 0.6)
+raymarch_planet_offset = Vector4(0, 0, 0, -0.05)
 target = NodePath("../../../CelestialParent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar1/Area2D"]
@@ -3595,11 +3612,11 @@ follow_rotation = NodePath("../Background")
 alpha_range = Vector2(0.05, 0.2)
 gradient = SubResource("Gradient_gqmmt")
 
-[node name="Earth Like" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+[node name="Earth Like" parent="." instance=ExtResource("16_tel4y")]
+process_mode = 4
 visible = false
 position = Vector2(-164, -40)
 meshFile = "res://meshes/planet2.obj"
-camera = NodePath("Camera Pivot/Camera3D")
 front_colour = Color(0.560784, 0.815686, 0.196078, 1)
 back_colour = Color(0.380392, 0.647059, 0.247059, 1)
 
@@ -3614,11 +3631,11 @@ texture = SubResource("ViewportTexture_jbj1t")
 text = "Erathia"
 label_settings = SubResource("LabelSettings_jbj1t")
 
-[node name="Gas Giant" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+[node name="Gas Giant" parent="." instance=ExtResource("16_tel4y")]
+process_mode = 4
 visible = false
 position = Vector2(-165, 55)
 meshFile = "res://meshes/gas_giant.obj"
-camera = NodePath("Camera Pivot/Camera3D")
 
 [node name="Raymarch" parent="Gas Giant/SubViewport" index="0"]
 material = SubResource("ShaderMaterial_muem4")
@@ -3632,11 +3649,11 @@ offset_left = 190.0
 offset_right = 262.0
 text = "Thunders Rest"
 
-[node name="Icosahedron" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+[node name="Icosahedron" parent="." instance=ExtResource("16_tel4y")]
+process_mode = 4
 visible = false
 position = Vector2(159, -40)
 meshFile = "res://meshes/dysonSwarm.obj"
-camera = NodePath("Camera Pivot/Camera3D")
 front_colour = Color(0.501961, 0.482353, 0.478431, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 mesh_scale = 1.45
@@ -3655,11 +3672,11 @@ offset_bottom = 95.0
 text = "The Swarm"
 label_settings = SubResource("LabelSettings_gqmmt")
 
-[node name="Black Hole" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("16_tel4y")]
+[node name="Black Hole" parent="." instance=ExtResource("16_tel4y")]
+process_mode = 4
 visible = false
 position = Vector2(159, 55)
 meshFile = "res://meshes/black_hole.obj"
-camera = NodePath("Camera Pivot/Camera3D")
 front_colour = Color(0.77, 0.582633, 0.2079, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 mesh_scale = 0.85
