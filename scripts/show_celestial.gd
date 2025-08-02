@@ -9,6 +9,7 @@ class_name ShowCelestial
 @export var wireframe_scale: float = 0.75
 @export var wireframe_mesh_scale: float = 1.0
 @export var max_scale_fov: float = 45
+@export var reveal_type: Wireframe.RevealType = Wireframe.RevealType.ALPHA
 @export var ignore_line: Vector4
 @export var outline_colour: Color = Color.RED
 @export var outline_inside: bool

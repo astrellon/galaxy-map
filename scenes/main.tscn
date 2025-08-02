@@ -1,4 +1,4 @@
-[gd_scene load_steps=306 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=308 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -1289,6 +1289,11 @@ mesh = SubResource("QuadMesh_vxglm")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2f3dj"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tel4y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qkpxi"]
+radius = 13.0
+
 [sub_resource type="QuadMesh" id="QuadMesh_dp3eg"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_0ld40"]
@@ -1392,7 +1397,7 @@ shader_parameter/only_border = false
 shader_parameter/add_margins = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0ld40"]
-viewport_path = NodePath("Icosahedron/SubViewport")
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_gqmmt"]
 font = ExtResource("15_fv21b")
@@ -1542,6 +1547,7 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_0470j")
 arc_list = SubResource("Resource_ivgg2")
+metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer2/path19Transform/path19"]
 color = Color(0.105882, 0.141176, 0.278431, 1)
@@ -1584,6 +1590,7 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_0y13x")
 arc_list = SubResource("Resource_iquee")
+metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer2/path43"]
 color = Color(0.054902, 0.0666667, 0.105882, 1)
@@ -1857,6 +1864,7 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_mp7i3")
 arc_list = SubResource("Resource_adn81")
+metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer3/path50"]
 color = Color(0.168627, 0.305882, 0.584314, 1)
@@ -3455,7 +3463,7 @@ position = Vector2(227, 128)
 script = ExtResource("14_y6deb")
 follow = NodePath("../Background")
 
-[node name="BigStar4" type="Sprite2D" parent="Stars"]
+[node name="The Swarm" type="Sprite2D" parent="Stars"]
 position = Vector2(25, 30)
 texture = ExtResource("4_0ld40")
 centered = false
@@ -3463,13 +3471,14 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.3
 
-[node name="Area2D" type="Area2D" parent="Stars/BigStar4" node_paths=PackedStringArray("target")]
+[node name="Area2D" type="Area2D" parent="Stars/The Swarm" node_paths=PackedStringArray("target")]
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/dysonSwarm.obj"
 wireframe_front_colour = Color(0.501961, 0.482353, 0.478431, 1)
 wireframe_back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 wireframe_mesh_scale = 1.45
-max_scale_fov = 100.505
+max_scale_fov = 102.0
+reveal_type = 1
 outline_colour = Color(0.803815, 0.724172, 0.884842, 1)
 outline_inside = true
 outline_pattern = 3
@@ -3480,7 +3489,7 @@ planet_texture = ExtResource("17_dp3eg")
 raymarch_scene = 2
 target = NodePath("../../../CelestialParent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar4/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/The Swarm/Area2D"]
 position = Vector2(9, 9)
 shape = SubResource("CircleShape2D_fv21b")
 
@@ -3497,9 +3506,10 @@ script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.560784, 0.815686, 0.196078, 1)
 wireframe_back_colour = Color(0.380392, 0.647059, 0.247059, 1)
-max_scale_fov = 100.505
+max_scale_fov = 100.0
+reveal_type = 1
 outline_colour = Color(0.560784, 0.815686, 0.196078, 1)
-label = "Earth Like 2"
+label = "Earthrathia"
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(1, 1, 1, 0.6)
 raymarch_planet_offset = Vector4(0, 0, 0, -0.05)
@@ -3516,6 +3526,25 @@ centered = false
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.25
+
+[node name="Area2D" type="Area2D" parent="Stars/BigStar2" node_paths=PackedStringArray("target")]
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/gas_giant.obj"
+wireframe_front_colour = Color(0.909804, 0.541176, 0.211765, 1)
+wireframe_back_colour = Color(0.690196, 0.356863, 0.172549, 1)
+max_scale_fov = 100.0
+reveal_type = 1
+outline_colour = Color(0.909804, 0.541176, 0.211765, 1)
+label = "Thunders Rest"
+planet_texture = ExtResource("13_muem4")
+raymarch_planet_noise = Vector4(0.5, 3, 0.5, 0.865)
+raymarch_planet_offset = Vector4(0.115, 0, 0, 0.035)
+raymarch_scene = 1
+target = NodePath("../../../CelestialParent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar2/Area2D"]
+position = Vector2(9, 9)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar3" type="Sprite2D" parent="Stars"]
 position = Vector2(-105, 43)
@@ -3612,6 +3641,25 @@ centered = false
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
+
+[node name="Node2D" type="Node2D" parent="Stars"]
+
+[node name="Area2D" type="Area2D" parent="Stars/Node2D" node_paths=PackedStringArray("target")]
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/black_hole.obj"
+wireframe_front_colour = Color(0.77, 0.582633, 0.2079, 1)
+wireframe_back_colour = Color(0.34902, 0.341176, 0.341176, 1)
+max_scale_fov = 100.0
+reveal_type = 1
+outline_colour = Color(0.788235, 0.831373, 0.992157, 1)
+label = "Jewell"
+planet_texture = ExtResource("20_gqmmt")
+raymarch_planet_offset = Vector4(0.025, 0.11, 0.015, 0)
+raymarch_scene = 4
+target = NodePath("../../../CelestialParent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Node2D/Area2D"]
+shape = SubResource("CircleShape2D_qkpxi")
 
 [node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("follow_rotation")]
 multimesh = SubResource("MultiMesh_0ld40")

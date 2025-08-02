@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Wireframe
 
+enum RevealType { ALPHA, LINE_BY_LINE }
+
 @export_file var mesh_file
 @export var camera: Camera3D
 @export var backface_culling: bool = true
@@ -9,7 +11,6 @@ class_name Wireframe
 @export var back_colour: Color = Color.DARK_GREEN
 @export var wireframe_scale: float = 0.75
 @export var mesh_scale: float = 1.0
-@export var alpha: float = 1.0
 @export var max_scale_fov: float = 45
 @export var ignore_line: Vector4
 @export var animation: AnimationPlayer
@@ -17,8 +18,13 @@ class_name Wireframe
 @export var raymarch_node: Raymarch
 @export var outline_node: Outline
 @export var auto_start = false
+@export var reveal: float = 0.0
+@export var reveal_type: RevealType = RevealType.ALPHA
+
+var alpha: float = 1.0
 
 var mesh: MeshFile
+var total_lines_to_draw = 0
 var frame_wait = 2
 
 var front_faces: Array[ScreenFace]
@@ -28,11 +34,19 @@ var inited = false
 var do_hide = false
 var wireframe_hidden = false
 
+func calc_num_total_lines() -> int:
+	var total: int = 0
+	for f in self.mesh.faces:
+		total += len(f.faces)
+
+	return total
+
 func _ready() -> void:
 	if self.auto_start:
 		self.mesh = MeshFile.create(self.mesh_file)
+		self.total_lines_to_draw = self.calc_num_total_lines()
 		self.inited = true
-		print("Mesh loaded " + str(len(mesh.vertices)))
+		print("Mesh loaded " + str(len(self.mesh.vertices)))
 		self.animation.play("show_wireframe")
 
 func init(info: ShowCelestial) -> void:
@@ -44,6 +58,7 @@ func init(info: ShowCelestial) -> void:
 	self.wireframe_scale = info.wireframe_scale
 	self.max_scale_fov = info.max_scale_fov
 	self.backface_culling = info.backface_culling
+	self.reveal_type = info.reveal_type
 	if info.label_colour.a < 0.01:
 		self.label.label_settings.font_color = info.wireframe_front_colour
 	else:
@@ -54,6 +69,7 @@ func init(info: ShowCelestial) -> void:
 	self.inited = true
 	self.mesh = MeshFile.create(self.mesh_file)
 	print("Mesh loaded " + str(len(mesh.vertices)))
+	self.total_lines_to_draw = self.calc_num_total_lines()
 
 	self.front_colour = info.wireframe_front_colour
 	self.back_colour = info.wireframe_back_colour
@@ -73,9 +89,9 @@ func _process(delta: float) -> void:
 
 	if self.inited:
 		if self.do_hide:
-			self.alpha = clampf(self.alpha - delta, 0.0, 1.0)
+			self.reveal = clampf(self.reveal - delta, 0.0, 1.0)
 			self.raymarch_node.reveal = clamp(self.raymarch_node.reveal - delta, 0.0, 1.0)
-			if self.alpha <= 0.0 and self.raymarch_node.reveal <= 0.0:
+			if self.reveal <= 0.0 and self.raymarch_node.reveal <= 0.0:
 				print('Hidden!')
 				self.wireframe_hidden = true
 				return
@@ -83,21 +99,30 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 func _draw() -> void:
-	if self.wireframe_scale < 0.0001 || self.alpha < 0.0001:
+	if self.wireframe_scale < 0.0001 || self.reveal < 0.0001:
 		return
 
 	if self.frame_wait > 0:
 		self.frame_wait = self.frame_wait - 1
 		return
 
-	var fov = lerpf(180, self.max_scale_fov, self.wireframe_scale)
-	self.camera.fov = fov
+	if self.reveal_type == RevealType.ALPHA:
+		var fov = lerpf(180, self.max_scale_fov, self.wireframe_scale)
+		self.camera.fov = fov
+		self.alpha = self.reveal
+	elif self.reveal_type == RevealType.LINE_BY_LINE:
+		self.camera.fov = self.max_scale_fov
 
 	var has_ignore = self.ignore_line.length() > 0.1
 	var ignore_dir = Vector3(self.ignore_line.x, self.ignore_line.y, self.ignore_line.z)
 
+
 	var back_colour = Color(self.back_colour, self.alpha)
 	var front_colour = Color(self.front_colour, self.alpha)
+
+	var num_lines_to_draw = self.total_lines_to_draw
+	if self.reveal_type == RevealType.LINE_BY_LINE:
+		num_lines_to_draw = roundi(num_lines_to_draw * self.reveal)
 
 	front_faces.clear()
 
@@ -107,6 +132,10 @@ func _draw() -> void:
 		var prev_world = Vector3.ZERO
 		var has_prev_world = false
 		for fv in f.faces:
+			num_lines_to_draw -= 1
+			if num_lines_to_draw <= 0:
+				break
+
 			var current = self.mesh.vertices[fv.x] * self.mesh_scale
 			var next = self.camera.unproject_position(current)
 
