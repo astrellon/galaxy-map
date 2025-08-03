@@ -97,6 +97,8 @@ func _process(delta: float) -> void:
 		if self.do_hide:
 			self.reveal_lines = clampf(self.reveal_lines - delta, 0.0, 1.0)
 			self.raymarch_node.reveal = clamp(self.raymarch_node.reveal - delta, 0.0, 1.0)
+			self.alpha = clampf(self.alpha - delta, 0.0, 1.0)
+			self.label.visible_ratio = clampf(self.label.visible_ratio - delta, 0.0, 1.0)
 			if self.reveal_lines <= 0.0 and self.raymarch_node.reveal <= 0.0:
 				print('Hidden!')
 				self.wireframe_hidden = true
