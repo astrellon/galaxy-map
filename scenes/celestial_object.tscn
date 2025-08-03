@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://xrnrgaclsms6"]
+[gd_scene load_steps=18 format=3 uid="uid://xrnrgaclsms6"]
 
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="1_x5fnd"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="2_wu8c0"]
@@ -36,6 +36,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0582358]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:alpha")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_h2yge"]
 resource_name = "show_wireframe"
@@ -43,7 +55,7 @@ length = 4.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:wireframe_scale")
+tracks/0/path = NodePath(".:reveal_camera_fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -67,7 +79,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:reveal")
+tracks/2/path = NodePath(".:alpha")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -77,10 +89,63 @@ tracks/2/keys = {
 "values": [0.0, 1.0]
 }
 
+[sub_resource type="Animation" id="Animation_ix6hq"]
+resource_name = "reveal_line_by_line"
+length = 4.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:reveal_camera_fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333331, 1.2),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [1.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/Raymarch:reveal")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.3, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.2, 1.6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:reveal_lines")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 1.23333),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:alpha")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3.96667, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lquwl"]
 _data = {
 &"RESET": SubResource("Animation_1bvp3"),
-&"show_wireframe": SubResource("Animation_h2yge")
+&"reveal_alpha": SubResource("Animation_h2yge"),
+&"reveal_line_by_line": SubResource("Animation_ix6hq")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cegan"]
@@ -123,12 +188,12 @@ camera = NodePath("Camera Pivot/Camera3D")
 backface_culling = false
 front_colour = Color(0.909804, 0.541176, 0.211765, 1)
 back_colour = Color(0.690196, 0.356863, 0.172549, 1)
-wireframe_scale = 0.0
-max_scale_fov = 100.505
 animation = NodePath("AnimationPlayer")
 label = NodePath("Label")
 raymarch_node = NodePath("SubViewport/Raymarch")
 outline_node = NodePath("Outline")
+reveal_lines = 0.0
+alpha = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -9,10 +9,7 @@ enum RevealType { ALPHA, LINE_BY_LINE }
 @export var backface_culling: bool = true
 @export var front_colour: Color = Color.GREEN
 @export var back_colour: Color = Color.DARK_GREEN
-@export var wireframe_scale: float = 0.75
 @export var mesh_scale: float = 1.0
-@export var target_camera_fov: float = 100
-@export var camera_fov: float = 100
 @export var ignore_line: Vector4
 @export var animation: AnimationPlayer
 @export var label: Label
@@ -23,6 +20,8 @@ enum RevealType { ALPHA, LINE_BY_LINE }
 @export var reveal_lines: float = 1.0
 @export var reveal_type: RevealType = RevealType.ALPHA
 @export var alpha: float = 1.0
+@export var target_camera_fov: float = 100
+@export var reveal_camera_fov: float = 1.0
 
 var mesh: MeshFile
 var total_lines_to_draw = 0
@@ -48,7 +47,7 @@ func _ready() -> void:
 		self.total_lines_to_draw = self.calc_num_total_lines()
 		self.inited = true
 		print("Mesh loaded " + str(len(self.mesh.vertices)))
-		self.animation.play("show_wireframe")
+		self.play_start_animation()
 
 func init(info: ShowCelestial) -> void:
 	if self.inited:
@@ -56,7 +55,6 @@ func init(info: ShowCelestial) -> void:
 
 	self.mesh_file = info.mesh_file
 	self.mesh_scale = info.wireframe_mesh_scale
-	self.wireframe_scale = info.wireframe_scale
 	self.target_camera_fov = info.target_camera_fov
 	self.backface_culling = info.backface_culling
 	self.reveal_type = info.reveal_type
@@ -78,7 +76,14 @@ func init(info: ShowCelestial) -> void:
 	self.outline_node.init(info)
 	self.raymarch_node.init(info)
 
-	self.animation.play("show_wireframe")
+	#self.animation.play("show_wireframe")
+	self.play_start_animation()
+
+func play_start_animation() -> void:
+	if self.reveal_type == RevealType.ALPHA:
+		self.animation.play("reveal_alpha")
+	elif self.reveal_type == RevealType.LINE_BY_LINE:
+		self.animation.play("reveal_line_by_line")
 
 func hide_wireframe() -> void:
 	self.animation.stop(true)
@@ -100,19 +105,15 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 func _draw() -> void:
-	if self.wireframe_scale < 0.0001 || self.reveal_lines < 0.0001:
+	if self.reveal_camera_fov < 0.0001 || self.reveal_lines < 0.0001:
 		return
 
 	if self.frame_wait > 0:
 		self.frame_wait = self.frame_wait - 1
 		return
 
-	# if self.reveal_type == RevealType.ALPHA:
-	# 	var fov = lerpf(180, self.max_scale_fov, self.wireframe_scale)
-	# 	self.camera.fov = fov
-	# 	self.alpha = self.reveal
-	# elif self.reveal_type == RevealType.LINE_BY_LINE:
-	# 	self.camera.fov = self.max_scale_fov
+	var fov = lerpf(180, self.target_camera_fov, self.reveal_camera_fov)
+	self.camera.fov = fov
 
 	var has_ignore = self.ignore_line.length() > 0.1
 	var ignore_dir = Vector3(self.ignore_line.x, self.ignore_line.y, self.ignore_line.z)
@@ -122,8 +123,8 @@ func _draw() -> void:
 	var front_colour = Color(self.front_colour, self.alpha)
 
 	var num_lines_to_draw = self.total_lines_to_draw
-	if self.reveal_type == RevealType.LINE_BY_LINE:
-		num_lines_to_draw = roundi(num_lines_to_draw * self.reveal)
+	#if self.reveal_type == RevealType.LINE_BY_LINE:
+	num_lines_to_draw = roundi(num_lines_to_draw * self.reveal_lines)
 
 	front_faces.clear()
 
