@@ -3472,6 +3472,7 @@ noise_speed = 10.0
 noise_amp = 0.3
 
 [node name="Area2D" type="Area2D" parent="Stars/The Swarm" node_paths=PackedStringArray("target")]
+position = Vector2(5, 5)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/dysonSwarm.obj"
 wireframe_front_colour = Color(0.501961, 0.482353, 0.478431, 1)
@@ -3490,7 +3491,7 @@ raymarch_scene = 2
 target = NodePath("../../../CelestialParent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/The Swarm/Area2D"]
-position = Vector2(9, 9)
+position = Vector2(3, 3)
 shape = SubResource("CircleShape2D_fv21b")
 
 [node name="EarthLike" type="Sprite2D" parent="Stars"]
@@ -3502,6 +3503,7 @@ noise_speed = 11.575
 noise_amp = 0.245
 
 [node name="Area2D" type="Area2D" parent="Stars/EarthLike" node_paths=PackedStringArray("target")]
+position = Vector2(5, 5)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.560784, 0.815686, 0.196078, 1)
@@ -3515,7 +3517,7 @@ raymarch_planet_offset = Vector4(0, 0, 0, -0.05)
 target = NodePath("../../../CelestialParent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/EarthLike/Area2D"]
-position = Vector2(9, 9)
+position = Vector2(3, 3)
 shape = SubResource("CircleShape2D_2f3dj")
 
 [node name="BigStar2" type="Sprite2D" parent="Stars"]
@@ -3527,6 +3529,7 @@ noise_speed = 14.0
 noise_amp = 0.25
 
 [node name="Area2D" type="Area2D" parent="Stars/BigStar2" node_paths=PackedStringArray("target")]
+position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/gas_giant.obj"
 wireframe_front_colour = Color(0.909804, 0.541176, 0.211765, 1)
@@ -3541,7 +3544,7 @@ raymarch_scene = 1
 target = NodePath("../../../CelestialParent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar2/Area2D"]
-position = Vector2(9, 9)
+position = Vector2(4, 4)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar3" type="Sprite2D" parent="Stars"]
@@ -3643,6 +3646,7 @@ noise_amp = 0.3
 [node name="Jewell" type="Node2D" parent="Stars"]
 
 [node name="Area2D" type="Area2D" parent="Stars/Jewell" node_paths=PackedStringArray("target")]
+position = Vector2(-3, -3)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/black_hole.obj"
 wireframe_front_colour = Color(0.77, 0.582633, 0.2079, 1)
@@ -3656,6 +3660,7 @@ raymarch_scene = 4
 target = NodePath("../../../CelestialParent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Jewell/Area2D"]
+position = Vector2(4, 4)
 shape = SubResource("CircleShape2D_qkpxi")
 
 [node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("follow_rotation")]
@@ -3676,6 +3681,7 @@ mesh_file = "res://meshes/planet2.obj"
 front_colour = Color(0.560784, 0.815686, 0.196078, 1)
 back_colour = Color(0.380392, 0.647059, 0.247059, 1)
 auto_start = true
+reveal_lines = 1.0
 reveal_type = 1
 
 [node name="Raymarch" parent="Earth Like/SubViewport" index="0"]
@@ -3687,6 +3693,10 @@ texture = SubResource("ViewportTexture_jbj1t")
 script = null
 
 [node name="Label" parent="Earth Like" index="3"]
+offset_left = 198.0
+offset_top = 88.0
+offset_right = 260.0
+offset_bottom = 111.0
 text = "Erathia"
 label_settings = SubResource("LabelSettings_jbj1t")
 
@@ -3694,6 +3704,7 @@ label_settings = SubResource("LabelSettings_jbj1t")
 process_mode = 4
 visible = false
 position = Vector2(-165, 55)
+reveal_lines = 1.0
 
 [node name="Raymarch" parent="Gas Giant/SubViewport" index="0"]
 material = SubResource("ShaderMaterial_muem4")
@@ -3705,7 +3716,9 @@ script = null
 
 [node name="Label" parent="Gas Giant" index="3"]
 offset_left = 190.0
+offset_top = 88.0
 offset_right = 262.0
+offset_bottom = 111.0
 text = "Thunders Rest"
 
 [node name="Icosahedron" parent="." instance=ExtResource("16_tel4y")]
@@ -3717,6 +3730,7 @@ front_colour = Color(0.501961, 0.482353, 0.478431, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 mesh_scale = 1.45
 auto_start = true
+reveal_lines = 1.0
 
 [node name="AnimationPlayer" parent="Icosahedron" index="0"]
 autoplay = "reveal_alpha"
@@ -3730,6 +3744,7 @@ texture = SubResource("ViewportTexture_0ld40")
 script = null
 
 [node name="Label" parent="Icosahedron" index="3"]
+offset_left = 198.0
 offset_top = 72.0
 offset_right = 264.0
 offset_bottom = 95.0
@@ -3743,6 +3758,7 @@ position = Vector2(159, 55)
 front_colour = Color(0.77, 0.582633, 0.2079, 1)
 back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 mesh_scale = 0.85
+reveal_lines = 1.0
 
 [node name="Raymarch" parent="Black Hole/SubViewport" index="0"]
 material = SubResource("ShaderMaterial_yc10j")
@@ -3753,6 +3769,10 @@ texture = SubResource("ViewportTexture_gqmmt")
 script = null
 
 [node name="Label" parent="Black Hole" index="3"]
+offset_left = 198.0
+offset_top = 88.0
+offset_right = 260.0
+offset_bottom = 111.0
 text = "Jewell"
 label_settings = SubResource("LabelSettings_yc10j")
 
@@ -3765,9 +3785,16 @@ text = "Spiral Galaxy"
 label_settings = SubResource("LabelSettings_vxglm")
 horizontal_alignment = 1
 
-[node name="CelestialParent" type="Node2D" parent="."]
-position = Vector2(-164, -40)
+[node name="CelestialParent" type="Node2D" parent="." node_paths=PackedStringArray("child_offset", "draw_line_to")]
 script = ExtResource("31_tel4y")
+child_offset = NodePath("ChildOffset")
+draw_line_to = NodePath("DrawToTarget")
+
+[node name="ChildOffset" type="Node2D" parent="CelestialParent"]
+position = Vector2(-164, -40)
+
+[node name="DrawToTarget" type="Node2D" parent="CelestialParent"]
+position = Vector2(102, 46)
 
 [editable path="Earth Like"]
 [editable path="Gas Giant"]
