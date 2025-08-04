@@ -76,7 +76,6 @@ func init(info: ShowCelestial) -> void:
 	self.outline_node.init(info)
 	self.raymarch_node.init(info)
 
-	#self.animation.play("show_wireframe")
 	self.play_start_animation()
 
 func play_start_animation() -> void:

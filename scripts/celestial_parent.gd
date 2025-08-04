@@ -2,6 +2,8 @@ extends Node2D
 
 class_name CelestialParent
 
+static var instance: CelestialParent
+
 var scene = preload("res://scenes/celestial_object.tscn")
 
 @export var child_offset: Node2D
@@ -14,20 +16,12 @@ var current_scene: Wireframe
 var waiting_to_remove = false
 var waiting_to_trigger: ShowCelestial
 
-# Easing Ease In Out Quad function
-static func ease_in_out_quad(start: float, end: float, value: float) -> float:
-	value /= 0.5
-	end -= start
-	
-	if value < 1:
-		return end * 0.5 * value * value + start
-		
-	value -= 1
-	return -end * 0.5 * (value * (value - 2) - 1) + start
+func _init() -> void:
+	instance = self
 
 func _process(delta: float) -> void:
-	if self.current_scene_target != null:
-		queue_redraw()
+	#if self.current_scene_target != null:
+		#queue_redraw()
 		
 	if self.waiting_to_remove and self.current_scene != null and self.current_scene.wireframe_hidden:
 		self._remove_current_scene()
@@ -51,7 +45,7 @@ func _draw() -> void:
 		var to = self.draw_line_to.global_position
 		
 		var lerp = clamp(self.current_scene.label.visible_ratio * 2.0 - 0.5, 0.0, 1.0)
-		lerp = ease_in_out_quad(0.0, 1.0, lerp)
+		lerp = Easing.Quint.EaseInOut(lerp, 0.0, 1.0, 1.0)
 		if self.waiting_to_remove:
 			from = to.lerp(from, lerp)
 		else:
@@ -63,9 +57,14 @@ func _setup_new_scene(info: ShowCelestial) -> void:
 	self.current_scene_target = info
 	self.current_scene_info = info
 	self.current_scene = scene.instantiate()
+
+	CursorController.instance.show_highlight(info)
+
 	self.child_offset.add_child(self.current_scene)
 	
 	self.current_scene.init(info)
 
 func _remove_current_scene() -> void:
-	self.child_offset.remove_child(self.current_scene)
+	self.current_scene_info.trigger_hide()
+	self.current_scene.queue_free()
+	#self.child_offset.remove_child(self.current_scene)

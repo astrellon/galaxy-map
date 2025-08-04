@@ -2,6 +2,8 @@ extends Node2D
 
 class_name ShowCelestial
 
+signal hiding
+
 @export_file var mesh_file
 @export var backface_culling: bool = false
 @export var wireframe_front_colour: Color = Color.GREEN
@@ -23,15 +25,20 @@ class_name ShowCelestial
 @export var raymarch_ring_params: Vector4 = Vector4(1.1, 0.75, 0.015, 0)
 @export var raymarch_scene: int
 
-@export var target: CelestialParent
+@export var center_point: Node2D
 
 var hovered = false
+
+func get_center_point() -> Vector2:
+	if self.center_point != null:
+		return self.center_point.global_position
+	return self.global_position
 
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_mask & MOUSE_BUTTON_MASK_LEFT > 0:
 			print("Clicked")
-			self.target.trigger(self)
+			CelestialParent.instance.trigger(self)
 
 func _process(delta: float) -> void:
 	var self_pos = self.global_position
@@ -47,3 +54,5 @@ func _process(delta: float) -> void:
 			CursorController.instance.unhover()
 			self.hovered = false
 
+func trigger_hide():
+	self.hiding.emit()
