@@ -25,8 +25,25 @@ class_name ShowCelestial
 
 @export var target: CelestialParent
 
+var hovered = false
+
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_mask & MOUSE_BUTTON_MASK_LEFT > 0:
 			print("Clicked")
 			self.target.trigger(self)
+
+func _process(delta: float) -> void:
+	var self_pos = self.global_position
+	var mouse_pos = self.get_global_mouse_position()
+
+	var dist = (self_pos - mouse_pos).length()
+	if dist < 10.0:
+		if !self.hovered:
+			CursorController.instance.hover()
+			self.hovered = true
+	else:
+		if self.hovered:
+			CursorController.instance.unhover()
+			self.hovered = false
+

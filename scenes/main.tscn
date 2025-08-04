@@ -1,4 +1,4 @@
-[gd_scene load_steps=308 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=313 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -29,6 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://rrg0ydujwppb" path="res://textures/blackHoleGradient.png" id="20_gqmmt"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
+[ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
+[ext_resource type="Shader" uid="uid://drkc3mpk84psq" path="res://shaders/blur.gdshader" id="31_dgi5k"]
+[ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
 
 [sub_resource type="Curve2D" id="Curve2D_wisxt"]
@@ -1448,6 +1451,14 @@ font_color = Color(0.720962, 0.861066, 0.882352, 1)
 shadow_size = 2
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tel4y"]
+shader = ExtResource("31_dgi5k")
+shader_parameter/alpha_bump = 1.0
+shader_parameter/sigma = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tel4y"]
+viewport_path = NodePath("SubViewport")
+
 [node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
 
@@ -1547,7 +1558,6 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_0470j")
 arc_list = SubResource("Resource_ivgg2")
-metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer2/path19Transform/path19"]
 color = Color(0.105882, 0.141176, 0.278431, 1)
@@ -1590,7 +1600,6 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_0y13x")
 arc_list = SubResource("Resource_iquee")
-metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer2/path43"]
 color = Color(0.054902, 0.0666667, 0.105882, 1)
@@ -1864,7 +1873,6 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_mp7i3")
 arc_list = SubResource("Resource_adn81")
-metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer3/path50"]
 color = Color(0.168627, 0.305882, 0.584314, 1)
@@ -3795,6 +3803,31 @@ position = Vector2(-164, -40)
 
 [node name="DrawToTarget" type="Node2D" parent="CelestialParent"]
 position = Vector2(102, 46)
+
+[node name="CursorView" type="Sprite2D" parent="." node_paths=PackedStringArray("cursor")]
+texture_filter = 1
+material = SubResource("ShaderMaterial_tel4y")
+texture = SubResource("ViewportTexture_tel4y")
+centered = false
+script = ExtResource("31_5q0nq")
+cursor_change_speed = 3.0
+cursor = NodePath("../SubViewport/Cursor")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(455, 256)
+
+[node name="Cursor" type="Node2D" parent="SubViewport"]
+script = ExtResource("31_qkpxi")
+max_length = 9.0
+bit_colour = Color(0.258824, 0.74902, 0.909804, 1)
+
+[node name="Center" type="ColorRect" parent="SubViewport/Cursor"]
+offset_right = 1.0
+offset_bottom = 1.0
+color = Color(0.45098, 0.937255, 0.909804, 1)
 
 [editable path="Earth Like"]
 [editable path="Gas Giant"]
