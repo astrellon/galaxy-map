@@ -20,7 +20,6 @@ curved_lines_2d/add_fill_enabled=false
 config/name="Galaxy Map"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
-run/max_fps=24
 config/icon="res://icon.svg"
 
 [display]

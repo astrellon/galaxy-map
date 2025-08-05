@@ -3,6 +3,7 @@ extends Node2D
 class_name ShowCelestial
 
 signal hiding
+signal closing
 
 @export_file var mesh_file
 @export var backface_culling: bool = false
@@ -56,3 +57,6 @@ func _process(delta: float) -> void:
 
 func trigger_hide():
 	self.hiding.emit()
+
+func trigger_closing():
+	self.closing.emit()

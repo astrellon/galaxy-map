@@ -30,11 +30,14 @@ func _process(delta: float) -> void:
 		self.waiting_to_trigger = null
 
 func trigger(info: ShowCelestial) -> void:
+	CursorController.instance.show_highlight(info)
+
 	if self.current_scene != null:
 		print('Current scene exists, hiding')
 		self.waiting_to_remove = true
 		self.waiting_to_trigger = info
 		self.current_scene.hide_wireframe()
+		self.current_scene_info.trigger_closing()
 		return
 	
 	self._setup_new_scene(info)
@@ -57,8 +60,6 @@ func _setup_new_scene(info: ShowCelestial) -> void:
 	self.current_scene_target = info
 	self.current_scene_info = info
 	self.current_scene = scene.instantiate()
-
-	CursorController.instance.show_highlight(info)
 
 	self.child_offset.add_child(self.current_scene)
 	
