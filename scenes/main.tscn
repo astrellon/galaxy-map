@@ -1,9 +1,10 @@
-[gd_scene load_steps=293 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=294 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
 [ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://scripts/star_twinkle.gd" id="3_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://b77lkrklvma0u" path="res://textures/galaxyColourMap.png" id="3_yq6so"]
 [ext_resource type="Texture2D" uid="uid://pq4nexk1h18c" path="res://textures/bigStar1.png" id="4_0ld40"]
 [ext_resource type="Script" uid="uid://de3jpss66xjfh" path="res://addons/curved_lines_2d/scalable_vector_shape_2d.gd" id="4_og1vs"]
 [ext_resource type="Script" uid="uid://dlbv4pit17dnu" path="res://addons/curved_lines_2d/scalable_arc.gd" id="5_2wyq8"]
@@ -1333,9 +1334,17 @@ texture_filter = 1
 texture = ExtResource("1_dp3eg")
 centered = false
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." node_paths=PackedStringArray("layer1", "layer2", "layer3", "layer4_outer", "layer4_inner", "layer5", "stroke")]
 position = Vector2(228, 128)
 script = ExtResource("2_pm3ni")
+colour_map = ExtResource("3_yq6so")
+layer1 = NodePath("Galaxy 5-4/layer1")
+layer2 = NodePath("Galaxy 5-4/layer2")
+layer3 = NodePath("Galaxy 5-4/layer3")
+layer4_outer = NodePath("Galaxy 5-4/layer4/path131")
+layer4_inner = NodePath("Galaxy 5-4/layer4/path73")
+layer5 = NodePath("Galaxy 5-4/layer5")
+stroke = NodePath("Galaxy 5-4/layer7")
 
 [node name="Galaxy 5-4" type="Node2D" parent="Background"]
 position = Vector2(-139, -121)
@@ -1347,7 +1356,6 @@ position = Vector2(-32.2357, -10.4331)
 metadata/svg_style = {
 "display": "inline"
 }
-metadata/_edit_lock_ = true
 
 [node name="path3" type="Node2D" parent="Background/Galaxy 5-4/layer1" node_paths=PackedStringArray("polygon")]
 position = Vector2(69.3169, 42.3972)
@@ -2098,7 +2106,6 @@ polygon = PackedVector2Array(-3.53297, -0.0670815, -3.48446, -0.604391, -3.39221
 metadata/_edit_lock_ = true
 
 [node name="layer7" type="Node2D" parent="Background/Galaxy 5-4"]
-visible = false
 position = Vector2(2.5027e-07, -0.000219252)
 metadata/svg_style = {}
 
