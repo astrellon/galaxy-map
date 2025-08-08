@@ -5,6 +5,7 @@ extends Sprite2D
 @export var num_traffic = 100
 @export var traffic: MultiMeshInstance2D
 @export var traffic_speed: Vector2 = Vector2(1.5, 4.0)
+@export var time_offset = -3.0
 
 var connected_points: Array[ConnectedPoints] = []
 var traffic_points: Array[TrafficPoint] = []
@@ -30,6 +31,11 @@ func _ready() -> void:
 		connected_points.push_back(ConnectedPoints.new(connected))
 
 func _process(delta: float) -> void:
+	
+	var time_since_start = float(Time.get_ticks_msec()) / 1000.0
+	if time_since_start < self.time_offset:
+		return
+		
 	var spawned_traffic = 0
 	self.num_active_traffic_points = 0
 	
@@ -66,7 +72,6 @@ func _draw() -> void:
 			draw_line(prev, curr, Color.RED)
 
 func pick_random_edge() -> Array[Node2D]:
-	#var point_index = randi_range(0, self.connected_points.size() - 1)
 	var point_index = self.weighted_points[randi_range(0, self.weighted_points.size() - 1)]
 	var points = self.connected_points[point_index]
 	

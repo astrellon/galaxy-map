@@ -1276,6 +1276,7 @@ arcs = Array[ExtResource("5_2wyq8")]([])
 shader = ExtResource("8_og1vs")
 shader_parameter/uTexture = ExtResource("9_2wyq8")
 shader_parameter/uAlphaRange = Vector2(0.1, 0.2)
+shader_parameter/uTimeOffset = 3.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_2f3dj"]
 viewport_path = NodePath("Background/Galaxy 5-4/SubViewport")
@@ -3344,13 +3345,13 @@ target = NodePath("../Background/Interconnected")
 num_traffic = 80
 traffic = NodePath("MultiMeshInstance2D")
 traffic_speed = Vector2(3, 7)
+time_offset = 3.0
 
 [node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="Interconnected"]
 multimesh = SubResource("MultiMesh_2f3dj")
 texture = ExtResource("9_2f3dj")
 
 [node name="Stars" type="Node2D" parent="." node_paths=PackedStringArray("follow")]
-visible = false
 position = Vector2(227, 128)
 script = ExtResource("14_y6deb")
 follow = NodePath("../Background")
