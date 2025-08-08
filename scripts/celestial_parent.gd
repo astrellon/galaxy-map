@@ -20,27 +20,34 @@ func _init() -> void:
 	instance = self
 
 func _process(delta: float) -> void:
-	#if self.current_scene_target != null:
-		#queue_redraw()
-		
 	if self.waiting_to_remove and self.current_scene != null and self.current_scene.wireframe_hidden:
 		self._remove_current_scene()
-		self._setup_new_scene(self.waiting_to_trigger)
+		if self.waiting_to_trigger != null:
+			self._setup_new_scene(self.waiting_to_trigger)
 		self.waiting_to_remove = false
 		self.waiting_to_trigger = null
 
 func trigger(info: ShowCelestial) -> void:
+	if self.current_scene_info == info:
+		self.close_current_scene()
+		return
+		
 	CursorController.instance.show_highlight(info)
-
-	if self.current_scene != null:
-		print('Current scene exists, hiding')
-		self.waiting_to_remove = true
+	
+	if self.close_current_scene():
 		self.waiting_to_trigger = info
-		self.current_scene.hide_wireframe()
-		self.current_scene_info.trigger_closing()
 		return
 	
 	self._setup_new_scene(info)
+
+func close_current_scene() -> bool:
+	if self.current_scene != null:
+		print('Current scene exists, hiding')
+		self.waiting_to_remove = true
+		self.current_scene.hide_wireframe()
+		self.current_scene_info.trigger_closing()
+		return true
+	return false
 
 func _draw() -> void:
 	if self.current_scene_target != null:

@@ -13,9 +13,11 @@ enum RevealType { ALPHA, LINE_BY_LINE }
 @export var ignore_line: Vector4
 @export var animation: AnimationPlayer
 @export var label: Label
+@export var description: Label
 @export var raymarch_node: Raymarch
 @export var outline_node: Outline
 @export var auto_start = false
+@export var char_show_time = 1.0 / 15.0
 
 @export var reveal_lines: float = 1.0
 @export var reveal_type: RevealType = RevealType.ALPHA
@@ -60,10 +62,16 @@ func init(info: ShowCelestial) -> void:
 	self.reveal_type = info.reveal_type
 	if info.label_colour.a < 0.01:
 		self.label.label_settings.font_color = info.wireframe_front_colour
+		self.description.label_settings.font_color = info.wireframe_back_colour
 	else:
 		self.label.label_settings.font_color = info.label_colour
+		self.description.label_settings.font_color = info.label_colour
 
+	self.label.visible_ratio = 0
+	self.description.visible_ratio = 0
+	
 	self.label.text = info.label
+	self.description.text = info.description
 
 	self.inited = true
 	self.mesh = MeshFile.create(self.mesh_file)
@@ -88,6 +96,8 @@ func hide_wireframe() -> void:
 	self.animation.stop(true)
 	self.do_hide = true
 
+var show_description_char_timer = 0.0
+
 func _process(delta: float) -> void:
 	if self.wireframe_hidden:
 		return
@@ -98,11 +108,18 @@ func _process(delta: float) -> void:
 			self.raymarch_node.reveal = clamp(self.raymarch_node.reveal - delta, 0.0, 1.0)
 			self.alpha = clampf(self.alpha - delta, 0.0, 1.0)
 			self.label.visible_ratio = clampf(self.label.visible_ratio - delta, 0.0, 1.0)
+			self.description.visible_ratio = clampf(self.description.visible_ratio - delta, 0.0, 1.0)
 			if self.reveal_lines <= 0.0 and self.raymarch_node.reveal <= 0.0:
 				print('Hidden!')
 				self.wireframe_hidden = true
 				return
-
+		else:
+			self.show_description_char_timer += delta
+			if self.description.visible_ratio < 1.0 and self.show_description_char_timer > self.char_show_time:
+				var times = floor(self.show_description_char_timer / self.char_show_time)
+				self.show_description_char_timer -= times * self.char_show_time
+				self.description.visible_characters = self.description.visible_characters + int(times) 
+		
 		queue_redraw()
 
 func _draw() -> void:

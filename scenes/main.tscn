@@ -3799,7 +3799,7 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.3
 
-[node name="Area2D" type="Area2D" parent="Stars/The Swarm" node_paths=PackedStringArray("center_point")]
+[node name="Area2D" type="Area2D" parent="Stars/The Swarm" node_paths=PackedStringArray("center_point", "collision")]
 position = Vector2(5, 5)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/dysonSwarm.obj"
@@ -3813,10 +3813,12 @@ outline_inside = true
 outline_pattern = 3
 outline_threshold = 0.8
 label = "The Swarm"
+description = "A megastructure of energy collectors surrounding a white dwarf star."
 label_colour = Color(0.501961, 0.482353, 0.478431, 1)
 planet_texture = ExtResource("17_dp3eg")
 raymarch_scene = 2
 center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/The Swarm/Area2D"]
 position = Vector2(3.5, 3.5)
@@ -3833,7 +3835,7 @@ noise_speed = 11.575
 noise_amp = 0.245
 time_offset = 3.6
 
-[node name="Area2D" type="Area2D" parent="Stars/EarthLike" node_paths=PackedStringArray("center_point")]
+[node name="Area2D" type="Area2D" parent="Stars/EarthLike" node_paths=PackedStringArray("center_point", "collision")]
 position = Vector2(5, 5)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
@@ -3842,16 +3844,18 @@ wireframe_back_colour = Color(0.380392, 0.647059, 0.247059, 1)
 reveal_type = 1
 outline_colour = Color(0.560784, 0.815686, 0.196078, 1)
 label = "Earthrathia"
+description = "A lush planet filled with unsual and even fantastical creatures."
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(1, 1, 1, 0.6)
 raymarch_planet_offset = Vector4(0, 0, 0, -0.05)
 center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/EarthLike/Area2D"]
 position = Vector2(3.5, 3.5)
 shape = SubResource("CircleShape2D_2f3dj")
 
-[node name="BigStar2" type="AnimatedSprite2D" parent="Stars"]
+[node name="Gas Giant" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(54, -26)
 sprite_frames = SubResource("SpriteFrames_0loja")
 frame = 10
@@ -3862,7 +3866,7 @@ noise_speed = 14.0
 noise_amp = 0.25
 time_offset = 3.2
 
-[node name="Area2D" type="Area2D" parent="Stars/BigStar2" node_paths=PackedStringArray("center_point")]
+[node name="Area2D" type="Area2D" parent="Stars/Gas Giant" node_paths=PackedStringArray("center_point", "collision")]
 position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/gas_giant.obj"
@@ -3871,13 +3875,15 @@ wireframe_back_colour = Color(0.690196, 0.356863, 0.172549, 1)
 reveal_type = 1
 outline_colour = Color(0.909804, 0.541176, 0.211765, 1)
 label = "Thunders Rest"
+description = "A gas giant that has unusual high electrical activity."
 planet_texture = ExtResource("13_muem4")
 raymarch_planet_noise = Vector4(0.5, 3, 0.5, 0.865)
 raymarch_planet_offset = Vector4(0.115, 0, 0, 0.035)
 raymarch_scene = 1
 center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar2/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Gas Giant/Area2D"]
 position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
@@ -3891,6 +3897,26 @@ script = ExtResource("3_dp3eg")
 noise_speed = 8.0
 noise_amp = 0.2
 time_offset = 3.4
+
+[node name="Area2D" type="Area2D" parent="Stars/BigStar3" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/planet2.obj"
+wireframe_front_colour = Color(0.91, 0.2093, 0.220978, 1)
+wireframe_back_colour = Color(0.69, 0.1725, 0.250125, 1)
+reveal_type = 1
+outline_colour = Color(0.91, 0.2093, 0.244335, 1)
+label = "Mars"
+description = "A dusty iron rich landscape, with much of the remaining water remaining as clouds."
+planet_texture = ExtResource("13_muem4")
+raymarch_planet_offset = Vector4(0.115, 0.425, -0.395, -0.67)
+raymarch_scene = 5
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar3/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar5" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-69, 38)
@@ -3916,7 +3942,7 @@ time_offset = 3.9
 
 [node name="Jewell" type="Node2D" parent="Stars"]
 
-[node name="Area2D" type="Area2D" parent="Stars/Jewell" node_paths=PackedStringArray("center_point")]
+[node name="Area2D" type="Area2D" parent="Stars/Jewell" node_paths=PackedStringArray("center_point", "collision")]
 position = Vector2(-3, -3)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/black_hole.obj"
@@ -3925,10 +3951,12 @@ wireframe_back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 reveal_type = 1
 outline_colour = Color(0.788235, 0.831373, 0.992157, 1)
 label = "Jewell"
+description = "The supermassive blackhole at the center of the galaxy."
 planet_texture = ExtResource("20_gqmmt")
 raymarch_planet_offset = Vector4(0.025, 0.11, 0.015, 0)
 raymarch_scene = 4
 center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Jewell/Area2D"]
 position = Vector2(5, 4)

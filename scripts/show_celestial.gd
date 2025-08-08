@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 
 class_name ShowCelestial
 
@@ -19,6 +19,7 @@ signal closing
 @export var outline_threshold = 0.0
 
 @export var label: String = "Celestial"
+@export var description: String = ""
 @export var label_colour = Color.TRANSPARENT
 @export var planet_texture: Texture2D
 @export var raymarch_planet_noise: Vector4 = Vector4.ONE
@@ -27,8 +28,14 @@ signal closing
 @export var raymarch_scene: int
 
 @export var center_point: Node2D
+@export var collision: CollisionShape2D
 
 var hovered = false
+var hit_radius = 10.0
+
+func _ready() -> void:
+	if self.collision.shape is CircleShape2D:
+		self.hit_radius = self.collision.shape.radius
 
 func get_center_point() -> Vector2:
 	if self.center_point != null:
@@ -38,7 +45,6 @@ func get_center_point() -> Vector2:
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_mask & MOUSE_BUTTON_MASK_LEFT > 0:
-			print("Clicked")
 			CelestialParent.instance.trigger(self)
 
 func _process(delta: float) -> void:
@@ -46,7 +52,7 @@ func _process(delta: float) -> void:
 	var mouse_pos = self.get_global_mouse_position()
 
 	var dist = (self_pos - mouse_pos).length()
-	if dist < 10.0:
+	if dist < self.hit_radius:
 		if !self.hovered:
 			CursorController.instance.hover()
 			self.hovered = true

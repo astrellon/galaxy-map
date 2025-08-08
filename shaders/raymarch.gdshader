@@ -126,13 +126,21 @@ float cloudScene(vec3 samplePoint)
 
         return opSubtraction(cloudDist, innerSphere);
     }
+	if (uScene == 5)
+    {
+        float outerSphere = sdfSphere(samplePoint, 0.69);
+        float innerSphere = sdfSphere(samplePoint, 0.6);
+        float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12)) - 0.85) * 0.35;
+
+        return opSubtraction(cloudDist, innerSphere);
+    }
 
     return 100.0;
 }
 
 vec2 planetScene(vec3 samplePoint)
 {
-    if (uScene == 0 || uScene == 1)
+    if (uScene == 0 || uScene == 1 || uScene == 5)
     {
         return vec2(sdfSphere(samplePoint, 0.5), PLANET);
     }

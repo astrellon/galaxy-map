@@ -51,7 +51,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Label:visible_ratio")
+tracks/3/path = NodePath("Title:visible_ratio")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -155,7 +155,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Label:visible_ratio")
+tracks/4/path = NodePath("Title:visible_ratio")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -206,17 +206,18 @@ outline_color = Color(0.690196, 0.356863, 0.172549, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
-[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label", "raymarch_node", "outline_node")]
+[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label", "description", "raymarch_node", "outline_node")]
 script = ExtResource("1_x5fnd")
 camera = NodePath("Camera Pivot/Camera3D")
 backface_culling = false
 front_colour = Color(0.909804, 0.541176, 0.211765, 1)
 back_colour = Color(0.690196, 0.356863, 0.172549, 1)
 animation = NodePath("AnimationPlayer")
-label = NodePath("Label")
+label = NodePath("Title")
+description = NodePath("Description")
 raymarch_node = NodePath("SubViewport/Raymarch")
 outline_node = NodePath("Outline")
-reveal_lines = 0.979136
+reveal_lines = 0.987655
 alpha = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -243,7 +244,7 @@ texture = SubResource("ViewportTexture_82xsv")
 centered = false
 script = ExtResource("8_gxy6w")
 
-[node name="Label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 offset_left = 164.0
 offset_top = 80.0
 offset_right = 292.0
@@ -261,3 +262,11 @@ script = ExtResource("9_ix6hq")
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 5)
 fov = 62.1
 far = 400.0
+
+[node name="Description" type="Label" parent="."]
+offset_left = 179.0
+offset_top = 180.0
+offset_right = 295.0
+offset_bottom = 203.0
+label_settings = SubResource("LabelSettings_yaehf")
+autowrap_mode = 2
