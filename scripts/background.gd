@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 	if self.rotate_speed > 0:
 		self.rotate(self.rotate_speed * delta * PI / 180.0);
 		
-	var index = clamp(floor(time / self.time_per_pixel), 0, self.colour_map.get_width())
+	var index = clamp(floor(time / self.time_per_pixel), 0, self.colour_map.get_width() - 1)
 	time += delta
 	if index != self.prev_index:
 		self.prev_index = index

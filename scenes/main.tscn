@@ -1,4 +1,4 @@
-[gd_scene load_steps=294 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=297 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://bnx2je17f82bf" path="res://textures/bigStar4.png" id="2_muem4"]
@@ -23,6 +23,8 @@
 [ext_resource type="Script" uid="uid://cxjny58riah5m" path="res://scripts/follow_rotation.gd" id="14_y6deb"]
 [ext_resource type="Texture2D" uid="uid://b723b2kuuysie" path="res://textures/planet3Gradient.png" id="17_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://rrg0ydujwppb" path="res://textures/blackHoleGradient.png" id="20_gqmmt"]
+[ext_resource type="Texture2D" uid="uid://cx8qx2jhuphti" path="res://textures/stars.png" id="24_fv21b"]
+[ext_resource type="Shader" uid="uid://cms3frm6puiba" path="res://shaders/small_stars.gdshader" id="24_tel4y"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
 [ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
@@ -1293,7 +1295,14 @@ mesh = SubResource("QuadMesh_vxglm")
 [sub_resource type="CircleShape2D" id="CircleShape2D_qkpxi"]
 radius = 13.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fv21b"]
+shader = ExtResource("24_tel4y")
+shader_parameter/uTexture = ExtResource("24_fv21b")
+shader_parameter/uIndexTime = 0.075
+shader_parameter/uTimeOffset = -2.0
+
 [sub_resource type="QuadMesh" id="QuadMesh_dp3eg"]
+size = Vector2(8, 8)
 
 [sub_resource type="MultiMesh" id="MultiMesh_0ld40"]
 use_colors = true
@@ -1433,7 +1442,6 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_0470j")
 arc_list = SubResource("Resource_ivgg2")
-metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer2/path19Transform/path19"]
 color = Color(0.105882, 0.141176, 0.278431, 1)
@@ -1749,7 +1757,6 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_mp7i3")
 arc_list = SubResource("Resource_adn81")
-metadata/_select_hint_ = true
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer3/path50"]
 color = Color(0.168627, 0.305882, 0.584314, 1)
@@ -3343,6 +3350,7 @@ multimesh = SubResource("MultiMesh_2f3dj")
 texture = ExtResource("9_2f3dj")
 
 [node name="Stars" type="Node2D" parent="." node_paths=PackedStringArray("follow")]
+visible = false
 position = Vector2(227, 128)
 script = ExtResource("14_y6deb")
 follow = NodePath("../Background")
@@ -3547,7 +3555,8 @@ center_point = NodePath("CollisionShape2D")
 position = Vector2(5, 4)
 shape = SubResource("CircleShape2D_qkpxi")
 
-[node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("follow_rotation")]
+[node name="TinyStars" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("follow_rotation")]
+material = SubResource("ShaderMaterial_fv21b")
 multimesh = SubResource("MultiMesh_0ld40")
 texture = SubResource("GradientTexture1D_gqmmt")
 script = ExtResource("10_0ld40")
