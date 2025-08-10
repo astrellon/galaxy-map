@@ -3805,7 +3805,7 @@ script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/dysonSwarm.obj"
 wireframe_front_colour = Color(0.501961, 0.482353, 0.478431, 1)
 wireframe_back_colour = Color(0.34902, 0.341176, 0.341176, 1)
-wireframe_mesh_scale = 1.45
+wireframe_mesh_scale = 1.5
 target_camera_fov = 102.0
 reveal_type = 1
 outline_colour = Color(0.803815, 0.724172, 0.884842, 1)
@@ -4088,7 +4088,7 @@ child_offset = NodePath("ChildOffset")
 draw_line_to = NodePath("DrawToTarget")
 
 [node name="ChildOffset" type="Node2D" parent="CelestialParent"]
-position = Vector2(-164, -40)
+position = Vector2(-156, 0)
 
 [node name="DrawToTarget" type="Node2D" parent="CelestialParent"]
 position = Vector2(102, 46)

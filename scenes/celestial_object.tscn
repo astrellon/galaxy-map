@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://xrnrgaclsms6"]
+[gd_scene load_steps=20 format=3 uid="uid://xrnrgaclsms6"]
 
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="1_x5fnd"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="2_wu8c0"]
@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://cmtfkk8y5c3vi" path="res://shaders/outline.gdshader" id="6_w8pnv"]
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="7_33sgm"]
 [ext_resource type="Script" uid="uid://c3eoxcdlphgvs" path="res://scripts/outline.gd" id="8_gxy6w"]
+[ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="8_ix6hq"]
 [ext_resource type="Script" uid="uid://ckjfs3kccwh4u" path="res://scripts/rotator.gd" id="9_ix6hq"]
 
 [sub_resource type="Animation" id="Animation_1bvp3"]
@@ -199,6 +200,14 @@ shader_parameter/add_margins = true
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_yaehf"]
+font = ExtResource("8_ix6hq")
+font_size = 9
+font_color = Color(0.909804, 0.541176, 0.211765, 1)
+outline_color = Color(0.690196, 0.356863, 0.172549, 1)
+shadow_size = 0
+shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gxy6w"]
 font = ExtResource("7_33sgm")
 font_size = 9
 font_color = Color(0.909804, 0.541176, 0.211765, 1)
@@ -212,12 +221,13 @@ camera = NodePath("Camera Pivot/Camera3D")
 backface_culling = false
 front_colour = Color(0.909804, 0.541176, 0.211765, 1)
 back_colour = Color(0.690196, 0.356863, 0.172549, 1)
+display_scale = 1.15
 animation = NodePath("AnimationPlayer")
 label = NodePath("Title")
 description = NodePath("Description")
 raymarch_node = NodePath("SubViewport/Raymarch")
 outline_node = NodePath("Outline")
-reveal_lines = 0.987655
+reveal_lines = 0.0
 alpha = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -227,28 +237,28 @@ libraries = {
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(128, 128)
+size = Vector2i(148, 148)
 
 [node name="Raymarch" type="ColorRect" parent="SubViewport" node_paths=PackedStringArray("camera")]
 material = SubResource("ShaderMaterial_cegan")
-offset_right = 128.0
-offset_bottom = 128.0
+offset_right = 148.0
+offset_bottom = 148.0
 script = ExtResource("5_38sfh")
 camera = NodePath("../../Camera Pivot/Camera3D")
 reveal = 0.0582358
 
 [node name="Outline" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_yaehf")
-position = Vector2(164, 65)
+position = Vector2(154, 54)
 texture = SubResource("ViewportTexture_82xsv")
 centered = false
 script = ExtResource("8_gxy6w")
 
 [node name="Title" type="Label" parent="."]
 offset_left = 164.0
-offset_top = 80.0
+offset_top = 64.0
 offset_right = 292.0
-offset_bottom = 103.0
+offset_bottom = 87.0
 text = "Gas Giant"
 label_settings = SubResource("LabelSettings_yaehf")
 horizontal_alignment = 1
@@ -264,9 +274,10 @@ fov = 62.1
 far = 400.0
 
 [node name="Description" type="Label" parent="."]
-offset_left = 179.0
-offset_top = 180.0
-offset_right = 295.0
-offset_bottom = 203.0
-label_settings = SubResource("LabelSettings_yaehf")
+offset_left = 480.0
+offset_top = 96.0
+offset_right = 596.0
+offset_bottom = 119.0
+label_settings = SubResource("LabelSettings_gxy6w")
+horizontal_alignment = 2
 autowrap_mode = 2

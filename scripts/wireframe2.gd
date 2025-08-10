@@ -10,6 +10,7 @@ enum RevealType { ALPHA, LINE_BY_LINE }
 @export var front_colour: Color = Color.GREEN
 @export var back_colour: Color = Color.DARK_GREEN
 @export var mesh_scale: float = 1.0
+@export var display_scale: float = 1.0
 @export var ignore_line: Vector4
 @export var animation: AnimationPlayer
 @export var label: Label
@@ -156,7 +157,7 @@ func _draw() -> void:
 			if num_lines_to_draw <= 0:
 				break
 
-			var current = self.mesh.vertices[fv.x] * self.mesh_scale
+			var current = self.mesh.vertices[fv.x] * self.mesh_scale * self.display_scale
 			var next = self.camera.unproject_position(current)
 
 			if has_prev_world && has_ignore:
