@@ -1,4 +1,4 @@
-[gd_scene load_steps=367 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=368 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Shader" uid="uid://r368caausbih" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://d0r4s6kycptsr" path="res://textures/waterPlanet.png" id="25_kmb1v"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://desjrnqfy2clc" path="res://textures/pinkFluff.png" id="26_j8jky"]
+[ext_resource type="Texture2D" uid="uid://cnpxjccm52km2" path="res://textures/tower.png" id="27_c6pm6"]
 [ext_resource type="Shader" uid="uid://dvch7gppuhk4" path="res://shaders/title.gdshader" id="28_5q0nq"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
 [ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
@@ -3995,7 +3996,7 @@ description = "Orbit: 0.73 Years
 Mass: 0.7 Earths
 Radius: 5400 km
 
-A mostly watery world with a warm"
+A mostly watery world with little exposed ground. Large interconnected sea plants appearing to be lush islands from space, lay the foundation for complex sea life to live in."
 planet_texture = ExtResource("25_kmb1v")
 raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
 raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
@@ -4057,8 +4058,8 @@ label = "The Tower"
 description = "Age: 6702 Years
 Height: 14.23 km
 
-A relatively recently abandoned structure, who's purpose seems to have been a research facility. However either it was never in use, or anything of use was very cleaned removed."
-planet_texture = ExtResource("17_dp3eg")
+A relatively recently abandoned structure, who's purpose seems to have been a research facility. However either it was never in use, or any traces of the inhabitance were completely removed."
+planet_texture = ExtResource("27_c6pm6")
 raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
 raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
 raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 0)

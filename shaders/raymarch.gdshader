@@ -12,6 +12,8 @@ const float STAR = 4.0;
 const float METAL = 5.0;
 const float BLACK_HOLE_CENTER = 6.0;
 const float BLACK_HOLE_RING = 7.0;
+const float TOWER_OUTER = 8.0;
+const float TOWER_INNER = 9.0;
 
 uniform sampler2D uNoiseTexture: repeat_enable, filter_linear;
 uniform sampler2D uPlanetTexture: repeat_disable, filter_nearest;
@@ -96,6 +98,16 @@ float opIntersection(float d1, float d2)
 	return max(d1, d2);
 }
 
+vec2 objSub(vec2 d1, vec2 d2)
+{
+	return -d1.x > d2.x ? vec2(-d1.x, d1.y) : d2;
+}
+
+vec2 objMin(vec2 d1, vec2 d2)
+{
+    return d1.x < d2.x ? d1 : d2;
+}
+
 float sdfSphere(vec3 samplePoint, float radius)
 {
     return length(samplePoint) - radius;
@@ -119,7 +131,6 @@ float sdfHexPrism(vec3 point, vec2 params)
     float d2 = max((absPoint.x * 0.866025 + absPoint.y * 0.5), absPoint.y) - params.x;
     return length(max(vec2(d1, d2), 0.0)) + min(max(d1, d2), 0.0);
 }
-
 
 float sdfOctahedron(vec3 point, float size)
 {
@@ -191,9 +202,9 @@ vec2 planetScene(vec3 samplePoint)
 	{
 		float inner1 = sdfHexPrism(samplePoint, vec2(0.15, 1.0));
 		float inner2 = sdfHexPrism(cloudRotation * samplePoint, vec2(0.15, 1.0));
-		float inner = opUnion(inner1, inner2);
-		float outer = sdfOctahedron(samplePoint, 0.6);
-		return vec2(opSubtraction(inner, outer), PLANET);
+		vec2 inner = vec2(opUnion(inner1, inner2), TOWER_INNER);
+		vec2 outer = vec2(sdfOctahedron(samplePoint, 0.6), TOWER_OUTER);
+		return objSub(inner, outer);
 	}
 
     return vec2(100.0, CLOUD);
@@ -216,11 +227,6 @@ vec2 ringScene(vec3 samplePoint)
 	}
 
     return vec2(100.0, RING);
-}
-
-vec2 objMin(vec2 d1, vec2 d2)
-{
-    return d1.x < d2.x ? d1 : d2;
 }
 
 float starScene(vec3 samplePoint)
@@ -573,6 +579,25 @@ void fragment()
 			else if (approxEquals(dist.y, STAR))
 			{
 				COLOR = vec4(1.0);
+			}
+			else if (approxEquals(dist.y, TOWER_OUTER))
+			{
+				vec3 normal = estimateNormalPlanet(p, dist.x);
+
+				float squareNoise = perlinNoise3D(floor(p * 8.0) / 8.0 * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
+				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				
+				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5), 1.2 - lighting)).rgb;
+				COLOR = vec4(planetColour, 1.0);
+			}
+			else if (approxEquals(dist.y, TOWER_INNER))
+			{
+				vec3 normal = estimateNormalPlanet(p, dist.x);
+
+				float squareNoise = perlinNoise3D(floor(p * 8.0) / 8.0 * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
+				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5) + 0.5, 1.2 - lighting)).rgb;
+				COLOR = vec4(planetColour, 1.0);
 			}
 	    }
 		COLOR += extraColour;
