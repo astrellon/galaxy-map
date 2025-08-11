@@ -1,4 +1,4 @@
-[gd_scene load_steps=359 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=361 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Shader" uid="uid://r368caausbih" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cx8qx2jhuphti" path="res://textures/stars.png" id="24_fv21b"]
 [ext_resource type="Shader" uid="uid://cms3frm6puiba" path="res://shaders/small_stars.gdshader" id="24_tel4y"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
+[ext_resource type="Shader" uid="uid://dvch7gppuhk4" path="res://shaders/title.gdshader" id="28_5q0nq"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
 [ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
 [ext_resource type="Shader" uid="uid://drkc3mpk84psq" path="res://shaders/blur.gdshader" id="31_dgi5k"]
@@ -1752,12 +1753,26 @@ interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.323864, 0.698864, 1)
 colors = PackedColorArray(0.311279, 0.705274, 0.942737, 1, 0.8, 0.552, 0.605733, 1, 0.903574, 0.823461, 0.671695, 1, 0.82, 0.634133, 0.492, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8jky"]
+shader = ExtResource("28_5q0nq")
+shader_parameter/pattern = 0
+shader_parameter/threshold = 0.8
+shader_parameter/inside = false
+shader_parameter/outline_speed = 12.0
+shader_parameter/outline_gap = 6.0
+shader_parameter/outline_colour = Color(0.604963, 0.840862, 0.908072, 1)
+shader_parameter/colour = Color(0.783825, 0.859743, 0.879766, 1)
+shader_parameter/time_test = 4.45
+shader_parameter/cutoff = 100.0
+shader_parameter/shine_cutoff = 8.0
+
 [sub_resource type="LabelSettings" id="LabelSettings_vxglm"]
 font = ExtResource("26_2wyq8")
 font_size = 9
-font_color = Color(0.720962, 0.861066, 0.882352, 1)
-shadow_size = 2
+font_color = Color(0.404401, 0.0287341, 0.195659, 1)
+shadow_size = 0
 shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tel4y"]
 shader = ExtResource("31_dgi5k")
@@ -4074,11 +4089,12 @@ alpha_range = Vector2(0.05, 0.2)
 gradient = SubResource("Gradient_gqmmt")
 
 [node name="Galaxy Map Title" type="Label" parent="."]
+material = SubResource("ShaderMaterial_j8jky")
 offset_left = 185.0
 offset_top = 5.0
 offset_right = 276.0
 offset_bottom = 28.0
-text = "Spiral Galaxy"
+text = "Galaxy Map"
 label_settings = SubResource("LabelSettings_vxglm")
 horizontal_alignment = 1
 
