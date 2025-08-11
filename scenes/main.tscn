@@ -4099,7 +4099,7 @@ A mostly watery world with little exposed ground. Large interconnected sea plant
 planet_texture = ExtResource("25_kmb1v")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.535)
 raymarch_planet_offset = Vector4(0.04, 0.37, 1.405, 0.02)
-raymarch_ring_params = Vector4(0.24, 1.05, 0.96, -0.06)
+raymarch_ring_params = Vector4(0.24, 1.05, 0.96, 0.04)
 raymarch_scene = 9
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
