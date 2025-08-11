@@ -1,4 +1,4 @@
-[gd_scene load_steps=363 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=364 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Shader" uid="uid://r368caausbih" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cpq8gr65umddu" path="res://textures/blueSmall.png" id="22_qkpxi"]
 [ext_resource type="Texture2D" uid="uid://cx8qx2jhuphti" path="res://textures/stars.png" id="24_fv21b"]
 [ext_resource type="Shader" uid="uid://cms3frm6puiba" path="res://shaders/small_stars.gdshader" id="24_tel4y"]
+[ext_resource type="Texture2D" uid="uid://d0r4s6kycptsr" path="res://textures/waterPlanet.png" id="25_kmb1v"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://desjrnqfy2clc" path="res://textures/pinkFluff.png" id="26_j8jky"]
 [ext_resource type="Shader" uid="uid://dvch7gppuhk4" path="res://shaders/title.gdshader" id="28_5q0nq"]
@@ -3830,7 +3831,10 @@ outline_inside = true
 outline_pattern = 3
 outline_threshold = 0.8
 label = "The Swarm"
-description = "A megastructure of energy collectors surrounding a white dwarf star."
+description = "Age: 780,300 Yr
+Power: 10^23 W
+
+A megastructure of energy collectors surrounding a white dwarf star."
 label_colour = Color(0.737232, 0.720694, 0.717384, 1)
 planet_texture = ExtResource("17_dp3eg")
 raymarch_scene = 2
@@ -3861,10 +3865,15 @@ wireframe_back_colour = Color(0.380392, 0.647059, 0.247059, 1)
 reveal_type = 1
 outline_colour = Color(0.560784, 0.815686, 0.196078, 1)
 label = "Earthrathia"
-description = "A lush planet filled with unsual and even fantastical creatures."
+description = "Orbit: 1.02 Years
+Mass: 1.2 Earths
+Radius: 7040 km
+
+A lush planet filled with unsual and even fantastical creatures."
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(1, 1, 1, 0.6)
 raymarch_planet_offset = Vector4(0, 0, 0, -0.05)
+raymarch_ring_params = Vector4(0.2, 0.1, 0.3, 0)
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
@@ -3892,7 +3901,11 @@ wireframe_back_colour = Color(0.690196, 0.356863, 0.172549, 1)
 reveal_type = 1
 outline_colour = Color(0.909804, 0.541176, 0.211765, 1)
 label = "Thunders Rest"
-description = "A gas giant that has unusual high electrical activity."
+description = "Orbit: 12.14 Years
+Mass: 278 Earths
+Radius: 68300 km
+
+A gas giant that has unusual high electrical activity."
 planet_texture = ExtResource("13_muem4")
 raymarch_planet_noise = Vector4(0.5, 3, 0.5, 0.865)
 raymarch_planet_offset = Vector4(0.115, 0, 0, 0.035)
@@ -3924,10 +3937,15 @@ wireframe_back_colour = Color(0.69, 0.1725, 0.250125, 1)
 reveal_type = 1
 outline_colour = Color(0.91, 0.2093, 0.244335, 1)
 label = "Mars"
-description = "A dusty iron rich landscape, with much of the remaining water remaining as clouds."
+description = "Orbit: 1.88 Years
+Mass: 0.1 Earths
+Radius: 3400 km
+
+A dusty iron rich landscape, with much of the remaining water remaining as clouds."
 planet_texture = ExtResource("22_dgi5k")
 raymarch_planet_noise = Vector4(1.005, 1.295, 1.005, 0.565)
 raymarch_planet_offset = Vector4(0.11, 0.46, -0.395, -0.655)
+raymarch_ring_params = Vector4(0.19, 0.1, 0.35, 0)
 raymarch_scene = 5
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -3967,10 +3985,15 @@ wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
 reveal_type = 1
 outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
 label = "Water Planet"
-description = "A dusty iron rich landscape, with much of the remaining water remaining as clouds."
-planet_texture = ExtResource("13_jbj1t")
-raymarch_planet_noise = Vector4(1.135, 1.36, 1.115, 0.345)
-raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -1.225)
+description = "Orbit: 0.73 Years
+Mass: 0.7 Earths
+Radius: 5400 km
+
+A mostly watery world with a warm"
+planet_texture = ExtResource("25_kmb1v")
+raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
+raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
+raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 0)
 raymarch_scene = 6
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -3990,7 +4013,10 @@ wireframe_back_colour = Color(0.34902, 0.341176, 0.341176, 1)
 reveal_type = 1
 outline_colour = Color(0.788235, 0.831373, 0.992157, 1)
 label = "Jewell"
-description = "The supermassive blackhole at the center of the galaxy."
+description = "Mass: 3,801,500 Solars
+Radius: 0.07 AU
+
+The supermassive blackhole at the center of the galaxy."
 planet_texture = ExtResource("20_gqmmt")
 raymarch_planet_offset = Vector4(0.025, 0.11, 0.015, 0)
 raymarch_scene = 4
@@ -4097,7 +4123,12 @@ wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
 reveal_type = 1
 outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
 label = "Forbidden Donut"
-description = "A dusty iron rich landscape, with much of the remaining water remaining as clouds."
+description = "Orbit: 1.68 Years
+Mass: 2.1 Earths
+Outer Radius: 7140 km
+Ring Radius: 2200 km
+
+A dusty iron rich landscape, with much of the remaining water remaining as clouds."
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(1, 2.705, 0.855, 0.45)
 raymarch_ring_params = Vector4(0.59, 0.22, 0.165, 0.065)

@@ -138,19 +138,11 @@ float sdfTorus(vec3 point, float radius, float ringRadius)
 float cloudScene(vec3 samplePoint)
 {
 	samplePoint = cloudRotation * samplePoint;
-    if (uScene == 0)
+    if (uScene == 0 || uScene == 5 || uScene == 6)
     {
-        float outerSphere = sdfSphere(samplePoint, 0.7);
-        float innerSphere = sdfSphere(samplePoint, 0.6);
-        float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12)) - 0.85) * 0.3;
-
-        return opSubtraction(cloudDist, innerSphere);
-    }
-	if (uScene == 5)
-    {
-        float outerSphere = sdfSphere(samplePoint, 0.69);
-        float innerSphere = sdfSphere(samplePoint, 0.6);
-        float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12)) - 0.85) * 0.35;
+        float outerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.x);
+        float innerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.y);
+        float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12)) - 0.85) * uRingParams.z;
 
         return opSubtraction(cloudDist, innerSphere);
     }

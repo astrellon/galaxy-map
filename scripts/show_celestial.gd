@@ -19,7 +19,7 @@ signal closing
 @export var outline_threshold = 0.0
 
 @export var label: String = "Celestial"
-@export var description: String = ""
+@export_multiline var description: String = ""
 @export var label_colour = Color.TRANSPARENT
 @export var planet_texture: Texture2D
 @export var raymarch_planet_noise: Vector4 = Vector4.ONE
