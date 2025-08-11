@@ -1,6 +1,6 @@
 [gd_scene load_steps=368 format=3 uid="uid://b2einv4kauowa"]
 
-[ext_resource type="Shader" uid="uid://r368caausbih" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
+[ext_resource type="Shader" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
 [ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://scripts/star_twinkle.gd" id="3_dp3eg"]
@@ -32,13 +32,13 @@
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://desjrnqfy2clc" path="res://textures/pinkFluff.png" id="26_j8jky"]
 [ext_resource type="Texture2D" uid="uid://cnpxjccm52km2" path="res://textures/tower.png" id="27_c6pm6"]
-[ext_resource type="Shader" uid="uid://dvch7gppuhk4" path="res://shaders/title.gdshader" id="28_5q0nq"]
+[ext_resource type="Shader" path="res://shaders/title.gdshader" id="28_5q0nq"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
-[ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
-[ext_resource type="Shader" uid="uid://drkc3mpk84psq" path="res://shaders/blur.gdshader" id="31_dgi5k"]
-[ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
+[ext_resource type="Script" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
+[ext_resource type="Shader" path="res://shaders/blur.gdshader" id="31_dgi5k"]
+[ext_resource type="Script" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
-[ext_resource type="Script" uid="uid://bpdo67nnt4u35" path="res://scripts/title.gd" id="32_pibwh"]
+[ext_resource type="Script" path="res://scripts/title.gd" id="32_pibwh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dgi5k"]
 shader = ExtResource("1_5q0nq")
@@ -1899,7 +1899,7 @@ script = ExtResource("4_og1vs")
 polygon = NodePath("Fill")
 curve = SubResource("Curve2D_0470j")
 arc_list = SubResource("Resource_ivgg2")
-metadata/_hover_closest_point_on_curve_ = Object(Object,"script":Resource("res://addons/curved_lines_2d/closest_point_on_curve_meta.gd"),"before_segment":107,"point_position":Vector2(112.745, 146.029),"local_point_position":Vector2(-30.3166, 5.30211))
+metadata/_hover_closest_point_on_curve_ = Object(Object,"script":null)
 
 
 [node name="Fill" type="Polygon2D" parent="Background/Galaxy 5-4/layer2/path19Transform/path19"]
@@ -4071,7 +4071,7 @@ collision = NodePath("CollisionShape2D")
 position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
-[node name="BigStar14" type="AnimatedSprite2D" parent="Stars"]
+[node name="Ringworld" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(86, -10)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
@@ -4081,6 +4081,32 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.1
+
+[node name="Area2D" type="Area2D" parent="Stars/Ringworld" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/planet2.obj"
+wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
+wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
+reveal_type = 1
+outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
+label = "Ringworld"
+description = "Orbit: 0.73 Years
+Mass: 0.7 Earths
+Radius: 5400 km
+
+A mostly watery world with little exposed ground. Large interconnected sea plants appearing to be lush islands from space, lay the foundation for complex sea life to live in."
+planet_texture = ExtResource("25_kmb1v")
+raymarch_planet_noise = Vector4(5, 5, 5, 0.535)
+raymarch_planet_offset = Vector4(0.04, 0.37, 1.405, 0.02)
+raymarch_ring_params = Vector4(0.24, 1.05, 0.96, -0.06)
+raymarch_scene = 9
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Ringworld/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Pink Fluff" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(37, -73)

@@ -14,6 +14,7 @@ const float BLACK_HOLE_CENTER = 6.0;
 const float BLACK_HOLE_RING = 7.0;
 const float TOWER_OUTER = 8.0;
 const float TOWER_INNER = 9.0;
+const float RINGWORLD_METAL = 10.0;
 
 uniform sampler2D uNoiseTexture: repeat_enable, filter_linear;
 uniform sampler2D uPlanetTexture: repeat_disable, filter_nearest;
@@ -180,6 +181,15 @@ float cloudScene(vec3 samplePoint)
 		
 		return opSubtraction(cloudDist, innerTorus);
 	}
+	if (uScene == 9)
+	{
+		float outer = sdfDisk(samplePoint, 1.0, uRingParams.x - 0.1, uRingParams.z - uRingParams.w);
+		float outerCut = sdfDisk(samplePoint, 1.0, uRingParams.x + 1.0, uRingParams.z - uRingParams.w - 0.1);
+		float outerRing = opSubtraction(outerCut, outer);
+		float cloudDist = outerRing + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12)) - 0.85) * 0.35;
+
+		return cloudDist;
+	}
 
     return 100.0;
 }
@@ -205,6 +215,16 @@ vec2 planetScene(vec3 samplePoint)
 		vec2 inner = vec2(opUnion(inner1, inner2), TOWER_INNER);
 		vec2 outer = vec2(sdfOctahedron(samplePoint, 0.6), TOWER_OUTER);
 		return objSub(inner, outer);
+	}
+	if (uScene == 9)
+	{
+		float outer = sdfDisk(samplePoint, 1.0, uRingParams.x, uRingParams.y);
+		float outerCut = sdfDisk(samplePoint, 1.0, uRingParams.x + 1.0, uRingParams.z);
+		float outerRing = opSubtraction(outerCut, outer);
+		float inner = sdfDisk(samplePoint, 1.0, uRingParams.x - 0.1, uRingParams.z + 0.05);
+		vec2 outerMetal = vec2(outerRing, RINGWORLD_METAL);
+		vec2 innerPlanet = vec2(inner, PLANET);
+		return objSub(innerPlanet, outerMetal);
 	}
 
     return vec2(100.0, CLOUD);
@@ -598,6 +618,15 @@ void fragment()
 				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5) + 0.5, 1.2 - lighting)).rgb;
 				COLOR = vec4(planetColour, 1.0);
+			}
+			else if (approxEquals(dist.y, RINGWORLD_METAL))
+			{
+				vec3 normal = estimateNormalPlanet(p, dist.x);
+
+	        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, vec3(0.0), false) * 0.5 + 0.5;
+				//vec3 planetColour = texture(uPlanetTexture, vec2(0.9, 0.9 - lighting)).rgb;
+				vec3 ringColour = vec3(0.2, 0.2, 0.2);
+				COLOR = vec4(ringColour, 1.0);
 			}
 	    }
 		COLOR += extraColour;
