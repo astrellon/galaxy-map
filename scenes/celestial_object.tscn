@@ -279,9 +279,9 @@ far = 400.0
 
 [node name="Description" type="Label" parent="."]
 offset_left = 480.0
-offset_top = 96.0
+offset_top = 57.0
 offset_right = 596.0
-offset_bottom = 119.0
+offset_bottom = 80.0
 label_settings = SubResource("LabelSettings_gxy6w")
 horizontal_alignment = 2
 autowrap_mode = 2

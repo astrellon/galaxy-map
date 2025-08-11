@@ -174,7 +174,7 @@ func _draw() -> void:
 		var has_prev_world = false
 		for fv in f.faces:
 			num_lines_to_draw -= 1
-			if num_lines_to_draw <= 0:
+			if num_lines_to_draw < 0:
 				break
 
 			var current = self.mesh.vertices[fv.x] * self.mesh_scale * self.display_scale

@@ -1,4 +1,4 @@
-[gd_scene load_steps=364 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=367 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Shader" uid="uid://r368caausbih" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b77lkrklvma0u" path="res://textures/galaxyColourMap.png" id="3_yq6so"]
 [ext_resource type="Script" uid="uid://de3jpss66xjfh" path="res://addons/curved_lines_2d/scalable_vector_shape_2d.gd" id="4_og1vs"]
 [ext_resource type="Script" uid="uid://dlbv4pit17dnu" path="res://addons/curved_lines_2d/scalable_arc.gd" id="5_2wyq8"]
+[ext_resource type="Texture2D" uid="uid://u5ou1jwrae4y" path="res://textures/bigStar2.png" id="5_gqmmt"]
 [ext_resource type="Script" uid="uid://dl1t88tthmwts" path="res://addons/curved_lines_2d/scalable_arc_list.gd" id="6_vxglm"]
 [ext_resource type="Shader" uid="uid://bsmxi4yukltkc" path="res://shaders/interconnected.gdshader" id="8_og1vs"]
 [ext_resource type="Texture2D" uid="uid://v02j572omdon" path="res://textures/white.png" id="9_2f3dj"]
@@ -36,6 +37,7 @@
 [ext_resource type="Shader" uid="uid://drkc3mpk84psq" path="res://shaders/blur.gdshader" id="31_dgi5k"]
 [ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
+[ext_resource type="Script" uid="uid://bpdo67nnt4u35" path="res://scripts/title.gd" id="32_pibwh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dgi5k"]
 shader = ExtResource("1_5q0nq")
@@ -1768,14 +1770,18 @@ shader_parameter/colour = Color(0.783825, 0.859743, 0.879766, 1)
 shader_parameter/time_test = 4.45
 shader_parameter/cutoff = 100.0
 shader_parameter/shine_cutoff = 8.0
+shader_parameter/fade = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_vxglm"]
 font = ExtResource("26_2wyq8")
 font_size = 9
-font_color = Color(0.404401, 0.0287341, 0.195659, 1)
+font_color = Color(0.604963, 0.840862, 0.908072, 1)
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fuf3a"]
+size = Vector2(66.5, 12)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tel4y"]
 shader = ExtResource("31_dgi5k")
@@ -3936,7 +3942,7 @@ wireframe_front_colour = Color(0.91, 0.2093, 0.220978, 1)
 wireframe_back_colour = Color(0.69, 0.1725, 0.250125, 1)
 reveal_type = 1
 outline_colour = Color(0.91, 0.2093, 0.244335, 1)
-label = "Mars"
+label = "Gustin"
 description = "Orbit: 1.88 Years
 Mass: 0.1 Earths
 Radius: 3400 km
@@ -4027,7 +4033,7 @@ collision = NodePath("CollisionShape2D")
 position = Vector2(5, 4)
 shape = SubResource("CircleShape2D_qkpxi")
 
-[node name="BigStar16" type="AnimatedSprite2D" parent="Stars"]
+[node name="The Tower" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-4, 86)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
@@ -4037,6 +4043,32 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.0
+
+[node name="Area2D" type="Area2D" parent="Stars/The Tower" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/the_tower.obj"
+wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
+wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
+wireframe_mesh_scale = 1.65
+reveal_type = 1
+outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
+label = "The Tower"
+description = "Age: 6702 Years
+Height: 14.23 km
+
+A relatively recently abandoned structure, who's purpose seems to have been a research facility. However either it was never in use, or anything of use was very cleaned removed."
+planet_texture = ExtResource("17_dp3eg")
+raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
+raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
+raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 0)
+raymarch_scene = 8
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/The Tower/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar14" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(86, -10)
@@ -4069,7 +4101,11 @@ wireframe_back_colour = Color(0.482951, 0.25005, 0.501091, 1)
 reveal_type = 1
 outline_colour = Color(0.871069, 0.436581, 0.790355, 1)
 label = "The Pink Fluff"
-description = "A very low density gas giant."
+description = "Orbit: 8.65 Years
+Mass: 20.4 Earths
+Radius: 35360 km
+
+A very low density gas giant. The pink hues are primarily made up of crystal dust. How crystals came to be found in a low densitity gas giant is still under investigation."
 planet_texture = ExtResource("26_j8jky")
 raymarch_planet_noise = Vector4(0.585, 1.61, 0.29, 0.725)
 raymarch_planet_offset = Vector4(0.195, 0.07, 0.055, 0.085)
@@ -4122,13 +4158,13 @@ wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
 wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
 reveal_type = 1
 outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
-label = "Forbidden Donut"
+label = "Dorus"
 description = "Orbit: 1.68 Years
 Mass: 2.1 Earths
 Outer Radius: 7140 km
 Ring Radius: 2200 km
 
-A dusty iron rich landscape, with much of the remaining water remaining as clouds."
+A torus shaped planet, that has perplexed scientists. Whilst the leading hypothesis is that the planet was artificially created, no evidence of that has been found."
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(1, 2.705, 0.855, 0.45)
 raymarch_ring_params = Vector4(0.59, 0.22, 0.165, 0.065)
@@ -4173,6 +4209,42 @@ noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.8
 
+[node name="Black Hole2" type="AnimatedSprite2D" parent="Stars"]
+position = Vector2(72, -101)
+sprite_frames = SubResource("SpriteFrames_e755i")
+frame = 7
+centered = false
+offset = Vector2(-7, -7)
+script = ExtResource("3_dp3eg")
+noise_speed = 8.0
+noise_amp = 0.2
+time_offset = 3.4
+
+[node name="Area2D" type="Area2D" parent="Stars/Black Hole2" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/black_hole.obj"
+wireframe_front_colour = Color(0.91, 0.536293, 0.2093, 1)
+wireframe_back_colour = Color(0.502267, 0.279653, 0.107319, 1)
+reveal_type = 1
+outline_colour = Color(0.91, 0.466223, 0.2093, 1)
+label = "Pri's Treasure"
+description = "Mass: 159 Earths
+Radius: 1.41 km
+
+A stellar sized black hole that was only found because of the obvious hole it left in a suprisingly dense dust cloud."
+planet_texture = ExtResource("5_gqmmt")
+raymarch_planet_noise = Vector4(1.005, 1.295, 1.005, 0.565)
+raymarch_planet_offset = Vector4(0.11, 0.46, -0.395, -0.655)
+raymarch_ring_params = Vector4(0.19, 0.1, 0.35, 0)
+raymarch_scene = 4
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Black Hole2/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
+
 [node name="TinyStars" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("follow_rotation")]
 material = SubResource("ShaderMaterial_fv21b")
 multimesh = SubResource("MultiMesh_0ld40")
@@ -4185,15 +4257,24 @@ follow_rotation = NodePath("../Background")
 alpha_range = Vector2(0.05, 0.2)
 gradient = SubResource("Gradient_gqmmt")
 
-[node name="Galaxy Map Title" type="Label" parent="."]
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("text")]
+position = Vector2(228, 11)
+script = ExtResource("32_pibwh")
+text = NodePath("Galaxy Map Title")
+
+[node name="Galaxy Map Title" type="Label" parent="Area2D"]
 material = SubResource("ShaderMaterial_j8jky")
-offset_left = 185.0
-offset_top = 5.0
-offset_right = 276.0
-offset_bottom = 28.0
+offset_left = -43.0
+offset_top = -6.0
+offset_right = 48.0
+offset_bottom = 9.32
 text = "Galaxy Map"
 label_settings = SubResource("LabelSettings_vxglm")
 horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_fuf3a")
 
 [node name="CelestialParent" type="Node2D" parent="." node_paths=PackedStringArray("child_offset", "draw_line_to")]
 script = ExtResource("31_tel4y")

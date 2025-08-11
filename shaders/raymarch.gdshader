@@ -112,6 +112,21 @@ float sdfCappedCylinder(vec3 point, float height, float radius)
     return min(max(d.x, d.y), 0.0) + length(max(d, 0.0));
 }
 
+float sdfHexPrism(vec3 point, vec2 params)
+{
+    vec3 absPoint = abs(point);
+    float d1 = absPoint.z - params.y;
+    float d2 = max((absPoint.x * 0.866025 + absPoint.y * 0.5), absPoint.y) - params.x;
+    return length(max(vec2(d1, d2), 0.0)) + min(max(d1, d2), 0.0);
+}
+
+
+float sdfOctahedron(vec3 point, float size)
+{
+    point = abs(point);
+    return (point.x + point.y + point.z - size) * 0.57735027;
+}
+
 // Taken from https://github.com/fogleman/sdf/blob/d58a6fc63b75fc1cf1ebb71e0b42bf552319c8f1/sdf/d3.py#L314
 float sdfIcosahedron(vec3 point, float radius)
 {
@@ -171,6 +186,14 @@ vec2 planetScene(vec3 samplePoint)
 	if (uScene == 7)
 	{
 		return vec2(sdfTorus(samplePoint, uRingParams.x, uRingParams.y), PLANET);
+	}
+	if (uScene == 8)
+	{
+		float inner1 = sdfHexPrism(samplePoint, vec2(0.15, 1.0));
+		float inner2 = sdfHexPrism(cloudRotation * samplePoint, vec2(0.15, 1.0));
+		float inner = opUnion(inner1, inner2);
+		float outer = sdfOctahedron(samplePoint, 0.6);
+		return vec2(opSubtraction(inner, outer), PLANET);
 	}
 
     return vec2(100.0, CLOUD);
@@ -366,7 +389,6 @@ bool approxEquals(float x, float y)
 	return abs(x - y) < EPSILON;
 }
 
-
 // Taken from Shader Toy https://www.shadertoy.com/view/NdV3Rd
 // -------
 vec2 blackHoleScene(vec3 p)
@@ -446,7 +468,12 @@ vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
 // -------
 
 void vertex() {
-	cloudRotation = rotation3dY(TIME * 0.2);
+	if (uScene == 8) {
+		cloudRotation = rotation3dY(PI * 0.5);
+	}
+	else {
+		cloudRotation = rotation3dY(TIME * 0.2);
+	}
 }
 
 void fragment()

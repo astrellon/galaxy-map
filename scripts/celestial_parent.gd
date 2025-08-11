@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 		self.waiting_to_trigger = null
 	
 	if OS.is_debug_build():
-		if self.current_scene_info != null:
+		if self.current_scene_info != null and self.current_scene != null:
 			self.current_scene.update_info(self.current_scene_info)
 
 func trigger(info: ShowCelestial) -> void:
@@ -79,4 +79,5 @@ func _setup_new_scene(info: ShowCelestial) -> void:
 func _remove_current_scene() -> void:
 	self.current_scene_info.trigger_hide()
 	self.current_scene.queue_free()
+	self.current_scene = null
 	#self.child_offset.remove_child(self.current_scene)

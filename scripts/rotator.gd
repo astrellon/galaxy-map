@@ -12,9 +12,8 @@ var _held_timer = 0.0
 func _process(delta: float) -> void:
 	if self._held:
 		self.held_velocity *= 1.0 - delta
-		var axis = Vector3(-held_velocity.x, held_velocity.y, 0.0)
-		self.global_rotate(axis.normalized(), axis.length())
-		
+		self._rotate_global(self.held_velocity)
+
 		if self.held_velocity.length() < 0.1:
 			self._held_timer += delta
 			if self._held_timer >= self.held_countdown:
@@ -25,7 +24,12 @@ func _process(delta: float) -> void:
 
 func do_held(held_velocity: Vector2) -> void:
 	self.held_velocity = held_velocity
-	var axis = Vector3(-held_velocity.x, held_velocity.y, 0.0)
-	self.global_rotate(axis.normalized(), axis.length())
+	self._rotate_global(held_velocity)
 	self._held = true
 	self._held_timer = 0.0
+
+func _rotate_global(values: Vector2) -> void:
+	var x = self.basis.y * -values.y
+	var y = self.basis.x * -values.x
+	var axis = x + y
+	self.global_rotate(axis.normalized(), axis.length())

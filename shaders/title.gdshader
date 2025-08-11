@@ -10,6 +10,7 @@ uniform vec4 colour: source_color = vec4(1.0);
 uniform float time_test = 0.0;
 uniform float cutoff = 50.0;
 uniform float shine_cutoff = 10.0;
+uniform float fade = 1.0;
 
 bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D source)
 {
@@ -58,7 +59,7 @@ void fragment() {
 
 	float pos = (FRAGCOORD.x + FRAGCOORD.y) / outline_gap;
 
-	if (t * outline_speed + pos < cutoff) {
+	if (t * outline_speed + pos < cutoff || fade <= 0.0) {
 		discard;
 	}
 
@@ -76,6 +77,8 @@ void fragment() {
 		float outline = 1.0 - step(clamp(sin(t * outline_speed + pos), 0.0, 1.0) * stepped, 0.0);
 		COLOR = clamp(COLOR + outline * outline_colour, vec4(0.0), vec4(1.0));
 	}
+
+	COLOR.a *= fade;
 }
 
 //void light() {

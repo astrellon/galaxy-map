@@ -307,4 +307,3 @@ class Sine:
 
 	static func EaseOutIn(t: float, b: float, c: float, d: float) -> float:
 		return EaseOut(t * 2, b, c / 2, d) if t < d / 2 else EaseIn((t * 2) -d, b + c / 2, c / 2, d)
-
