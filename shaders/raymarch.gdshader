@@ -22,8 +22,11 @@ uniform float uReveal = 2.0;
 
 uniform vec4 uPlanetNoiseScale = vec4(1.0);
 uniform vec4 uPlanetNoiseOffset = vec4(0.0);
-uniform vec3 uRingParams = vec3(1.1, 0.75, 0.015);
+uniform vec4 uRingParams = vec4(1.1, 0.75, 0.015, 0.0);
 uniform int uScene = 0;
+
+varying mat3 cloudRotation;
+
 
 #define saturate(x) clamp(x, 0.0, 1.0)
 
@@ -40,6 +43,16 @@ mat3 rotation3d(vec3 axis, float angle)
         vec3(oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s),
         vec3(oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c)
     );
+}
+mat3 rotation3dY(float angle) {
+  float s = sin(angle);
+  float c = cos(angle);
+
+  return mat3(
+    vec3(c, 0.0, -s),
+    vec3(0.0, 1.0, 0.0),
+    vec3(s, 0.0, c)
+  );
 }
 
 float noise3D(vec3 p)
@@ -116,8 +129,15 @@ float sdfIcosahedron(vec3 point, float radius)
     return max(max(max(a, b), c) - xyz.x, d) * radius;
 }
 
+float sdfTorus(vec3 point, float radius, float ringRadius)
+{
+	vec2 distToRingCenter = vec2(length(point.xz) - radius, point.y);
+	return length(distToRingCenter) - ringRadius;
+}
+
 float cloudScene(vec3 samplePoint)
 {
+	samplePoint = cloudRotation * samplePoint;
     if (uScene == 0)
     {
         float outerSphere = sdfSphere(samplePoint, 0.7);
@@ -134,19 +154,31 @@ float cloudScene(vec3 samplePoint)
 
         return opSubtraction(cloudDist, innerSphere);
     }
+	if (uScene == 7)
+	{
+		float outerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.z);
+		float innerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.w);
+		float cloudDist = outerTorus + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12)) - 0.85) * 0.35;
+		
+		return opSubtraction(cloudDist, innerTorus);
+	}
 
     return 100.0;
 }
 
 vec2 planetScene(vec3 samplePoint)
 {
-    if (uScene == 0 || uScene == 1 || uScene == 5)
+    if (uScene == 0 || uScene == 1 || uScene == 5 || uScene == 6)
     {
         return vec2(sdfSphere(samplePoint, 0.5), PLANET);
     }
 	if (uScene == 2)
 	{
 		return vec2(sdfSphere(samplePoint, 0.25), STAR);
+	}
+	if (uScene == 7)
+	{
+		return vec2(sdfTorus(samplePoint, uRingParams.x, uRingParams.y), PLANET);
 	}
 
     return vec2(100.0, CLOUD);
@@ -178,8 +210,6 @@ vec2 objMin(vec2 d1, vec2 d2)
 
 float starScene(vec3 samplePoint)
 {
-	
-
 	return 100.0;
 }
 
@@ -396,7 +426,7 @@ vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
     
 	mat3 traced = blackHoleRayMarch(rayOrigin, rayDir, 512);
 	vec3 res = traced[0];
-	vec3 finalPos = traced[1];
+	vec3 finalPos = cloudRotation * traced[1];
 	vec3 accCol = traced[2];
 	
 	float alpha = res.y >= 0.0 ? 1.0 : 0.0;
@@ -422,6 +452,10 @@ vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
     return vec4(col, alpha);
 }
 // -------
+
+void vertex() {
+	cloudRotation = rotation3dY(TIME * 0.2);
+}
 
 void fragment()
 {

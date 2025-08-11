@@ -26,6 +26,10 @@ func _process(delta: float) -> void:
 			self._setup_new_scene(self.waiting_to_trigger)
 		self.waiting_to_remove = false
 		self.waiting_to_trigger = null
+	
+	if OS.is_debug_build():
+		if self.current_scene_info != null:
+			self.current_scene.update_info(self.current_scene_info)
 
 func trigger(info: ShowCelestial) -> void:
 	if self.current_scene_info == info:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=361 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=363 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Shader" uid="uid://r368caausbih" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
 [ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
@@ -23,10 +23,12 @@
 [ext_resource type="Texture2D" uid="uid://rrg0ydujwppb" path="res://textures/blackHoleGradient.png" id="20_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://bc3n5mrsf07p7" path="res://textures/redMedium.png" id="20_tel4y"]
 [ext_resource type="Texture2D" uid="uid://crpn48cm16tj3" path="res://textures/purpleSmall.png" id="21_qkpxi"]
+[ext_resource type="Texture2D" uid="uid://dk0r551017r6o" path="res://textures/redPlanet.png" id="22_dgi5k"]
 [ext_resource type="Texture2D" uid="uid://cpq8gr65umddu" path="res://textures/blueSmall.png" id="22_qkpxi"]
 [ext_resource type="Texture2D" uid="uid://cx8qx2jhuphti" path="res://textures/stars.png" id="24_fv21b"]
 [ext_resource type="Shader" uid="uid://cms3frm6puiba" path="res://shaders/small_stars.gdshader" id="24_tel4y"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
+[ext_resource type="Texture2D" uid="uid://desjrnqfy2clc" path="res://textures/pinkFluff.png" id="26_j8jky"]
 [ext_resource type="Shader" uid="uid://dvch7gppuhk4" path="res://shaders/title.gdshader" id="28_5q0nq"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
 [ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
@@ -3829,7 +3831,7 @@ outline_pattern = 3
 outline_threshold = 0.8
 label = "The Swarm"
 description = "A megastructure of energy collectors surrounding a white dwarf star."
-label_colour = Color(0.501961, 0.482353, 0.478431, 1)
+label_colour = Color(0.737232, 0.720694, 0.717384, 1)
 planet_texture = ExtResource("17_dp3eg")
 raymarch_scene = 2
 center_point = NodePath("CollisionShape2D")
@@ -3902,7 +3904,7 @@ collision = NodePath("CollisionShape2D")
 position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
-[node name="BigStar3" type="AnimatedSprite2D" parent="Stars"]
+[node name="Red Planet" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-105, 43)
 sprite_frames = SubResource("SpriteFrames_e755i")
 frame = 7
@@ -3913,7 +3915,7 @@ noise_speed = 8.0
 noise_amp = 0.2
 time_offset = 3.4
 
-[node name="Area2D" type="Area2D" parent="Stars/BigStar3" node_paths=PackedStringArray("center_point", "collision")]
+[node name="Area2D" type="Area2D" parent="Stars/Red Planet" node_paths=PackedStringArray("center_point", "collision")]
 position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
@@ -3923,13 +3925,14 @@ reveal_type = 1
 outline_colour = Color(0.91, 0.2093, 0.244335, 1)
 label = "Mars"
 description = "A dusty iron rich landscape, with much of the remaining water remaining as clouds."
-planet_texture = ExtResource("13_muem4")
-raymarch_planet_offset = Vector4(0.115, 0.425, -0.395, -0.67)
+planet_texture = ExtResource("22_dgi5k")
+raymarch_planet_noise = Vector4(1.005, 1.295, 1.005, 0.565)
+raymarch_planet_offset = Vector4(0.11, 0.46, -0.395, -0.655)
 raymarch_scene = 5
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar3/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Red Planet/Area2D"]
 position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
@@ -3944,7 +3947,7 @@ noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 3.8
 
-[node name="BigStar7" type="AnimatedSprite2D" parent="Stars"]
+[node name="Water Planet" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-39, 70)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
@@ -3954,6 +3957,27 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 3.9
+
+[node name="Area2D" type="Area2D" parent="Stars/Water Planet" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/planet2.obj"
+wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
+wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
+reveal_type = 1
+outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
+label = "Water Planet"
+description = "A dusty iron rich landscape, with much of the remaining water remaining as clouds."
+planet_texture = ExtResource("13_jbj1t")
+raymarch_planet_noise = Vector4(1.135, 1.36, 1.115, 0.345)
+raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -1.225)
+raymarch_scene = 6
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Water Planet/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Jewell" type="Node2D" parent="Stars"]
 
@@ -3999,7 +4023,7 @@ noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.1
 
-[node name="BigStar12" type="AnimatedSprite2D" parent="Stars"]
+[node name="Pink Fluff" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(37, -73)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
@@ -4009,6 +4033,27 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.2
+
+[node name="Area2D" type="Area2D" parent="Stars/Pink Fluff" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/planet2.obj"
+wireframe_front_colour = Color(0.733264, 0.336056, 0.702336, 1)
+wireframe_back_colour = Color(0.482951, 0.25005, 0.501091, 1)
+reveal_type = 1
+outline_colour = Color(0.871069, 0.436581, 0.790355, 1)
+label = "The Pink Fluff"
+description = "A very low density gas giant."
+planet_texture = ExtResource("26_j8jky")
+raymarch_planet_noise = Vector4(0.585, 1.61, 0.29, 0.725)
+raymarch_planet_offset = Vector4(0.195, 0.07, 0.055, 0.085)
+raymarch_scene = 6
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Pink Fluff/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar10" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-66, -9)
@@ -4032,7 +4077,7 @@ noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.4
 
-[node name="BigStar8" type="AnimatedSprite2D" parent="Stars"]
+[node name="Donut" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(5, -61)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
@@ -4042,6 +4087,27 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.5
+
+[node name="Area2D" type="Area2D" parent="Stars/Donut" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/torus.obj"
+wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
+wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
+reveal_type = 1
+outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
+label = "Forbidden Donut"
+description = "A dusty iron rich landscape, with much of the remaining water remaining as clouds."
+planet_texture = ExtResource("13_jbj1t")
+raymarch_planet_noise = Vector4(1, 2.705, 0.855, 0.45)
+raymarch_ring_params = Vector4(0.59, 0.22, 0.165, 0.065)
+raymarch_scene = 7
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Donut/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar6" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(53, 45)

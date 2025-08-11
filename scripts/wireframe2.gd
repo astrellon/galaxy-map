@@ -25,6 +25,7 @@ enum RevealType { ALPHA, LINE_BY_LINE }
 @export var alpha: float = 1.0
 @export var target_camera_fov: float = 100
 @export var reveal_camera_fov: float = 1.0
+@export var camera_rotator: Rotator
 
 var mesh: MeshFile
 var total_lines_to_draw = 0
@@ -36,6 +37,8 @@ var inited = false
 
 var do_hide = false
 var wireframe_hidden = false
+
+var mouse_down = false
 
 func calc_num_total_lines() -> int:
 	var total: int = 0
@@ -52,38 +55,42 @@ func _ready() -> void:
 		print("Mesh loaded " + str(len(self.mesh.vertices)))
 		self.play_start_animation()
 
-func init(info: ShowCelestial) -> void:
-	if self.inited:
-		return
-
-	self.mesh_file = info.mesh_file
+func update_info(info: ShowCelestial) -> void:
+	
 	self.mesh_scale = info.wireframe_mesh_scale
 	self.target_camera_fov = info.target_camera_fov
 	self.backface_culling = info.backface_culling
 	self.reveal_type = info.reveal_type
 	if info.label_colour.a < 0.01:
 		self.label.label_settings.font_color = info.wireframe_front_colour
-		self.description.label_settings.font_color = info.wireframe_back_colour
+		self.description.label_settings.font_color = info.wireframe_front_colour
 	else:
 		self.label.label_settings.font_color = info.label_colour
 		self.description.label_settings.font_color = info.label_colour
-
-	self.label.visible_ratio = 0
-	self.description.visible_ratio = 0
 	
 	self.label.text = info.label
 	self.description.text = info.description
-
-	self.inited = true
-	self.mesh = MeshFile.create(self.mesh_file)
-	print("Mesh loaded " + str(len(mesh.vertices)))
-	self.total_lines_to_draw = self.calc_num_total_lines()
-
 	self.front_colour = info.wireframe_front_colour
 	self.back_colour = info.wireframe_back_colour
 
 	self.outline_node.init(info)
 	self.raymarch_node.init(info)
+
+func init(info: ShowCelestial) -> void:
+	if self.inited:
+		return
+	
+	self.update_info(info)
+
+	self.label.visible_ratio = 0
+	self.description.visible_ratio = 0
+
+	self.mesh_file = info.mesh_file
+	self.inited = true
+	self.mesh = MeshFile.create(self.mesh_file)
+	print("Mesh loaded " + str(len(mesh.vertices)))
+	self.total_lines_to_draw = self.calc_num_total_lines()
+
 
 	self.play_start_animation()
 
@@ -99,9 +106,24 @@ func hide_wireframe() -> void:
 
 var show_description_char_timer = 0.0
 
+func on_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_mask & MOUSE_BUTTON_MASK_LEFT > 0:
+		self.mouse_down = true
+		pass
+
+var _prev_mouse_pos = Vector2.ZERO
+
 func _process(delta: float) -> void:
 	if self.wireframe_hidden:
 		return
+	
+	if self.mouse_down :
+		var is_currently_down = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+		if !is_currently_down:
+			self.mouse_down = false
+		else:
+			var velo = Input.get_last_mouse_velocity() * delta * 0.01
+			self.camera_rotator.do_held(Vector2(velo.y, velo.x))
 
 	if self.inited:
 		if self.do_hide:
@@ -137,12 +159,10 @@ func _draw() -> void:
 	var has_ignore = self.ignore_line.length() > 0.1
 	var ignore_dir = Vector3(self.ignore_line.x, self.ignore_line.y, self.ignore_line.z)
 
-
 	var back_colour = Color(self.back_colour, self.alpha)
 	var front_colour = Color(self.front_colour, self.alpha)
 
 	var num_lines_to_draw = self.total_lines_to_draw
-	#if self.reveal_type == RevealType.LINE_BY_LINE:
 	num_lines_to_draw = roundi(num_lines_to_draw * self.reveal_lines)
 
 	front_faces.clear()

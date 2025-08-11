@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://xrnrgaclsms6"]
+[gd_scene load_steps=21 format=3 uid="uid://xrnrgaclsms6"]
 
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="1_x5fnd"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="2_wu8c0"]
@@ -183,7 +183,7 @@ shader_parameter/uCameraFov = 50.0
 shader_parameter/uReveal = 2.0
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
 shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
-shader_parameter/uRingParams = Vector3(1.1, 0.75, 0.015)
+shader_parameter/uRingParams = Vector4(1.1, 0.75, 0.015, 0)
 shader_parameter/uScene = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yaehf"]
@@ -215,7 +215,10 @@ outline_color = Color(0.690196, 0.356863, 0.172549, 1)
 shadow_size = 0
 shadow_color = Color(0.132, 0.22, 0.178933, 0.776471)
 
-[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label", "description", "raymarch_node", "outline_node")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxy6w"]
+radius = 71.0
+
+[node name="Gas Giant" type="Node2D" node_paths=PackedStringArray("camera", "animation", "label", "description", "raymarch_node", "outline_node", "camera_rotator")]
 script = ExtResource("1_x5fnd")
 camera = NodePath("Camera Pivot/Camera3D")
 backface_culling = false
@@ -229,6 +232,7 @@ raymarch_node = NodePath("SubViewport/Raymarch")
 outline_node = NodePath("Outline")
 reveal_lines = 0.0
 alpha = 0.0
+camera_rotator = NodePath("Camera Pivot")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -281,3 +285,11 @@ offset_bottom = 119.0
 label_settings = SubResource("LabelSettings_gxy6w")
 horizontal_alignment = 2
 autowrap_mode = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(228, 128)
+shape = SubResource("CircleShape2D_gxy6w")
+
+[connection signal="input_event" from="Area2D" to="." method="on_area_input_event"]
