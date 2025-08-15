@@ -13,5 +13,14 @@ Internally it's making use of a few different techniques:
 - 3D meshes for the wireframe scan lines of each object that can be clicked on.
 - Raymarched SDFs for the final visual of each object.
 
+## References
+- SDF 3D functions by [Inigo Quilez](https://iquilezles.org/articles/distfunctions/)
+- Additional SDF 3D functions by [Michael Fogleman](https://github.com/fogleman/sdf/blob/d58a6fc63b75fc1cf1ebb71e0b42bf552319c8f1/sdf/d3.py#L314)
+- Black Hole shader by [z0rg](https://www.shadertoy.com/view/NdV3Rd)
+- Raymarched Clouds by [Maxime Heckle](https://blog.maximeheckel.com/posts/real-time-cloudscapes-with-volumetric-raymarching/)
+- Blur shader by [Juanito Pereyra](https://godotshaders.com/shader/gaussian-blur-2/)
+- Outline shader by [Juulpower](https://godotshaders.com/shader/2d-outline-inline/)
+- GLSL rotation functions by [Damien Seguin](https://github.com/dmnsgn/glsl-rotate)
+
 ## Author
 Alan Lawrey 2025
