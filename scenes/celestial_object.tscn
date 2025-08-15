@@ -148,7 +148,7 @@ tracks/3/path = NodePath(".:alpha")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(3.96667, 4.5),
+"times": PackedFloat32Array(2.86667, 3.23333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
@@ -181,6 +181,7 @@ shader_parameter/uCameraMatrix = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
 shader_parameter/uCameraPosition = Vector3(0, 0, 5)
 shader_parameter/uCameraFov = 50.0
 shader_parameter/uReveal = 2.0
+shader_parameter/uProjectionMatrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
 shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
 shader_parameter/uRingParams = Vector4(1.1, 0.75, 0.015, 0)
@@ -280,10 +281,10 @@ fov = 62.1
 far = 400.0
 
 [node name="Description" type="Label" parent="."]
-offset_left = 492.0
-offset_top = 64.0
-offset_right = 608.0
-offset_bottom = 87.0
+offset_left = 508.0
+offset_top = 34.0
+offset_right = 624.0
+offset_bottom = 57.0
 label_settings = SubResource("LabelSettings_gxy6w")
 horizontal_alignment = 2
 autowrap_mode = 2

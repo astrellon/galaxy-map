@@ -6,11 +6,13 @@ extends Sprite2D
 @export var traffic: MultiMeshInstance2D
 @export var traffic_speed: Vector2 = Vector2(1.5, 4.0)
 @export var time_offset = -3.0
+@export var time_to_spawn = 0.1
 
 var connected_points: Array[ConnectedPoints] = []
 var traffic_points: Array[TrafficPoint] = []
 var num_active_traffic_points = 0
 var weighted_points: Array[int] = []
+var spawn_timer = 0.0
 
 func _ready() -> void:
 	for i in range(self.num_traffic):
@@ -31,25 +33,27 @@ func _ready() -> void:
 		connected_points.push_back(ConnectedPoints.new(connected))
 
 func _process(delta: float) -> void:
-	
 	var time_since_start = float(Time.get_ticks_msec()) / 1000.0
 	if time_since_start < self.time_offset:
 		return
-		
-	var spawned_traffic = 0
+	
 	self.num_active_traffic_points = 0
+	self.spawn_timer += delta
 	
 	for traffic in self.traffic_points:
 		if traffic.active:
 			self.num_active_traffic_points += 1
 			traffic.update(delta)
-		elif spawned_traffic < 2:
-			self.num_active_traffic_points += 1
-			var edge = self.pick_random_edge()
-			var speed = 1.0 / randf_range(self.traffic_speed.x, self.traffic_speed.y)
-			var colour = Color.from_hsv(randf(), 0.5, 0.75)
-			traffic.setup(edge[0], edge[1], speed, colour)
-			spawned_traffic += 1
+		elif self.spawn_timer >= self.time_to_spawn:
+			var num_to_spawn = floor(self.spawn_timer / self.time_to_spawn)
+			self.spawn_timer = fmod(self.spawn_timer, self.time_to_spawn)
+			
+			for i in range(self.num_active_traffic_points, min(self.num_active_traffic_points + num_to_spawn, self.num_traffic)):
+				self.num_active_traffic_points += 1
+				var edge = self.pick_random_edge()
+				var speed = 1.0 / randf_range(self.traffic_speed.x, self.traffic_speed.y)
+				var colour = Color.from_hsv(randf(), 0.5, 0.75)
+				traffic.setup(edge[0], edge[1], speed, colour)
 	
 	self.traffic.multimesh.visible_instance_count = self.num_active_traffic_points
 	var index = 0

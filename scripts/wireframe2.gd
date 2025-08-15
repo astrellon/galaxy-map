@@ -144,7 +144,7 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 func _draw() -> void:
-	if self.reveal_camera_fov < 0.0001 || self.reveal_lines < 0.0001:
+	if self.reveal_camera_fov < 0.0001 || self.reveal_lines < 0.0001 || self.alpha < 0.0001:
 		return
 
 	if self.frame_wait > 0:
@@ -159,7 +159,7 @@ func _draw() -> void:
 
 	var back_colour = Color(self.back_colour, self.alpha)
 	var front_colour = Color(self.front_colour, self.alpha)
-
+	
 	var num_lines_to_draw = self.total_lines_to_draw
 	num_lines_to_draw = roundi(num_lines_to_draw * self.reveal_lines)
 

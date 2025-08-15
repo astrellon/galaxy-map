@@ -1,4 +1,4 @@
-[gd_scene load_steps=375 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=378 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://bdcumrxyvfl1j" path="res://textures/backgroundStars.png" id="2_5he1u"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
@@ -33,8 +33,11 @@
 [ext_resource type="Texture2D" uid="uid://desjrnqfy2clc" path="res://textures/pinkFluff.png" id="26_j8jky"]
 [ext_resource type="Texture2D" uid="uid://cnpxjccm52km2" path="res://textures/tower.png" id="27_c6pm6"]
 [ext_resource type="Shader" uid="uid://dvch7gppuhk4" path="res://shaders/title.gdshader" id="28_5q0nq"]
+[ext_resource type="Texture2D" uid="uid://drw8r6vrwaqf7" path="res://textures/ringworld.png" id="29_5poiv"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
+[ext_resource type="Texture2D" uid="uid://btk8n267b3k8c" path="res://textures/crystalWorld.png" id="31_2cjbq"]
 [ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
+[ext_resource type="Texture2D" uid="uid://byaksg3x0rrku" path="res://textures/lava.png" id="31_chjal"]
 [ext_resource type="Shader" uid="uid://drkc3mpk84psq" path="res://shaders/blur.gdshader" id="31_dgi5k"]
 [ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
@@ -3964,7 +3967,7 @@ description = "Orbit: 1.02 Years
 Mass: 1.2 Earths
 Radius: 7040 km
 
-A lush planet filled with unsual and even fantastical creatures."
+A lush planet filled with unusual and even fantastical creatures. Many seem to be originally artificially constructed but they have continued to evolve and grow on their own."
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(1, 1, 1, 0.6)
 raymarch_planet_offset = Vector4(0, 0, 0, -0.05)
@@ -4000,11 +4003,12 @@ description = "Orbit: 12.14 Years
 Mass: 278 Earths
 Radius: 68300 km
 
-A gas giant that has unusual high electrical activity."
+A gas giant that has unusual high electrical activity. "
 planet_texture = ExtResource("13_muem4")
 raymarch_planet_noise = Vector4(0.5, 3, 0.5, 0.865)
 raymarch_planet_offset = Vector4(0.115, 0, 0, 0.035)
 raymarch_scene = 1
+fov_test = 0.33
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
@@ -4115,6 +4119,7 @@ The supermassive blackhole at the center of the galaxy."
 planet_texture = ExtResource("20_gqmmt")
 raymarch_planet_offset = Vector4(0.025, 0.11, 0.015, 0)
 raymarch_scene = 4
+fov_test = 0.325
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
@@ -4173,18 +4178,18 @@ time_offset = 4.1
 [node name="Area2D" type="Area2D" parent="Stars/Ringworld" node_paths=PackedStringArray("center_point", "collision")]
 position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
-mesh_file = "res://meshes/planet2.obj"
+mesh_file = "res://meshes/ringworld.obj"
 wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
 wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
+wireframe_mesh_scale = 1.9
 reveal_type = 1
 outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
-label = "Ringworld"
-description = "Orbit: 0.73 Years
-Mass: 0.7 Earths
-Radius: 5400 km
+label = "Haven"
+description = "Age: 4300 Years
+Radius: 1414 km
 
-A mostly watery world with little exposed ground. Large interconnected sea plants appearing to be lush islands from space, lay the foundation for complex sea life to live in."
-planet_texture = ExtResource("25_kmb1v")
+A ringworld parked in a fairly high orbit around a gas giant that happens to be just on the edge of the stars habitable zone. The surface is covered with fairly wild forests and lakes. It's assumed that the ringworld is a wildlife sanctuary. "
+planet_texture = ExtResource("29_5poiv")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.535)
 raymarch_planet_offset = Vector4(0.04, 0.37, 1.405, 0.02)
 raymarch_ring_params = Vector4(0.24, 1.05, 0.96, 0.04)
@@ -4213,6 +4218,7 @@ script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.733264, 0.336056, 0.702336, 1)
 wireframe_back_colour = Color(0.482951, 0.25005, 0.501091, 1)
+wireframe_mesh_scale = 1.5
 reveal_type = 1
 outline_colour = Color(0.871069, 0.436581, 0.790355, 1)
 label = "The Pink Fluff"
@@ -4222,8 +4228,9 @@ Radius: 35360 km
 
 A very low density gas giant. The pink hues are primarily made up of crystal dust. How crystals came to be found in a low densitity gas giant is still under investigation."
 planet_texture = ExtResource("26_j8jky")
-raymarch_planet_noise = Vector4(0.585, 1.61, 0.29, 0.725)
+raymarch_planet_noise = Vector4(2, 3, 2, 0.645)
 raymarch_planet_offset = Vector4(0.195, 0.07, 0.055, 0.085)
+raymarch_ring_params = Vector4(0.43, 0.251, 0.87, 0)
 raymarch_scene = 6
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4232,7 +4239,7 @@ collision = NodePath("CollisionShape2D")
 position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
-[node name="BigStar10" type="AnimatedSprite2D" parent="Stars"]
+[node name="BigStar" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-66, -9)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
@@ -4253,6 +4260,31 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.4
+
+[node name="Area2D" type="Area2D" parent="Stars/BigStar13" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(4, 4)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/planet2.obj"
+wireframe_front_colour = Color(0.87, 0.1218, 0.1218, 1)
+wireframe_back_colour = Color(0.57, 0.114, 0.114, 1)
+reveal_type = 1
+outline_colour = Color(0.707116, 0.158106, 0.183174, 1)
+label = "Hot Stuff"
+description = "Orbit: 2.41 Years
+Mass: 1.89 Earths
+Radius: 4601 km
+
+A protoplanet that is both dense as is it hot. Whilst it is smaller than Earth it's nearly twice as heavy. The surface is covered in constant shifting lava."
+planet_texture = ExtResource("31_chjal")
+raymarch_planet_noise = Vector4(3, 3, 3, 0.51)
+raymarch_planet_offset = Vector4(0.395, 0.285, -0.02, -0.095)
+raymarch_scene = 11
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar13/Area2D"]
+position = Vector2(4.5, 4.5)
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Donut" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(5, -61)
@@ -4291,7 +4323,7 @@ collision = NodePath("CollisionShape2D")
 position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
-[node name="BigStar6" type="AnimatedSprite2D" parent="Stars"]
+[node name="Crystal" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(53, 45)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
@@ -4301,6 +4333,31 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.6
+
+[node name="Area2D" type="Area2D" parent="Stars/Crystal" node_paths=PackedStringArray("center_point", "collision")]
+position = Vector2(5, 5)
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/gas_giant.obj"
+wireframe_front_colour = Color(0.869069, 0.440496, 0.927407, 1)
+wireframe_back_colour = Color(0.608532, 0.398992, 0.583193, 1)
+reveal_type = 1
+outline_colour = Color(0.892343, 0.629979, 0.802935, 1)
+label = "Crystals"
+description = "Orbit: 0.62 Years
+Mass: 0.031 Earths
+Radius: 1400 km
+
+Despite the low surface gravity it is a small planetoid that seems to be covered in large crystals. An outlandish hypothesis is that it used to be a gas giant and this is the remaining planet core."
+planet_texture = ExtResource("31_2cjbq")
+raymarch_planet_noise = Vector4(5, 5, 5, 0.42)
+raymarch_planet_offset = Vector4(0.145, 0.23, 0.31, -1.025)
+raymarch_scene = 10
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Crystal/Area2D"]
+position = Vector2(3.5, 3.5)
+shape = SubResource("CircleShape2D_2f3dj")
 
 [node name="BigStar9" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-28, 40)
@@ -4397,7 +4454,7 @@ script = ExtResource("31_tel4y")
 child_offset = NodePath("ChildOffset")
 
 [node name="ChildOffset" type="Node2D" parent="CelestialParent"]
-position = Vector2(-144, 7)
+position = Vector2(-164, 7)
 
 [node name="CursorView" type="Sprite2D" parent="." node_paths=PackedStringArray("cursor", "highlight_parent")]
 texture_filter = 1
