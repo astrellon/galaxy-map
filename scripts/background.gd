@@ -37,7 +37,7 @@ func get_colour(index: int, layer: int) -> Color:
 	return self.colour_map.get_image().get_pixel(index, layer)
 
 func _process(delta: float) -> void:
-	if self.rotate_speed > 0:
+	if self.rotate_speed != 0.0:
 		self.rotate(self.rotate_speed * delta * PI / 180.0);
 		
 	var index = clamp(floor(time / self.time_per_pixel), 0, self.colour_map.get_width() - 1)

@@ -5,12 +5,15 @@ extends Node2D
 @export var time_offset: float = 3.0
 var noise_offset: float = 0.0
 var parent: Node2D
+var started_playing = false
 
 var _animated: AnimatedSprite2D
-var started_playing = false
+var _starting_position: Vector2
+var _following: Node2D
 
 func _init() -> void:
 	self.noise_offset = randf() * 10.0
+	self._starting_position = self.position
 	
 	var s = self
 	if s is AnimatedSprite2D:
@@ -19,6 +22,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	self.parent = self.get_parent()
+	if self.parent is FollowRotation:
+		self._following = self.parent.follow
 
 func _process(delta: float) -> void:
 	var t = (Time.get_ticks_msec() / 1000.0) * self.noise_speed
@@ -26,7 +31,8 @@ func _process(delta: float) -> void:
 	var norm_noise = (noise + 2.0) / 4.0
 	var alpha = 1 - norm_noise * self.noise_amp
 	self.modulate.a = alpha
-	self.rotation = -self.parent.rotation
+	var rotated_pos = self._following.get_global_transform().basis_xform(self._starting_position)
+	self.position = rotated_pos
 	
 	if self._animated != null and !self.started_playing:
 		var time = Time.get_ticks_msec() / 1000.0

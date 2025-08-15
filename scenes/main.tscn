@@ -3885,7 +3885,6 @@ position = Vector2(230, 90)
 
 [node name="Interconnected" type="Sprite2D" parent="." node_paths=PackedStringArray("target", "traffic")]
 material = SubResource("ShaderMaterial_vxglm")
-position = Vector2(12, 7)
 texture = SubResource("ViewportTexture_2f3dj")
 centered = false
 script = ExtResource("9_vxglm")
@@ -3901,22 +3900,21 @@ multimesh = SubResource("MultiMesh_2f3dj")
 texture = ExtResource("9_2f3dj")
 
 [node name="Stars" type="Node2D" parent="." node_paths=PackedStringArray("follow")]
-position = Vector2(239, 135)
+position = Vector2(240, 135)
 script = ExtResource("14_y6deb")
 follow = NodePath("../Background")
 
 [node name="The Swarm" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(25, 30)
+position = Vector2(39, 33)
 sprite_frames = SubResource("SpriteFrames_chjal")
 frame = 10
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.3
 
 [node name="Area2D" type="Area2D" parent="Stars/The Swarm" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(5, 5)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/dysonSwarm.obj"
 wireframe_front_colour = Color(0.501961, 0.482353, 0.478431, 1)
@@ -3940,22 +3938,20 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/The Swarm/Area2D"]
-position = Vector2(3.5, 3.5)
 shape = SubResource("CircleShape2D_fv21b")
 
 [node name="EarthLike" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-105, -17)
+position = Vector2(-87, -27)
 sprite_frames = SubResource("SpriteFrames_mlv25")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 11.575
 noise_amp = 0.245
 time_offset = 3.6
 
 [node name="Area2D" type="Area2D" parent="Stars/EarthLike" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(5, 5)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.560784, 0.815686, 0.196078, 1)
@@ -3976,22 +3972,20 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/EarthLike/Area2D"]
-position = Vector2(3.5, 3.5)
 shape = SubResource("CircleShape2D_2f3dj")
 
 [node name="Gas Giant" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(54, -26)
+position = Vector2(67, -23)
 sprite_frames = SubResource("SpriteFrames_0loja")
 frame = 10
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.25
 time_offset = 3.2
 
 [node name="Area2D" type="Area2D" parent="Stars/Gas Giant" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/gas_giant.obj"
 wireframe_front_colour = Color(0.909804, 0.541176, 0.211765, 1)
@@ -4013,22 +4007,20 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Gas Giant/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Red Planet" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-105, 43)
+position = Vector2(-96, 49)
 sprite_frames = SubResource("SpriteFrames_e755i")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 8.0
 noise_amp = 0.2
 time_offset = 3.4
 
 [node name="Area2D" type="Area2D" parent="Stars/Red Planet" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.91, 0.2093, 0.220978, 1)
@@ -4050,15 +4042,14 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Red Planet/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar5" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-69, 38)
+position = Vector2(-59, 46)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
@@ -4069,14 +4060,13 @@ position = Vector2(-39, 70)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 3.9
 
 [node name="Area2D" type="Area2D" parent="Stars/Water Planet" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
@@ -4098,7 +4088,6 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Water Planet/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Jewell" type="Node2D" parent="Stars"]
@@ -4128,18 +4117,17 @@ position = Vector2(5, 4)
 shape = SubResource("CircleShape2D_qkpxi")
 
 [node name="The Tower" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-4, 86)
+position = Vector2(25, 92)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.0
 
 [node name="Area2D" type="Area2D" parent="Stars/The Tower" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/the_tower.obj"
 wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
@@ -4161,22 +4149,20 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/The Tower/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Ringworld" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(86, -10)
+position = Vector2(101, -13)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.1
 
 [node name="Area2D" type="Area2D" parent="Stars/Ringworld" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/ringworld.obj"
 wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
@@ -4198,22 +4184,20 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Ringworld/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Pink Fluff" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(37, -73)
+position = Vector2(21, -80)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.2
 
 [node name="Area2D" type="Area2D" parent="Stars/Pink Fluff" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.733264, 0.336056, 0.702336, 1)
@@ -4236,33 +4220,31 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Pink Fluff/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="BigStar" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-66, -9)
+position = Vector2(-56, -2)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.3
 
 [node name="BigStar13" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-56, -60)
+position = Vector2(-49, -52)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.4
 
 [node name="Area2D" type="Area2D" parent="Stars/BigStar13" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.87, 0.1218, 0.1218, 1)
@@ -4283,22 +4265,20 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar13/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Donut" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(5, -61)
+position = Vector2(16, -52)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.5
 
 [node name="Area2D" type="Area2D" parent="Stars/Donut" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/torus.obj"
 wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
@@ -4320,22 +4300,20 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Donut/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Crystal" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(53, 45)
+position = Vector2(77, 39)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.6
 
 [node name="Area2D" type="Area2D" parent="Stars/Crystal" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(5, 5)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/gas_giant.obj"
 wireframe_front_colour = Color(0.869069, 0.440496, 0.927407, 1)
@@ -4356,7 +4334,6 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Crystal/Area2D"]
-position = Vector2(3.5, 3.5)
 shape = SubResource("CircleShape2D_2f3dj")
 
 [node name="BigStar9" type="AnimatedSprite2D" parent="Stars"]
@@ -4364,36 +4341,35 @@ position = Vector2(-28, 40)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.7
 
 [node name="BigStar15" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-12, -101)
+position = Vector2(-18, -97)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.8
 
 [node name="Black Hole2" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(72, -101)
+position = Vector2(80, -93)
 sprite_frames = SubResource("SpriteFrames_e755i")
 frame = 7
 centered = false
-offset = Vector2(-7, -7)
+offset = Vector2(-15, -15)
 script = ExtResource("3_dp3eg")
 noise_speed = 8.0
 noise_amp = 0.2
 time_offset = 3.4
 
 [node name="Area2D" type="Area2D" parent="Stars/Black Hole2" node_paths=PackedStringArray("center_point", "collision")]
-position = Vector2(4, 4)
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/black_hole.obj"
 wireframe_front_colour = Color(0.91, 0.536293, 0.2093, 1)
@@ -4414,12 +4390,10 @@ center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Black Hole2/Area2D"]
-position = Vector2(4.5, 4.5)
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="TinyStars" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("follow_rotation")]
 material = SubResource("ShaderMaterial_fv21b")
-position = Vector2(12, 7)
 multimesh = SubResource("MultiMesh_0ld40")
 texture = ExtResource("9_2f3dj")
 script = ExtResource("10_0ld40")
