@@ -23,7 +23,6 @@ uniform mat3 uCameraMatrix;
 uniform vec3 uCameraPosition = vec3(0.0, 0.0, 5.0);
 uniform float uCameraFov = 50.0;
 uniform float uReveal = 2.0;
-uniform mat4 uProjectionMatrix;
 
 uniform vec4 uPlanetNoiseScale = vec4(1.0);
 uniform vec4 uPlanetNoiseOffset = vec4(0.0);
@@ -35,156 +34,138 @@ varying mat3 cloudRotation;
 #define saturate(x) clamp(x, 0.0, 1.0)
 
 // Taken from: https://github.com/dmnsgn/glsl-rotate/blob/main/rotation-3d.glsl
-mat3 rotation3d(vec3 axis, float angle)
-{
-    axis = normalize(axis);
-    float s = sin(angle);
-    float c = cos(angle);
-    float oc = 1.0 - c;
+mat3 rotation3d(vec3 axis, float angle) {
+	axis = normalize(axis);
+	float s = sin(angle);
+	float c = cos(angle);
+	float oc = 1.0 - c;
 
-    return mat3(
-        vec3(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s),
-        vec3(oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s),
-        vec3(oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c)
-    );
+	return mat3(
+		vec3(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s),
+		vec3(oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s),
+		vec3(oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c)
+	);
 }
 mat3 rotation3dY(float angle) {
-  float s = sin(angle);
-  float c = cos(angle);
+	float s = sin(angle);
+	float c = cos(angle);
 
-  return mat3(
-    vec3(c, 0.0, -s),
-    vec3(0.0, 1.0, 0.0),
-    vec3(s, 0.0, c)
-  );
+	return mat3(
+		vec3(c, 0.0, -s),
+		vec3(0.0, 1.0, 0.0),
+		vec3(s, 0.0, c)
+	);
 }
 
-float noise3D(vec3 p)
-{
-    p.z = fract(p.z)*256.0;
-    float iz = floor(p.z);
-    float fz = fract(p.z);
-    vec2 a_off = vec2(23.0, 29.0)*(iz)/256.0;
-    vec2 b_off = vec2(23.0, 29.0)*(iz+1.0)/256.0;
-    float a = texture(uNoiseTexture, p.xy + a_off, -999.0).r;
-    float b = texture(uNoiseTexture, p.xy + b_off, -999.0).r;
-    return mix(a, b, fz);
+float noise3D(vec3 p) {
+	p.z = fract(p.z)*256.0;
+	float iz = floor(p.z);
+	float fz = fract(p.z);
+	vec2 a_off = vec2(23.0, 29.0)*(iz)/256.0;
+	vec2 b_off = vec2(23.0, 29.0)*(iz+1.0)/256.0;
+	float a = texture(uNoiseTexture, p.xy + a_off, -999.0).r;
+	float b = texture(uNoiseTexture, p.xy + b_off, -999.0).r;
+	return mix(a, b, fz);
 }
-float perlinNoise3D(vec3 p)
-{
-    float x = 0.0;
-    for (float i = 0.0; i < 6.0; i += 1.0)
+float perlinNoise3D(vec3 p) {
+	float x = 0.0;
+	for (float i = 0.0; i < 6.0; i += 1.0)
 	{
 		x += noise3D(p * pow(2.0, i)) * pow(0.5, i);
 	}
-    return x;
+	return x;
 }
 
-float opOnion(float sdf, float thickness)
-{
+float opOnion(float sdf, float thickness) {
 	return abs(sdf) - thickness;
 }
 
-float opUnion(float d1, float d2)
-{
+float opUnion(float d1, float d2) {
 	return min(d1, d2);
 }
 
-float opSubtraction(float d1, float d2)
-{
+float opSubtraction(float d1, float d2) {
 	return max(-d1, d2);
 }
 
-float opIntersection(float d1, float d2)
-{
+float opIntersection(float d1, float d2) {
 	return max(d1, d2);
 }
 
-vec2 objSub(vec2 d1, vec2 d2)
-{
+vec2 objSub(vec2 d1, vec2 d2) {
 	return -d1.x > d2.x ? vec2(-d1.x, d1.y) : d2;
 }
 
-vec2 objMin(vec2 d1, vec2 d2)
-{
+vec2 objMin(vec2 d1, vec2 d2) {
     return d1.x < d2.x ? d1 : d2;
 }
 
-float sdfSphere(vec3 samplePoint, float radius)
-{
+float sdfSphere(vec3 samplePoint, float radius) {
     return length(samplePoint) - radius;
 }
 
-float sdfDisk(vec3 samplePoint, float height, float thickness, float radius)
-{
+float sdfDisk(vec3 samplePoint, float height, float thickness, float radius)  {
 	return max(abs(samplePoint.y) / height - thickness, length(samplePoint.xz) - radius);
 }
 
-float sdfCappedCylinder(vec3 point, float height, float radius)
-{
-    vec2 d = abs(vec2(length(point.xz), point.y)) - vec2(radius, height);
-    return min(max(d.x, d.y), 0.0) + length(max(d, 0.0));
+float sdfCappedCylinder(vec3 point, float height, float radius) {
+	vec2 d = abs(vec2(length(point.xz), point.y)) - vec2(radius, height);
+	return min(max(d.x, d.y), 0.0) + length(max(d, 0.0));
 }
 
-float sdfHexPrism(vec3 point, vec2 params)
-{
-    vec3 absPoint = abs(point);
-    float d1 = absPoint.z - params.y;
-    float d2 = max((absPoint.x * 0.866025 + absPoint.y * 0.5), absPoint.y) - params.x;
-    return length(max(vec2(d1, d2), 0.0)) + min(max(d1, d2), 0.0);
+float sdfHexPrism(vec3 point, vec2 params) {
+	vec3 absPoint = abs(point);
+	float d1 = absPoint.z - params.y;
+	float d2 = max((absPoint.x * 0.866025 + absPoint.y * 0.5), absPoint.y) - params.x;
+	return length(max(vec2(d1, d2), 0.0)) + min(max(d1, d2), 0.0);
 }
 
-float sdfOctahedron(vec3 point, float size)
-{
-    point = abs(point);
-    return (point.x + point.y + point.z - size) * 0.57735027;
+float sdfOctahedron(vec3 point, float size) {
+	point = abs(point);
+	return (point.x + point.y + point.z - size) * 0.57735027;
 }
 
 // Taken from https://github.com/fogleman/sdf/blob/d58a6fc63b75fc1cf1ebb71e0b42bf552319c8f1/sdf/d3.py#L314
-float sdfIcosahedron(vec3 point, float radius)
-{
-    vec3 xyz = normalize(vec3((sqrt(5.0) + 3.0) / 2.0, 1.0, 0.0));
-    const vec3 w = vec3(sqrt(3.0) / 3.0);
+float sdfIcosahedron(vec3 point, float radius) {
+	vec3 xyz = normalize(vec3((sqrt(5.0) + 3.0) / 2.0, 1.0, 0.0));
+	const vec3 w = vec3(sqrt(3.0) / 3.0);
 
-    radius *= 0.8506507174597755;
+	radius *= 0.8506507174597755;
 
-    point = abs(point / radius);
-    float a = dot(point, xyz.xyz);
-    float b = dot(point, xyz.zxy);
-    float c = dot(point, xyz.yzx);
-    float d = dot(point, w) - xyz.x;
+	point = abs(point / radius);
+	float a = dot(point, xyz.xyz);
+	float b = dot(point, xyz.zxy);
+	float c = dot(point, xyz.yzx);
+	float d = dot(point, w) - xyz.x;
 
-    return max(max(max(a, b), c) - xyz.x, d) * radius;
+	return max(max(max(a, b), c) - xyz.x, d) * radius;
 }
 
-float sdfTorus(vec3 point, float radius, float ringRadius)
-{
+float sdfTorus(vec3 point, float radius, float ringRadius) {
 	vec2 distToRingCenter = vec2(length(point.xz) - radius, point.y);
 	return length(distToRingCenter) - ringRadius;
 }
 
-float cloudScene(vec3 samplePoint)
-{
+float cloudScene(vec3 samplePoint) {
 	samplePoint = cloudRotation * samplePoint;
 	vec3 cloudOffset = vec3(TIME * 0.0002);
-    if (uScene == 0 || uScene == 5 || uScene == 6)
-    {
-        float outerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.x);
-        float innerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.y);
-        float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12) + cloudOffset) - 0.85) * uRingParams.z;
+	if (uScene == 0 || uScene == 5 || uScene == 6) {
+		float outerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.x);
+		float innerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.y);
+		float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12) + cloudOffset) - 0.85) * uRingParams.z;
 
-        return opSubtraction(cloudDist, innerSphere);
-    }
-	if (uScene == 7)
-	{
+		return opSubtraction(cloudDist, innerSphere);
+	}
+	
+	if (uScene == 7) {
 		float outerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.z);
 		float innerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.w);
 		float cloudDist = outerTorus + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12) + cloudOffset) - 0.85) * 0.35;
 		
 		return opSubtraction(cloudDist, innerTorus);
 	}
-	if (uScene == 9)
-	{
+	
+	if (uScene == 9) {
 		float outer = sdfDisk(samplePoint, 1.0, uRingParams.x - 0.1, uRingParams.z - uRingParams.w);
 		float outerCut = sdfDisk(samplePoint, 1.0, uRingParams.x + 1.0, uRingParams.z - uRingParams.w - 0.1);
 		float outerRing = opSubtraction(outerCut, outer);
@@ -196,38 +177,30 @@ float cloudScene(vec3 samplePoint)
     return 100.0;
 }
 
-vec2 planetScene(vec3 samplePoint)
-{
-    if (uScene == 0 || uScene == 1 || uScene == 5)
-    {
-        return vec2(sdfSphere(samplePoint, 0.5), PLANET);
-    }
-	if (uScene == 6)
-    {
-        return vec2(sdfSphere(samplePoint, 0.75), PLANET);
-    }
-	if (uScene == 11)
-	{
+vec2 planetScene(vec3 samplePoint) {
+	if (uScene == 0 || uScene == 1 || uScene == 5) {
+		return vec2(sdfSphere(samplePoint, 0.5), PLANET);
+	}
+	if (uScene == 6) {
+		return vec2(sdfSphere(samplePoint, 0.75), PLANET);
+	}
+	if (uScene == 11) {
 		return vec2(sdfSphere(samplePoint, 0.5), LAVA);
 	}
-	if (uScene == 2)
-	{
+	if (uScene == 2) {
 		return vec2(sdfSphere(samplePoint, 0.25), STAR);
 	}
-	if (uScene == 7)
-	{
+	if (uScene == 7) {
 		return vec2(sdfTorus(samplePoint, uRingParams.x, uRingParams.y), PLANET);
 	}
-	if (uScene == 8)
-	{
+	if (uScene == 8) {
 		float inner1 = sdfHexPrism(samplePoint, vec2(0.15, 1.0));
 		float inner2 = sdfHexPrism(cloudRotation * samplePoint, vec2(0.15, 1.0));
 		vec2 inner = vec2(opUnion(inner1, inner2), TOWER_INNER);
 		vec2 outer = vec2(sdfOctahedron(samplePoint, 0.6), TOWER_OUTER);
 		return objSub(inner, outer);
 	}
-	if (uScene == 9)
-	{
+	if (uScene == 9) {
 		float outer = sdfDisk(samplePoint, 1.0, uRingParams.x, uRingParams.y);
 		float outerCut = sdfDisk(samplePoint, 1.0, uRingParams.x + 1.0, uRingParams.z);
 		float outerRing = opSubtraction(outerCut, outer);
@@ -236,83 +209,68 @@ vec2 planetScene(vec3 samplePoint)
 		vec2 innerPlanet = vec2(inner, PLANET);
 		return objSub(innerPlanet, outerMetal);
 	}
-	if (uScene == 10)
-	{
+	if (uScene == 10) {
 		const float factor = 21.21;
 		float displacement = sin(factor * samplePoint.x) * sin(factor * samplePoint.y) * sin(factor * samplePoint.z) * 0.065;
 		return vec2(sdfSphere(samplePoint, 0.5) + displacement, PLANET);
 	}
 
-    return vec2(100.0, CLOUD);
+	return vec2(100.0, CLOUD);
 }
 
-vec2 ringScene(vec3 samplePoint)
-{
-    if (uScene == 1 || uScene == 10)
-    {
-        return vec2(opSubtraction(
-            sdfCappedCylinder(samplePoint, uRingParams.z + 1.0, uRingParams.y),
-            sdfCappedCylinder(samplePoint, uRingParams.z, uRingParams.x)), RING);
+vec2 ringScene(vec3 samplePoint) {
+    if (uScene == 1 || uScene == 10) {
+		return vec2(opSubtraction(
+			sdfCappedCylinder(samplePoint, uRingParams.z + 1.0, uRingParams.y),
+			sdfCappedCylinder(samplePoint, uRingParams.z, uRingParams.x)), RING);
     }
-	if (uScene == 2 || uScene == 3)
-	{
+	if (uScene == 2 || uScene == 3)	{
 		float innerSphere = sdfSphere(samplePoint, 0.717);
 		float platforms1 = opSubtraction(innerSphere, sdfIcosahedron(samplePoint, 0.82));
 
 		return vec2(platforms1, METAL);
 	}
 
-    return vec2(100.0, RING);
+	return vec2(100.0, RING);
 }
 
-float starScene(vec3 samplePoint)
-{
-	return 100.0;
-}
-
-vec2 sceneSDF(vec3 samplePoint, bool shadow)
-{
+vec2 sceneSDF(vec3 samplePoint, bool shadow) {
 	vec2 sphereDist = planetScene(samplePoint);
 	vec2 cloudDist = vec2(cloudScene(samplePoint), CLOUD);
 	vec2 ringDist = ringScene(samplePoint);
-	vec2 starDist = shadow ? vec2(100.0, STAR) : vec2(starScene(samplePoint), STAR);
 
-	return objMin(objMin(sphereDist, objMin(cloudDist, ringDist)), starDist);
-}
-
-vec3 rayDirection(float fieldOfView, vec2 fragCoord)
-{
-    vec2 xy = fragCoord / 2.0;
-    float z = 2.0 / tan(fieldOfView);
-    return normalize(vec3(xy, -z));
+	return objMin(sphereDist, objMin(cloudDist, ringDist));
 }
 
-vec3 estimateNormalPlanet(vec3 point, float currentDepth)
-{
-    vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
-    return normalize(vec3(
-        planetScene(point + eps_zero.xyy).x - planetScene(point - eps_zero.xyy).x,
-        planetScene(point + eps_zero.yxy).x - planetScene(point - eps_zero.yxy).x,
-        planetScene(point + eps_zero.yyx).x - planetScene(point - eps_zero.yyx).x
-    ));
+vec3 rayDirection(float fieldOfView, vec2 fragCoord) {
+	vec2 xy = fragCoord / 2.0;
+	float z = 2.0 / tan(fieldOfView);
+	return normalize(vec3(xy, -z));
 }
-vec3 estimateNormalCloud(vec3 point, float currentDepth)
-{
-    vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
-    return normalize(vec3(
-        cloudScene(point + eps_zero.xyy) - cloudScene(point - eps_zero.xyy),
-        cloudScene(point + eps_zero.yxy) - cloudScene(point - eps_zero.yxy),
-        cloudScene(point + eps_zero.yyx) - cloudScene(point - eps_zero.yyx)
-    ));
+
+vec3 estimateNormalPlanet(vec3 point, float currentDepth) {
+	vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
+	return normalize(vec3(
+		planetScene(point + eps_zero.xyy).x - planetScene(point - eps_zero.xyy).x,
+		planetScene(point + eps_zero.yxy).x - planetScene(point - eps_zero.yxy).x,
+		planetScene(point + eps_zero.yyx).x - planetScene(point - eps_zero.yyx).x
+	));
 }
-vec3 estimateNormalRing(vec3 point, float currentDepth)
-{
-    vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
-    return normalize(vec3(
-        ringScene(point + eps_zero.xyy).x - ringScene(point - eps_zero.xyy).x,
-        ringScene(point + eps_zero.yxy).x - ringScene(point - eps_zero.yxy).x,
-        ringScene(point + eps_zero.yyx).x - ringScene(point - eps_zero.yyx).x
-    ));
+vec3 estimateNormalCloud(vec3 point, float currentDepth) {
+	vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
+	return normalize(vec3(
+		cloudScene(point + eps_zero.xyy) - cloudScene(point - eps_zero.xyy),
+		cloudScene(point + eps_zero.yxy) - cloudScene(point - eps_zero.yxy),
+		cloudScene(point + eps_zero.yyx) - cloudScene(point - eps_zero.yyx)
+	));
+}
+vec3 estimateNormalRing(vec3 point, float currentDepth) {
+	vec2 eps_zero = vec2(currentDepth * 0.0015, 0.0);
+	return normalize(vec3(
+		ringScene(point + eps_zero.xyy).x - ringScene(point - eps_zero.xyy).x,
+		ringScene(point + eps_zero.yxy).x - ringScene(point - eps_zero.yxy).x,
+		ringScene(point + eps_zero.yyx).x - ringScene(point - eps_zero.yyx).x
+	));
 }
 
 float quadraticOut(float t) {
@@ -324,106 +282,90 @@ float quadraticIn(float t) {
 float cubicIn(float t) {
 	return t * t * t;
 }
-float phongContribForLight(float alpha, vec3 point, vec3 eye, vec3 normal, vec3 lightPos)
-{
-    vec3 L = normalize(lightPos - point);
-    vec3 V = normalize(eye - point);
-    vec3 R = normalize(reflect(-L, normal));
+float phongContribForLight(float alpha, vec3 point, vec3 eye, vec3 normal, vec3 lightPos) {
+	vec3 L = normalize(lightPos - point);
+	vec3 V = normalize(eye - point);
+	vec3 R = normalize(reflect(-L, normal));
 
-    float dotLN = dot(L, normal);
-    float dotRV = dot(R, V);
+	float dotLN = dot(L, normal);
+	float dotRV = dot(R, V);
 
-    if (dotLN < 0.0)
-	{
-        // Light not visible from this point on the surface
+	if (dotLN < 0.0) {
+		// Light not visible from this point on the surface
 		return 0.0;
-    }
+	}
 
-    if (dotRV < 0.0)
-	{
-        // Light reflection in opposite direction as viewer, apply only diffuse component
-        return dotLN;
-    }
-    return dotLN + pow(dotRV, alpha);
+	if (dotRV < 0.0) {
+		// Light reflection in opposite direction as viewer, apply only diffuse component
+		return dotLN;
+	}
+	return dotLN + pow(dotRV, alpha);
 }
 
 const float shadowSharpness = 128.0;
-float softShadow(vec3 rayOrigin, vec3 rayDirection, float near, float far)
-{
-    float depth = near;
-    float result = 1.0;
-    int i = 0;
+float softShadow(vec3 rayOrigin, vec3 rayDirection, float near, float far) {
+	float depth = near;
+	float result = 1.0;
+	int i = 0;
 
-    for (; i < MAX_MARCHING_STEPS; i++)
-    {
-        float dist = sceneSDF(rayOrigin + depth * rayDirection, true).x;
-        if (dist < EPSILON)
-        {
-            return 0.0;
-        }
+	for (; i < MAX_MARCHING_STEPS; i++)	{
+		float dist = sceneSDF(rayOrigin + depth * rayDirection, true).x;
+		if (dist < EPSILON)	{
+			return 0.0;
+		}
 
-        result = min(result, shadowSharpness * dist / depth);
-        depth += dist;
-        if (depth >= far)
-        {
-            return result;
-        }
-    }
+		result = min(result, shadowSharpness * dist / depth);
+		depth += dist;
+		if (depth >= far) {
+			return result;
+		}
+	}
 
-    return result;
+	return result;
 }
 
 const vec3 defaultLightPos = vec3(-4.0, 1.5, 4.0);
-float phongIllumination(float currentDepth, float alpha, vec3 point, vec3 eye, vec3 normal, float minDepth, vec3 lightPos, bool shadows)
-{
+float phongIllumination(float currentDepth, float alpha, vec3 point, vec3 eye, vec3 normal, float minDepth, vec3 lightPos, bool shadows) {
 	vec3 toLight = normalize(lightPos - point);
 
 	float shadow = shadows ? softShadow(point, toLight, minDepth * currentDepth, 100.0) : 1.0;
-    return phongContribForLight(alpha, point, eye, normal, lightPos) * shadow;
+	return phongContribForLight(alpha, point, eye, normal, lightPos) * shadow;
 }
 
-vec3 rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far)
-{
-    float depth = near;
+vec3 rayMarch(vec3 rayOrigin, vec3 rayDirection, float near, float far) {
+	float depth = near;
 	int i = 0;
-    for (; i < MAX_MARCHING_STEPS; i++)
-    {
-        vec2 dist = sceneSDF(rayOrigin + depth * rayDirection, false);
-        if (dist.x < EPSILON)
-        {
-            return vec3(depth, dist.y, float(i));
-        }
+	for (; i < MAX_MARCHING_STEPS; i++)	{
+		vec2 dist = sceneSDF(rayOrigin + depth * rayDirection, false);
+		if (dist.x < EPSILON) {
+			return vec3(depth, dist.y, float(i));
+		}
 
-        depth += dist.x * 0.5;
-        if (depth >= far)
-        {
-            return vec3(far, 0.0, float(i));
-        }
-    }
+		depth += dist.x * 0.5;
+		if (depth >= far) {
+			return vec3(far, 0.0, float(i));
+		}
+	}
 
-    return vec3(far, 0.0, float(i));
+	return vec3(far, 0.0, float(i));
 }
 
-vec3 rayMarchPlanet(vec3 rayOrigin, vec3 rayDirection, float near, float far)
-{
-    float depth = near;
+vec3 rayMarchPlanet(vec3 rayOrigin, vec3 rayDirection, float near, float far) {
+	float depth = near;
 	int i = 0;
-    for (; i < MAX_MARCHING_STEPS; i++)
-    {
-        float dist = planetScene(rayOrigin + depth * rayDirection).x;
-        if (dist < EPSILON)
-        {
-            return vec3(depth, STAR, float(i));
-        }
+	for (; i < MAX_MARCHING_STEPS; i++)	{
+		float dist = planetScene(rayOrigin + depth * rayDirection).x;
+		if (dist < EPSILON)	{
+			return vec3(depth, STAR, float(i));
+		}
 
-        depth += dist * 0.5;
-        if (depth >= far)
-        {
-            return vec3(far, 0.0, float(i));
-        }
-    }
+		depth += dist * 0.5;
+		if (depth >= far) {
+			return vec3(far, 0.0, float(i));
+		}
+	}
 
-    return vec3(far, 0.0, float(i));
+	return vec3(far, 0.0, float(i));
 }
 
 bool approxEquals(float x, float y)
@@ -521,67 +463,56 @@ void vertex() {
 	}
 }
 
-void fragment()
-{
+void fragment() {
 	vec2 oPosition = UV * 2.0 - 1.0;
 	oPosition.y = -oPosition.y;
 	
 	float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
-	if (noise > uReveal)
-	{
+	if (noise > uReveal) {
 		discard;
 	}
 
-    vec3 rayDir = uCameraMatrix * rayDirection(uCameraFov, oPosition);
-    vec3 rayOrigin = uCameraPosition;
+	vec3 rayDir = uCameraMatrix * rayDirection(uCameraFov, oPosition);
+	vec3 rayOrigin = uCameraPosition;
 	vec4 extraColour = vec4(0.0);
 	
 	COLOR = vec4(0.0);
 	
-	if (uScene == 4)
-	{
+	if (uScene == 4) {
 		COLOR = getBlackHoleColour(rayOrigin, rayDir);
 	}
 	else
 	{
-	    vec3 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+		vec3 dist = rayMarch(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
 
-		float numSteps = dist.z;
-		vec3 starDist = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
-		if (starDist.x < dist.x + 0.1 || dist.x > 5.0)
-		{
-			numSteps += starDist.z * 6.0;
-			
-			float colour = 0.0;
-			if (uScene == 2)
-			{
-				colour = pow(numSteps / 250.0, 3.5);
+		if (uScene == 2) {
+			float numSteps = dist.z;
+			vec3 distForGlow = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
+			if (distForGlow.x < dist.x + 0.1 || dist.x > 5.0) {
+				numSteps += distForGlow.z * 6.0;
+				
+				float colour = pow(numSteps / 250.0, 3.5);
+				extraColour = vec4(colour);
 			}
-			extraColour = vec4(colour);
 		}
 		
-	    if (dist.x > MAX_DIST - EPSILON)
-	    {
-			if (extraColour.x <= 0.0)
-			{
+		if (dist.x > MAX_DIST - EPSILON) {
+			if (extraColour.x <= 0.0) {
 				discard;
 			}
 	    }
-	    else
-	    {
-	        // The closest point on the surface to the eyepoint along the view ray
-	        vec3 p = rayOrigin + dist.x * rayDir;
+		else {
+			// The closest point on the surface to the eyepoint along the view ray
+			vec3 p = rayOrigin + dist.x * rayDir;
 
 			float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
-			if (noise - 0.6 > uReveal && extraColour.x <= 0.0)
-			{
+			if (noise - 0.6 > uReveal && extraColour.x <= 0.0) {
 				discard;
 			}
 
-			if (approxEquals(dist.y, PLANET))
-			{
+			if (approxEquals(dist.y, PLANET)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
-	        	float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -590,19 +521,17 @@ void fragment()
 				lighting = max(lighting, fresnel * 0.5);
 				
 				float noiseScale = uPlanetNoiseScale.w;
-				if (uScene == 10)
-				{
+				if (uScene == 10) {
 					noiseScale = sin(TIME * 0.3) * 0.2 + noiseScale;
 				}
 
 				vec3 planetColour = texture(uPlanetTexture, vec2(noise * noiseScale, 1.2 - lighting)).rgb;
 
-		        COLOR = vec4(planetColour, 1.0);
+				COLOR = vec4(planetColour, 1.0);
 			}
-			else if (approxEquals(dist.y, LAVA))
-			{
+			else if (approxEquals(dist.y, LAVA)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
-	        	float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -614,39 +543,34 @@ void fragment()
 				
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(noise * uPlanetNoiseScale.w + TIME * 0.02, 1.0), 1.2 - lighting)).rgb;
 
-		        COLOR = vec4(planetColour, 1.0);
+				COLOR = vec4(planetColour, 1.0);
 			}
-			else if (approxEquals(dist.y, CLOUD))
-			{
+			else if (approxEquals(dist.y, CLOUD)) {
 				vec3 normal = estimateNormalCloud(p, dist.x);
-	        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true) * 0.5 + 0.5;
+				float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true) * 0.5 + 0.5;
 				COLOR = vec4(vec3(lighting), 1.0);
 			}
-			else if (approxEquals(dist.y, RING))
-			{
+			else if (approxEquals(dist.y, RING)) {
 				vec3 normal = estimateNormalRing(p, dist.x);
 				normal.y = abs(normal.y);
 				
 				vec3 ringColour = texture(uPlanetTexture, vec2(0.0)).rgb;
 				
-	        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1, defaultLightPos, true) / 2.0;
+				float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1, defaultLightPos, true) / 2.0;
 				float dist = sin(length(p) * 50.0) * 0.2 + 1.0;
 				COLOR = vec4(vec3(dist * lighting * ringColour), 1.0);
 			}
-	        else if (approxEquals(dist.y, METAL))
-			{
+			else if (approxEquals(dist.y, METAL)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
 
-	        	float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, vec3(0.0), false) * 0.5 + 0.5;
+				float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, vec3(0.0), false) * 0.5 + 0.5;
 				vec3 planetColour = texture(uPlanetTexture, vec2(noise, 1.2 - lighting)).rgb;
 				COLOR = vec4(planetColour, 1.0);
 			}
-			else if (approxEquals(dist.y, STAR))
-			{
+			else if (approxEquals(dist.y, STAR)) {
 				COLOR = vec4(1.0);
 			}
-			else if (approxEquals(dist.y, TOWER_OUTER))
-			{
+			else if (approxEquals(dist.y, TOWER_OUTER)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
 
 				float squareNoise = perlinNoise3D(floor(p * 8.0) / 8.0 * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
@@ -655,8 +579,7 @@ void fragment()
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5), 1.2 - lighting)).rgb;
 				COLOR = vec4(planetColour, 1.0);
 			}
-			else if (approxEquals(dist.y, TOWER_INNER))
-			{
+			else if (approxEquals(dist.y, TOWER_INNER)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
 
 				float squareNoise = perlinNoise3D(floor(p * 8.0) / 8.0 * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
@@ -664,10 +587,9 @@ void fragment()
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5) + 0.5, 1.2 - lighting)).rgb;
 				COLOR = vec4(planetColour, 1.0);
 			}
-			else if (approxEquals(dist.y, RINGWORLD_METAL))
-			{
+			else if (approxEquals(dist.y, RINGWORLD_METAL)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
-	        	float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -677,9 +599,9 @@ void fragment()
 
 				vec3 planetColour = texture(uPlanetTexture, vec2(noise + uRingParams.x * uPlanetNoiseScale.w, 1.2 - lighting)).rgb;
 
-		        COLOR = vec4(planetColour, 1.0);
+				COLOR = vec4(planetColour, 1.0);
 			}
-	    }
+		}
 		COLOR += extraColour;
 	}
 }

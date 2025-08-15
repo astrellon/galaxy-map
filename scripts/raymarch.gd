@@ -16,9 +16,6 @@ func _process(delta: float) -> void:
 	self.material.set_shader_parameter('uCameraFov', fov)
 	self.material.set_shader_parameter('uReveal', self.reveal)
 
-	var camera_projection = self.camera.get_camera_projection().inverse()
-	self.material.set_shader_parameter('uProjectionMatrix', camera_projection)
-
 func init(info: ShowCelestial) -> void:
 	self.material.set_shader_parameter('uPlanetTexture', info.planet_texture)
 	self.material.set_shader_parameter('uPlanetNoiseScale', info.raymarch_planet_noise)
