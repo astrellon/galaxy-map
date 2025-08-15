@@ -3,6 +3,8 @@ shader_type canvas_item;
 uniform sampler2D uTexture;
 uniform float uIndexTime = 0.5;
 uniform float uTimeOffset = -3.0;
+uniform float uLoopTime = 30.0;
+uniform float uTimeBetweenInstances = 0.05;
 varying vec4 vertex_colour;
 varying float instance_id;
 
@@ -12,8 +14,14 @@ void vertex() {
 }
 
 void fragment() {
-	float t = mod(TIME, 30.0);
-	int unclamped_index = int((t + uTimeOffset - instance_id * 0.05) / uIndexTime);
+	float t = TIME;
+	if (uLoopTime > 0.0) {
+		t = mod(TIME, uLoopTime);
+	}
+	else {
+		t = clamp(TIME, 0.0, 30.0);
+	}
+	int unclamped_index = int((t + uTimeOffset - instance_id * uTimeBetweenInstances) / uIndexTime);
 	
 	int min_index = TIME > 29.0 ? 1 : 0;
 	int index = clamp(unclamped_index, min_index, 11);

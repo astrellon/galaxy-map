@@ -33,11 +33,10 @@ var frame_wait = 2
 
 var front_faces: Array[ScreenFace]
 var screen_positions: Array[Vector2] = []
-var inited = false
 
+var inited = false
 var do_hide = false
 var wireframe_hidden = false
-
 var mouse_down = false
 
 func calc_num_total_lines() -> int:
@@ -90,7 +89,6 @@ func init(info: ShowCelestial) -> void:
 	self.mesh = MeshFile.create(self.mesh_file)
 	print("Mesh loaded " + str(len(mesh.vertices)))
 	self.total_lines_to_draw = self.calc_num_total_lines()
-
 
 	self.play_start_animation()
 

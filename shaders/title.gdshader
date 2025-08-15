@@ -7,7 +7,6 @@ uniform float outline_speed = 8.0;
 uniform float outline_gap = 24.0;
 uniform vec4 outline_colour : source_color = vec4(1.0);
 uniform vec4 colour: source_color = vec4(1.0);
-uniform float time_test = 0.0;
 uniform float cutoff = 50.0;
 uniform float shine_cutoff = 10.0;
 uniform float fade = 1.0;
@@ -54,7 +53,6 @@ bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D source)
 }
 
 void fragment() {
-	//float t = time_test;
 	float t = TIME;
 
 	float pos = (FRAGCOORD.x + FRAGCOORD.y) / outline_gap;
@@ -72,7 +70,7 @@ void fragment() {
 	vec4 shadow_colour = vec4(0.0, 0.0, 0.0, shadow.a > 0.5 ? 1.0 : 0.0);
 	COLOR = clamp(base_colour + shadow_colour, vec4(0.0), vec4(1.0));
 
-	if (t < shine_cutoff && base_colour.a < 0.5 && hasContraryNeighbour(UV, TEXTURE_PIXEL_SIZE, TEXTURE))
+	if (outline_colour.a > 0.0 && t < shine_cutoff && base_colour.a < 0.5 && hasContraryNeighbour(UV, TEXTURE_PIXEL_SIZE, TEXTURE))
 	{
 		float outline = 1.0 - step(clamp(sin(t * outline_speed + pos), 0.0, 1.0) * stepped, 0.0);
 		COLOR = clamp(COLOR + outline * outline_colour, vec4(0.0), vec4(1.0));
@@ -80,8 +78,3 @@ void fragment() {
 
 	COLOR.a *= fade;
 }
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}

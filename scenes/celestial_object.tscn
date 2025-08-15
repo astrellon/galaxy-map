@@ -224,7 +224,7 @@ camera = NodePath("Camera Pivot/Camera3D")
 backface_culling = false
 front_colour = Color(0.909804, 0.541176, 0.211765, 1)
 back_colour = Color(0.690196, 0.356863, 0.172549, 1)
-display_scale = 1.15
+display_scale = 1.11
 animation = NodePath("AnimationPlayer")
 label = NodePath("Title")
 description = NodePath("Description")
@@ -253,16 +253,16 @@ reveal = 0.0582358
 
 [node name="Outline" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_yaehf")
-position = Vector2(154, 54)
+position = Vector2(166, 61)
 texture = SubResource("ViewportTexture_82xsv")
 centered = false
 script = ExtResource("8_gxy6w")
 
 [node name="Title" type="Label" parent="."]
-offset_left = 164.0
-offset_top = 64.0
-offset_right = 292.0
-offset_bottom = 87.0
+offset_left = 176.0
+offset_top = 71.0
+offset_right = 304.0
+offset_bottom = 94.0
 text = "Gas Giant"
 label_settings = SubResource("LabelSettings_yaehf")
 horizontal_alignment = 1
@@ -270,18 +270,20 @@ visible_characters = 0
 visible_ratio = 0.0
 
 [node name="Camera Pivot" type="Node3D" parent="."]
+visible = false
 script = ExtResource("9_ix6hq")
 
 [node name="Camera3D" type="Camera3D" parent="Camera Pivot"]
 transform = Transform3D(0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 5)
+visible = false
 fov = 62.1
 far = 400.0
 
 [node name="Description" type="Label" parent="."]
-offset_left = 480.0
-offset_top = 57.0
-offset_right = 596.0
-offset_bottom = 80.0
+offset_left = 492.0
+offset_top = 64.0
+offset_right = 608.0
+offset_bottom = 87.0
 label_settings = SubResource("LabelSettings_gxy6w")
 horizontal_alignment = 2
 autowrap_mode = 2
@@ -289,7 +291,7 @@ autowrap_mode = 2
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(228, 128)
+position = Vector2(240, 135)
 shape = SubResource("CircleShape2D_gxy6w")
 
 [connection signal="input_event" from="Area2D" to="." method="on_area_input_event"]

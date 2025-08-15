@@ -1,10 +1,10 @@
-[gd_scene load_steps=368 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=375 format=3 uid="uid://b2einv4kauowa"]
 
-[ext_resource type="Shader" path="res://shaders/background_stars.gdshader" id="1_5q0nq"]
-[ext_resource type="Texture2D" uid="uid://ko1vkk7afxuq" path="res://textures/galaxy5BackgroundStars.png" id="1_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://bdcumrxyvfl1j" path="res://textures/backgroundStars.png" id="2_5he1u"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
 [ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://scripts/star_twinkle.gd" id="3_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://b77lkrklvma0u" path="res://textures/galaxyColourMap.png" id="3_yq6so"]
+[ext_resource type="Script" uid="uid://c4v0gv2p8ot71" path="res://scripts/background_stars.gd" id="4_5poiv"]
 [ext_resource type="Script" uid="uid://de3jpss66xjfh" path="res://addons/curved_lines_2d/scalable_vector_shape_2d.gd" id="4_og1vs"]
 [ext_resource type="Script" uid="uid://dlbv4pit17dnu" path="res://addons/curved_lines_2d/scalable_arc.gd" id="5_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://u5ou1jwrae4y" path="res://textures/bigStar2.png" id="5_gqmmt"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://v02j572omdon" path="res://textures/white.png" id="9_2f3dj"]
 [ext_resource type="Texture2D" uid="uid://8lqfmfamo80v" path="res://textures/interconnectedGradient.png" id="9_2wyq8"]
 [ext_resource type="Script" uid="uid://5bq2adlsmjd" path="res://scripts/interconnected2.gd" id="9_vxglm"]
-[ext_resource type="Script" uid="uid://brtiuo4noqifs" path="res://scripts/stars2.gd" id="10_0ld40"]
+[ext_resource type="Script" uid="uid://brtiuo4noqifs" path="res://scripts/in_galaxy_stars.gd" id="10_0ld40"]
 [ext_resource type="Texture2D" uid="uid://brh727hxqc8at" path="res://textures/bigStar.png" id="12_tel4y"]
 [ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://textures/planet1Gradient.png" id="13_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="13_muem4"]
@@ -32,16 +32,74 @@
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://desjrnqfy2clc" path="res://textures/pinkFluff.png" id="26_j8jky"]
 [ext_resource type="Texture2D" uid="uid://cnpxjccm52km2" path="res://textures/tower.png" id="27_c6pm6"]
-[ext_resource type="Shader" path="res://shaders/title.gdshader" id="28_5q0nq"]
+[ext_resource type="Shader" uid="uid://dvch7gppuhk4" path="res://shaders/title.gdshader" id="28_5q0nq"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
-[ext_resource type="Script" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
-[ext_resource type="Shader" path="res://shaders/blur.gdshader" id="31_dgi5k"]
-[ext_resource type="Script" path="res://scripts/cursor.gd" id="31_qkpxi"]
+[ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
+[ext_resource type="Shader" uid="uid://drkc3mpk84psq" path="res://shaders/blur.gdshader" id="31_dgi5k"]
+[ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
-[ext_resource type="Script" path="res://scripts/title.gd" id="32_pibwh"]
+[ext_resource type="Script" uid="uid://bpdo67nnt4u35" path="res://scripts/title.gd" id="32_pibwh"]
+[ext_resource type="Texture2D" uid="uid://cilk12toc78mv" path="res://textures/signature.png" id="40_5he1u"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dgi5k"]
-shader = ExtResource("1_5q0nq")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c6pm6"]
+shader = ExtResource("24_tel4y")
+shader_parameter/uTexture = ExtResource("2_5he1u")
+shader_parameter/uIndexTime = 0.075
+shader_parameter/uTimeOffset = -2.0
+shader_parameter/uLoopTime = 0.0
+shader_parameter/uTimeBetweenInstances = 0.075
+
+[sub_resource type="QuadMesh" id="QuadMesh_5he1u"]
+size = Vector2(8, 8)
+
+[sub_resource type="MultiMesh" id="MultiMesh_5poiv"]
+use_colors = true
+visible_instance_count = 0
+mesh = SubResource("QuadMesh_5he1u")
+
+[sub_resource type="Gradient" id="Gradient_5poiv"]
+offsets = PackedFloat32Array(0, 0.526971, 1)
+colors = PackedColorArray(0.838379, 0, 0.46471, 1, 0.853585, 0.416672, 0.471482, 1, 0.974168, 0.749278, 0.481484, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5poiv"]
+radius = 100.0
+
+[sub_resource type="Animation" id="Animation_5he1u"]
+resource_name = "fade_in"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.46667, 2.96667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(0, 0, 0, 1), Color(0.0138, 0.0169, 0.02, 1), Color(0.0352941, 0.0431373, 0.0509804, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5poiv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.130397, 0.0870678, 0.0907591, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2cjbq"]
+_data = {
+&"RESET": SubResource("Animation_5poiv"),
+&"fade_in": SubResource("Animation_5he1u")
+}
 
 [sub_resource type="Curve2D" id="Curve2D_wisxt"]
 _data = {
@@ -1738,6 +1796,8 @@ shader = ExtResource("24_tel4y")
 shader_parameter/uTexture = ExtResource("24_fv21b")
 shader_parameter/uIndexTime = 0.075
 shader_parameter/uTimeOffset = -2.0
+shader_parameter/uLoopTime = 30.0
+shader_parameter/uTimeBetweenInstances = 0.075
 
 [sub_resource type="QuadMesh" id="QuadMesh_dp3eg"]
 size = Vector2(8, 8)
@@ -1746,13 +1806,6 @@ size = Vector2(8, 8)
 use_colors = true
 visible_instance_count = 0
 mesh = SubResource("QuadMesh_dp3eg")
-
-[sub_resource type="Gradient" id="Gradient_0ld40"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_gqmmt"]
-gradient = SubResource("Gradient_0ld40")
-width = 1
 
 [sub_resource type="Gradient" id="Gradient_gqmmt"]
 interpolation_mode = 2
@@ -1768,7 +1821,6 @@ shader_parameter/outline_speed = 12.0
 shader_parameter/outline_gap = 6.0
 shader_parameter/outline_colour = Color(0.604963, 0.840862, 0.908072, 1)
 shader_parameter/colour = Color(0.783825, 0.859743, 0.879766, 1)
-shader_parameter/time_test = 4.45
 shader_parameter/cutoff = 100.0
 shader_parameter/shine_cutoff = 8.0
 shader_parameter/fade = 1.0
@@ -1792,16 +1844,51 @@ shader_parameter/sigma = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_tel4y"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5poiv"]
+shader = ExtResource("28_5q0nq")
+shader_parameter/pattern = 0
+shader_parameter/threshold = 0.8
+shader_parameter/inside = false
+shader_parameter/outline_speed = 8.0
+shader_parameter/outline_gap = 24.0
+shader_parameter/outline_colour = Color(0.6622, 0.690947, 0.77, 0)
+shader_parameter/colour = Color(0.101785, 0.110761, 0.136207, 1)
+shader_parameter/cutoff = 100.0
+shader_parameter/shine_cutoff = 10.0
+shader_parameter/fade = 1.0
+
 [node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
 
-[node name="Galaxy5BackgroundStars" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_dgi5k")
-texture = ExtResource("1_dp3eg")
-centered = false
+[node name="BackgroundStars" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("ignore_node")]
+material = SubResource("ShaderMaterial_c6pm6")
+multimesh = SubResource("MultiMesh_5poiv")
+texture = ExtResource("9_2f3dj")
+script = ExtResource("4_5poiv")
+seed = 579
+gradient = SubResource("Gradient_5poiv")
+ignore_node = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackgroundStars"]
+position = Vector2(240, 136)
+shape = SubResource("CircleShape2D_5poiv")
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundStars"]
+show_behind_parent = true
+z_index = -2
+offset_right = 480.0
+offset_bottom = 270.0
+mouse_filter = 2
+color = Color(0.130397, 0.0870678, 0.0907591, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BackgroundStars/ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_2cjbq")
+}
+autoplay = "fade_in"
 
 [node name="Background" type="Node2D" parent="." node_paths=PackedStringArray("layer1", "layer2", "layer3", "layer4_outer", "layer4_inner", "layer5", "stroke")]
-position = Vector2(228, 128)
+position = Vector2(240, 135)
 script = ExtResource("2_pm3ni")
 colour_map = ExtResource("3_yq6so")
 layer1 = NodePath("Galaxy 5-4/layer1")
@@ -3795,6 +3882,7 @@ position = Vector2(230, 90)
 
 [node name="Interconnected" type="Sprite2D" parent="." node_paths=PackedStringArray("target", "traffic")]
 material = SubResource("ShaderMaterial_vxglm")
+position = Vector2(12, 7)
 texture = SubResource("ViewportTexture_2f3dj")
 centered = false
 script = ExtResource("9_vxglm")
@@ -3810,7 +3898,7 @@ multimesh = SubResource("MultiMesh_2f3dj")
 texture = ExtResource("9_2f3dj")
 
 [node name="Stars" type="Node2D" parent="." node_paths=PackedStringArray("follow")]
-position = Vector2(227, 128)
+position = Vector2(239, 135)
 script = ExtResource("14_y6deb")
 follow = NodePath("../Background")
 
@@ -4274,22 +4362,23 @@ shape = SubResource("CircleShape2D_tel4y")
 
 [node name="TinyStars" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("follow_rotation")]
 material = SubResource("ShaderMaterial_fv21b")
+position = Vector2(12, 7)
 multimesh = SubResource("MultiMesh_0ld40")
-texture = SubResource("GradientTexture1D_gqmmt")
+texture = ExtResource("9_2f3dj")
 script = ExtResource("10_0ld40")
-num_stars = 250
-seed = 1237
+num_stars = 200
+seed = 1782
 radius = 125
 follow_rotation = NodePath("../Background")
 alpha_range = Vector2(0.05, 0.2)
 gradient = SubResource("Gradient_gqmmt")
 
-[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("text")]
-position = Vector2(228, 11)
+[node name="Title" type="Area2D" parent="." node_paths=PackedStringArray("text")]
+position = Vector2(240, 11)
 script = ExtResource("32_pibwh")
 text = NodePath("Galaxy Map Title")
 
-[node name="Galaxy Map Title" type="Label" parent="Area2D"]
+[node name="Galaxy Map Title" type="Label" parent="Title"]
 material = SubResource("ShaderMaterial_j8jky")
 offset_left = -43.0
 offset_top = -6.0
@@ -4299,20 +4388,16 @@ text = "Galaxy Map"
 label_settings = SubResource("LabelSettings_vxglm")
 horizontal_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Title"]
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_fuf3a")
 
-[node name="CelestialParent" type="Node2D" parent="." node_paths=PackedStringArray("child_offset", "draw_line_to")]
+[node name="CelestialParent" type="Node2D" parent="." node_paths=PackedStringArray("child_offset")]
 script = ExtResource("31_tel4y")
 child_offset = NodePath("ChildOffset")
-draw_line_to = NodePath("DrawToTarget")
 
 [node name="ChildOffset" type="Node2D" parent="CelestialParent"]
-position = Vector2(-156, 0)
-
-[node name="DrawToTarget" type="Node2D" parent="CelestialParent"]
-position = Vector2(102, 46)
+position = Vector2(-144, 7)
 
 [node name="CursorView" type="Sprite2D" parent="." node_paths=PackedStringArray("cursor", "highlight_parent")]
 texture_filter = 1
@@ -4328,7 +4413,7 @@ highlight_parent = NodePath("../SubViewport/HighlightParent")
 disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(455, 256)
+size = Vector2i(480, 270)
 
 [node name="Cursor" type="Node2D" parent="SubViewport"]
 script = ExtResource("31_qkpxi")
@@ -4341,3 +4426,9 @@ offset_bottom = 1.0
 color = Color(0.45098, 0.937255, 0.909804, 1)
 
 [node name="HighlightParent" type="Node2D" parent="SubViewport"]
+
+[node name="Signature" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5poiv")
+position = Vector2(443, 263)
+texture = ExtResource("40_5he1u")
+centered = false

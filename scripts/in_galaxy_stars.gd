@@ -8,15 +8,14 @@ extends MultiMeshInstance2D
 @export var gradient: Gradient
 
 var random: RandomNumberGenerator
+var positions: Array[Vector2] = []
 
 func _ready() -> void:
 	self.random = RandomNumberGenerator.new()
 	self.multimesh.instance_count = self.num_stars
 	self.multimesh.visible_instance_count = self.num_stars
-
-func _process(delta: float) -> void:
+	
 	self.random.seed = self.seed
-	var parent_rotation = self.follow_rotation.global_transform
 	
 	for i in range(self.num_stars):
 		var angle = self.random.randf_range(0, 2.0 * PI)
@@ -24,12 +23,21 @@ func _process(delta: float) -> void:
 		var x = cos(angle) * dist
 		var y = sin(angle) * dist
 		
-		var position = (parent_rotation * Vector2(x, y)).round()
-		var trans = Transform2D(0.0, position)
+		self.positions.push_back(Vector2(x, y))
+
 		var alpha = self.random.randf_range(self.alpha_range.x, self.alpha_range.y)
 		var sample_point = self.random.randf()
 		var colour = self.gradient.sample(sample_point)
 		var inst_colour = Color(colour, alpha)
 		
-		self.multimesh.set_instance_transform_2d(i, trans)
 		self.multimesh.set_instance_color(i, inst_colour)
+
+func _process(delta: float) -> void:
+	self.random.seed = self.seed
+	var parent_rotation = self.follow_rotation.global_transform
+	
+	for i in range(self.num_stars):
+		var rotated_position = (parent_rotation * self.positions[i]).round()
+		var trans = Transform2D(0.0, rotated_position)
+		
+		self.multimesh.set_instance_transform_2d(i, trans)
