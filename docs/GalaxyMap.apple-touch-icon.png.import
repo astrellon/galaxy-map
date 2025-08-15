@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ex5g1mix5154"
-path="res://.godot/imported/GalaxyMap.apple-touch-icon.png-a0d175553741f74d6368683a5618e712.ctex"
+uid="uid://sicjsy0ninxf"
+path="res://.godot/imported/GalaxyMap.apple-touch-icon.png-28db27e07593b6eff652fa36691a08d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/GalaxyMap.apple-touch-icon.png"
-dest_files=["res://.godot/imported/GalaxyMap.apple-touch-icon.png-a0d175553741f74d6368683a5618e712.ctex"]
+source_file="res://bin/webgl/GalaxyMap.apple-touch-icon.png"
+dest_files=["res://.godot/imported/GalaxyMap.apple-touch-icon.png-28db27e07593b6eff652fa36691a08d3.ctex"]
 
 [params]
 
