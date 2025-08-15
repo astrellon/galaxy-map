@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
 [ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://scripts/star_twinkle.gd" id="3_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://b77lkrklvma0u" path="res://textures/galaxyColourMap.png" id="3_yq6so"]
-[ext_resource type="Script" path="res://scripts/background_stars.gd" id="4_5poiv"]
+[ext_resource type="Script" uid="uid://c4v0gv2p8ot71" path="res://scripts/background_stars.gd" id="4_5poiv"]
 [ext_resource type="Script" uid="uid://de3jpss66xjfh" path="res://addons/curved_lines_2d/scalable_vector_shape_2d.gd" id="4_og1vs"]
 [ext_resource type="Script" uid="uid://dlbv4pit17dnu" path="res://addons/curved_lines_2d/scalable_arc.gd" id="5_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://u5ou1jwrae4y" path="res://textures/bigStar2.png" id="5_gqmmt"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://v02j572omdon" path="res://textures/white.png" id="9_2f3dj"]
 [ext_resource type="Texture2D" uid="uid://8lqfmfamo80v" path="res://textures/interconnectedGradient.png" id="9_2wyq8"]
 [ext_resource type="Script" uid="uid://5bq2adlsmjd" path="res://scripts/interconnected2.gd" id="9_vxglm"]
-[ext_resource type="Script" path="res://scripts/stars2.gd" id="10_0ld40"]
+[ext_resource type="Script" uid="uid://brtiuo4noqifs" path="res://scripts/in_galaxy_stars.gd" id="10_0ld40"]
 [ext_resource type="Texture2D" uid="uid://brh727hxqc8at" path="res://textures/bigStar.png" id="12_tel4y"]
 [ext_resource type="Texture2D" uid="uid://dgmrya7cms8tq" path="res://textures/planet1Gradient.png" id="13_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://diadyov7w7a8r" path="res://textures/planet2Gradient.png" id="13_muem4"]
@@ -36,12 +36,12 @@
 [ext_resource type="Texture2D" uid="uid://drw8r6vrwaqf7" path="res://textures/ringworld.png" id="29_5poiv"]
 [ext_resource type="Script" uid="uid://d0s8u4lksdsh8" path="res://scripts/show_celestial.gd" id="30_fv21b"]
 [ext_resource type="Texture2D" uid="uid://btk8n267b3k8c" path="res://textures/crystalWorld.png" id="31_2cjbq"]
-[ext_resource type="Script" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
+[ext_resource type="Script" uid="uid://duy4j08sfk13y" path="res://scripts/cursor_controller.gd" id="31_5q0nq"]
 [ext_resource type="Texture2D" uid="uid://byaksg3x0rrku" path="res://textures/lava.png" id="31_chjal"]
-[ext_resource type="Shader" path="res://shaders/blur.gdshader" id="31_dgi5k"]
-[ext_resource type="Script" path="res://scripts/cursor.gd" id="31_qkpxi"]
+[ext_resource type="Shader" uid="uid://drkc3mpk84psq" path="res://shaders/blur.gdshader" id="31_dgi5k"]
+[ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
-[ext_resource type="Script" path="res://scripts/title.gd" id="32_pibwh"]
+[ext_resource type="Script" uid="uid://bpdo67nnt4u35" path="res://scripts/title.gd" id="32_pibwh"]
 [ext_resource type="Texture2D" uid="uid://cilk12toc78mv" path="res://textures/signature.png" id="40_5he1u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c6pm6"]
@@ -1810,8 +1810,9 @@ use_colors = true
 visible_instance_count = 0
 mesh = SubResource("QuadMesh_dp3eg")
 
-[sub_resource type="Gradient" id="Gradient_gqmmt"]
+[sub_resource type="Gradient" id="Gradient_chjal"]
 interpolation_mode = 2
+interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.323864, 0.698864, 1)
 colors = PackedColorArray(0.311279, 0.705274, 0.942737, 1, 0.8, 0.552, 0.605733, 1, 0.903574, 0.823461, 0.671695, 1, 0.82, 0.634133, 0.492, 1)
 
@@ -1839,14 +1840,6 @@ shadow_offset = Vector2(0, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fuf3a"]
 size = Vector2(66.5, 12)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tel4y"]
-shader = ExtResource("31_dgi5k")
-shader_parameter/alpha_bump = 1.0
-shader_parameter/sigma = 1.0
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_tel4y"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5poiv"]
 shader = ExtResource("28_5q0nq")
 shader_parameter/pattern = 0
@@ -1859,6 +1852,14 @@ shader_parameter/colour = Color(0.101785, 0.110761, 0.136207, 1)
 shader_parameter/cutoff = 100.0
 shader_parameter/shine_cutoff = 10.0
 shader_parameter/fade = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tel4y"]
+shader = ExtResource("31_dgi5k")
+shader_parameter/alpha_bump = 1.0
+shader_parameter/sigma = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tel4y"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
@@ -3997,7 +3998,7 @@ description = "Orbit: 12.14 Years
 Mass: 278 Earths
 Radius: 68300 km
 
-A gas giant that has unusual high electrical activity. "
+A gas giant that has unusual high electrical activity. The constant storms makes it a popular tourist spot as well."
 label_colour = Color(0.561774, 0.757177, 0.821279, 0)
 planet_texture = ExtResource("13_muem4")
 raymarch_planet_noise = Vector4(0.5, 3, 0.5, 0.865)
@@ -4213,7 +4214,7 @@ Radius: 35360 km
 
 A very low density gas giant. The pink hues are primarily made up of crystal dust. How crystals came to be found in a low densitity gas giant is still under investigation."
 planet_texture = ExtResource("26_j8jky")
-raymarch_planet_noise = Vector4(2, 3, 2, 0.645)
+raymarch_planet_noise = Vector4(2, 4, 2, 0.645)
 raymarch_planet_offset = Vector4(0.195, 0.07, 0.055, 0.085)
 raymarch_ring_params = Vector4(0.43, 0.251, 0.87, 0)
 raymarch_scene = 12
@@ -4403,7 +4404,7 @@ seed = 1782
 radius = 125
 follow_rotation = NodePath("../Background")
 alpha_range = Vector2(0.05, 0.2)
-gradient = SubResource("Gradient_gqmmt")
+gradient = SubResource("Gradient_chjal")
 
 [node name="Title" type="Area2D" parent="." node_paths=PackedStringArray("text")]
 position = Vector2(240, 11)
@@ -4430,6 +4431,12 @@ child_offset = NodePath("ChildOffset")
 
 [node name="ChildOffset" type="Node2D" parent="CelestialParent"]
 position = Vector2(-164, 7)
+
+[node name="Signature" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5poiv")
+position = Vector2(443, 263)
+texture = ExtResource("40_5he1u")
+centered = false
 
 [node name="CursorView" type="Sprite2D" parent="." node_paths=PackedStringArray("cursor", "highlight_parent")]
 texture_filter = 1
@@ -4458,9 +4465,3 @@ offset_bottom = 1.0
 color = Color(0.45098, 0.937255, 0.909804, 1)
 
 [node name="HighlightParent" type="Node2D" parent="SubViewport"]
-
-[node name="Signature" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_5poiv")
-position = Vector2(443, 263)
-texture = ExtResource("40_5he1u")
-centered = false

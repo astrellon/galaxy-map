@@ -16,6 +16,7 @@ const float TOWER_OUTER = 8.0;
 const float TOWER_INNER = 9.0;
 const float RINGWORLD_METAL = 10.0;
 const float LAVA = 11.0;
+const float GAS = 12.0;
 
 uniform sampler2D uNoiseTexture: repeat_enable, filter_linear;
 uniform sampler2D uPlanetTexture: repeat_disable, filter_nearest;
@@ -28,6 +29,7 @@ uniform vec4 uPlanetNoiseScale = vec4(1.0);
 uniform vec4 uPlanetNoiseOffset = vec4(0.0);
 uniform vec4 uRingParams = vec4(1.1, 0.75, 0.015, 0.0);
 uniform int uScene = 0;
+uniform vec4[4] uLightningPoints;
 
 varying mat3 cloudRotation;
 
@@ -178,11 +180,14 @@ float cloudScene(vec3 samplePoint) {
 }
 
 vec2 planetScene(vec3 samplePoint) {
-	if (uScene == 0 || uScene == 1 || uScene == 5 || uScene == 6) {
+	if (uScene == 0 || uScene == 5 || uScene == 6) {
 		return vec2(sdfSphere(samplePoint, 0.5), PLANET);
 	}
 	if (uScene == 12) {
-		return vec2(sdfSphere(samplePoint, 0.75), PLANET);
+		return vec2(sdfSphere(samplePoint, 0.75), GAS);
+	}
+	if (uScene == 1) {
+		return vec2(sdfSphere(samplePoint, 0.5), GAS);
 	}
 	if (uScene == 11) {
 		return vec2(sdfSphere(samplePoint, 0.5), LAVA);
@@ -375,52 +380,46 @@ bool approxEquals(float x, float y)
 
 // Taken from Shader Toy https://www.shadertoy.com/view/NdV3Rd
 // -------
-vec2 blackHoleScene(vec3 p)
-{
-    vec2 acc = vec2(1000., -1.);
+vec2 blackHoleScene(vec3 p) {
+	vec2 acc = vec2(1000., -1.);
 
 	acc = objMin(acc, vec2(sdfSphere(p, 0.2), BLACK_HOLE_CENTER));
 
 	float plane = sdfDisk(p, 0.3, 0.001, 0.9);
-    acc = objMin(acc, vec2(plane, BLACK_HOLE_RING));
+	acc = objMin(acc, vec2(plane, BLACK_HOLE_RING));
 
-    return acc;
+	return acc;
 }
 
-vec3 gradient(float f)
-{
+vec3 gradient(float f) {
 	return texture(uPlanetTexture, vec2(f, 0.5)).xyz;
 }
 
-mat3 blackHoleRayMarch(vec3 rayOrigin, vec3 rayDir, int steps)
-{
-    vec3 accCol = vec3(0.0);
-    vec3 finalPos = rayOrigin;
-    vec3 pos = rayOrigin;
-    for (int i = 0; i < steps; ++i)
-    {
-        vec2 res = blackHoleScene(pos);
-        if (res.x < 0.01)
-        {
-            if (approxEquals(res.y, BLACK_HOLE_CENTER))
-			{
-                accCol *= 0.5;
+mat3 blackHoleRayMarch(vec3 rayOrigin, vec3 rayDir, int steps) {
+	vec3 accCol = vec3(0.0);
+	vec3 finalPos = rayOrigin;
+	vec3 pos = rayOrigin;
+	for (int i = 0; i < steps; ++i) {
+		vec2 res = blackHoleScene(pos);
+		if (res.x < 0.01) {
+			if (approxEquals(res.y, BLACK_HOLE_CENTER)) {
+				accCol *= 0.5;
 			}
-            return mat3(vec3(res.x, distance(pos, rayOrigin), res.y), finalPos, accCol);
-        }
+			
+			return mat3(vec3(res.x, distance(pos, rayOrigin), res.y), finalPos, accCol);
+		}
 
-        rayDir = normalize(rayDir - normalize(pos) * 0.01 * pow(1.0 - saturate(length(pos) - 1.5), 1.5));
+		rayDir = normalize(rayDir - normalize(pos) * 0.01 * pow(1.0 - saturate(length(pos) - 1.5), 1.5));
 		accCol += 0.01 * gradient(length(pos * 3.0) - 1.6) * (1.0 - saturate(res.x / 0.5));
-        pos += rayDir * res.x * 0.15;
-        finalPos = pos;
-    }
+		pos += rayDir * res.x * 0.15;
+		finalPos = pos;
+	}
 
-    return mat3(vec3(-1.0), finalPos, accCol);
+	return mat3(vec3(-1.0), finalPos, accCol);
 }
 
-vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
-{
-    vec3 col = vec3(0.078, 0.043, 0.157) * 0.35;
+vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir) {
+	vec3 col = vec3(0.078, 0.043, 0.157) * 0.35;
 
 	mat3 traced = blackHoleRayMarch(rayOrigin, rayDir, 512);
 	vec3 res = traced[0];
@@ -428,26 +427,23 @@ vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
 	vec3 accCol = traced[2];
 
 	float alpha = res.y >= 0.0 ? 1.0 : 0.0;
-    if (res.y > 0.0)
-    {
-        vec3 p = rayOrigin + rayDir * res.x;
-        float idx = floor(length(finalPos) * 7.0);
-        if (res.z == BLACK_HOLE_RING)
-		{
-            col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) *
+	if (res.y > 0.0) {
+		vec3 p = rayOrigin + rayDir * res.x;
+		float idx = floor(length(finalPos) * 7.0);
+		if (res.z == BLACK_HOLE_RING) {
+			col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) *
 				mix(0.7, 1.0,
-					saturate(length(finalPos) - 1.5) *
-						saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x)))
+				saturate(length(finalPos) - 1.5) *
+					saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x)))
 				);
 		}
-        else
-        {
-            col = vec3(0.0);
-        }
-    }
+		else {
+			col = vec3(0.0);
+		}
+	}
 
-    col += accCol;
-    return vec4(col, alpha);
+	col += accCol;
+	return vec4(col, alpha);
 }
 // -------
 
@@ -511,11 +507,18 @@ void fragment() {
 			}
 
 			if (uScene == 1) {
-				float distToLightning = sdfSphere(p - vec3(0.5, 0.0, 0.0), 0.25);
+				float colourAmount = 0.0;
+				for (int i = 0; i < 4; i++) {
+					vec4 lightning = uLightningPoints[i];
+					if (lightning.w > 0.0) {
+						float distToLightning = sdfSphere(p - lightning.xyz, lightning.w);
 
-				if (distToLightning < 0.0) {
-					extraColour = vec4(0.56, 0.76, 0.83, 1.0) * -distToLightning * 3.0;
+						if (distToLightning < 0.0) {
+							colourAmount += -distToLightning * 3.0;
+						}
+					}
 				}
+				extraColour = vec4(0.56, 0.76, 0.83, 1.0) * smoothstep(0.05, 0.1, colourAmount);
 			}
 
 			if (approxEquals(dist.y, PLANET)) {
@@ -534,6 +537,20 @@ void fragment() {
 				}
 
 				vec3 planetColour = texture(uPlanetTexture, vec2(noise * noiseScale, 1.2 - lighting)).rgb;
+
+				COLOR = vec4(planetColour, 1.0);
+			}
+			else if (approxEquals(dist.y, GAS)) {
+				vec3 normal = estimateNormalPlanet(p, dist.x);
+				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				float fresnel = dot(normal, rayDir);
+				fresnel = saturate(fresnel + 1.0);
+
+				fresnel = pow(fresnel, 2.5);
+				fresnel = round(fresnel * 2.0);
+				lighting = max(lighting, fresnel * 0.5);
+
+				vec3 planetColour = texture(uPlanetTexture, vec2(mod(noise * uPlanetNoiseScale.w + TIME * 0.01, 1.0), 1.2 - lighting)).rgb;
 
 				COLOR = vec4(planetColour, 1.0);
 			}

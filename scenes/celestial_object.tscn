@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://xrnrgaclsms6"]
+[gd_scene load_steps=21 format=4 uid="uid://xrnrgaclsms6"]
 
 [ext_resource type="Script" uid="uid://simql32rav5t" path="res://scripts/wireframe2.gd" id="1_x5fnd"]
 [ext_resource type="Shader" uid="uid://bsgdmv1d52afs" path="res://shaders/raymarch.gdshader" id="2_wu8c0"]
@@ -185,6 +185,7 @@ shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
 shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
 shader_parameter/uRingParams = Vector4(1.1, 0.75, 0.015, 0)
 shader_parameter/uScene = 1
+shader_parameter/uLightningPoints = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yaehf"]
 shader = ExtResource("6_w8pnv")

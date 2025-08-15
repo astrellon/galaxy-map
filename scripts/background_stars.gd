@@ -2,7 +2,6 @@ extends MultiMeshInstance2D
 
 @export var num_stars = 100
 @export var seed = 1234
-@export var radius = 100
 @export var alpha_range = Vector2(0.1, 0.25)
 @export var gradient: Gradient
 @export var ignore_node: CollisionShape2D
