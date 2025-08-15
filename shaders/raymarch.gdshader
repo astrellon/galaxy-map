@@ -156,15 +156,15 @@ float cloudScene(vec3 samplePoint) {
 
 		return opSubtraction(cloudDist, innerSphere);
 	}
-	
+
 	if (uScene == 7) {
 		float outerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.z);
 		float innerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.w);
 		float cloudDist = outerTorus + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12) + cloudOffset) - 0.85) * 0.35;
-		
+
 		return opSubtraction(cloudDist, innerTorus);
 	}
-	
+
 	if (uScene == 9) {
 		float outer = sdfDisk(samplePoint, 1.0, uRingParams.x - 0.1, uRingParams.z - uRingParams.w);
 		float outerCut = sdfDisk(samplePoint, 1.0, uRingParams.x + 1.0, uRingParams.z - uRingParams.w - 0.1);
@@ -178,10 +178,10 @@ float cloudScene(vec3 samplePoint) {
 }
 
 vec2 planetScene(vec3 samplePoint) {
-	if (uScene == 0 || uScene == 1 || uScene == 5) {
+	if (uScene == 0 || uScene == 1 || uScene == 5 || uScene == 6) {
 		return vec2(sdfSphere(samplePoint, 0.5), PLANET);
 	}
-	if (uScene == 6) {
+	if (uScene == 12) {
 		return vec2(sdfSphere(samplePoint, 0.75), PLANET);
 	}
 	if (uScene == 11) {
@@ -408,25 +408,25 @@ mat3 blackHoleRayMarch(vec3 rayOrigin, vec3 rayDir, int steps)
 			}
             return mat3(vec3(res.x, distance(pos, rayOrigin), res.y), finalPos, accCol);
         }
-		
+
         rayDir = normalize(rayDir - normalize(pos) * 0.01 * pow(1.0 - saturate(length(pos) - 1.5), 1.5));
 		accCol += 0.01 * gradient(length(pos * 3.0) - 1.6) * (1.0 - saturate(res.x / 0.5));
         pos += rayDir * res.x * 0.15;
         finalPos = pos;
     }
-	
+
     return mat3(vec3(-1.0), finalPos, accCol);
 }
 
 vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
 {
     vec3 col = vec3(0.078, 0.043, 0.157) * 0.35;
-    
+
 	mat3 traced = blackHoleRayMarch(rayOrigin, rayDir, 512);
 	vec3 res = traced[0];
 	vec3 finalPos = cloudRotation * traced[1];
 	vec3 accCol = traced[2];
-	
+
 	float alpha = res.y >= 0.0 ? 1.0 : 0.0;
     if (res.y > 0.0)
     {
@@ -434,9 +434,9 @@ vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
         float idx = floor(length(finalPos) * 7.0);
         if (res.z == BLACK_HOLE_RING)
 		{
-            col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) * 
-				mix(0.7, 1.0, 
-					saturate(length(finalPos) - 1.5) * 
+            col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) *
+				mix(0.7, 1.0,
+					saturate(length(finalPos) - 1.5) *
 						saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x)))
 				);
 		}
@@ -445,7 +445,7 @@ vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir)
             col = vec3(0.0);
         }
     }
-	
+
     col += accCol;
     return vec4(col, alpha);
 }
@@ -466,7 +466,7 @@ void vertex() {
 void fragment() {
 	vec2 oPosition = UV * 2.0 - 1.0;
 	oPosition.y = -oPosition.y;
-	
+
 	float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
 	if (noise > uReveal) {
 		discard;
@@ -475,9 +475,9 @@ void fragment() {
 	vec3 rayDir = uCameraMatrix * rayDirection(uCameraFov, oPosition);
 	vec3 rayOrigin = uCameraPosition;
 	vec4 extraColour = vec4(0.0);
-	
+
 	COLOR = vec4(0.0);
-	
+
 	if (uScene == 4) {
 		COLOR = getBlackHoleColour(rayOrigin, rayDir);
 	}
@@ -490,12 +490,12 @@ void fragment() {
 			vec3 distForGlow = rayMarchPlanet(rayOrigin, rayDir, MIN_DIST, MAX_DIST);
 			if (distForGlow.x < dist.x + 0.1 || dist.x > 5.0) {
 				numSteps += distForGlow.z * 6.0;
-				
+
 				float colour = pow(numSteps / 250.0, 3.5);
 				extraColour = vec4(colour);
 			}
 		}
-		
+
 		if (dist.x > MAX_DIST - EPSILON) {
 			if (extraColour.x <= 0.0) {
 				discard;
@@ -510,6 +510,14 @@ void fragment() {
 				discard;
 			}
 
+			if (uScene == 1) {
+				float distToLightning = sdfSphere(p - vec3(0.5, 0.0, 0.0), 0.25);
+
+				if (distToLightning < 0.0) {
+					extraColour = vec4(0.56, 0.76, 0.83, 1.0) * -distToLightning * 3.0;
+				}
+			}
+
 			if (approxEquals(dist.y, PLANET)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
 				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
@@ -519,7 +527,7 @@ void fragment() {
 				fresnel = pow(fresnel, 2.5);
 				fresnel = round(fresnel * 2.0);
 				lighting = max(lighting, fresnel * 0.5);
-				
+
 				float noiseScale = uPlanetNoiseScale.w;
 				if (uScene == 10) {
 					noiseScale = sin(TIME * 0.3) * 0.2 + noiseScale;
@@ -538,9 +546,9 @@ void fragment() {
 				fresnel = pow(fresnel, 2.5);
 				fresnel = round(fresnel * 2.0);
 				lighting = max(lighting, fresnel * 0.5);
-				
+
 				extraColour = vec4(vec3(sin(TIME * (1.0 + noise * 0.1)) * 0.1 * noise), 1.0);
-				
+
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(noise * uPlanetNoiseScale.w + TIME * 0.02, 1.0), 1.2 - lighting)).rgb;
 
 				COLOR = vec4(planetColour, 1.0);
@@ -553,9 +561,9 @@ void fragment() {
 			else if (approxEquals(dist.y, RING)) {
 				vec3 normal = estimateNormalRing(p, dist.x);
 				normal.y = abs(normal.y);
-				
+
 				vec3 ringColour = texture(uPlanetTexture, vec2(0.0)).rgb;
-				
+
 				float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1, defaultLightPos, true) / 2.0;
 				float dist = sin(length(p) * 50.0) * 0.2 + 1.0;
 				COLOR = vec4(vec3(dist * lighting * ringColour), 1.0);
@@ -575,7 +583,7 @@ void fragment() {
 
 				float squareNoise = perlinNoise3D(floor(p * 8.0) / 8.0 * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
 				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
-				
+
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5), 1.2 - lighting)).rgb;
 				COLOR = vec4(planetColour, 1.0);
 			}
