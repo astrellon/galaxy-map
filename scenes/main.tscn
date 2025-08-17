@@ -1,4 +1,4 @@
-[gd_scene load_steps=378 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=379 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://bdcumrxyvfl1j" path="res://textures/backgroundStars.png" id="2_5he1u"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
@@ -42,6 +42,7 @@
 [ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
 [ext_resource type="Script" uid="uid://bpdo67nnt4u35" path="res://scripts/title.gd" id="32_pibwh"]
+[ext_resource type="Texture2D" uid="uid://dw7ke7axmhwnl" path="res://textures/ringStation.png" id="33_cjqg0"]
 [ext_resource type="Texture2D" uid="uid://cilk12toc78mv" path="res://textures/signature.png" id="40_5he1u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c6pm6"]
@@ -84,7 +85,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_5he1u"]
 resource_name = "fade_in"
-length = 3.0
+length = 4.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -92,7 +93,7 @@ tracks/0/path = NodePath(".:color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.46667, 2.96667),
+"times": PackedFloat32Array(0, 3.5, 4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [Color(0, 0, 0, 1), Color(0.0138, 0.0169, 0.02, 1), Color(0.0352941, 0.0431373, 0.0509804, 1)]
@@ -4145,7 +4146,7 @@ A relatively recently abandoned structure, who's purpose seems to have been a re
 planet_texture = ExtResource("27_c6pm6")
 raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
 raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
-raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 0)
+raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 8)
 raymarch_scene = 8
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4235,7 +4236,7 @@ noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.3
 
-[node name="BigStar13" type="AnimatedSprite2D" parent="Stars"]
+[node name="Hot Stuff" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-49, -52)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
@@ -4246,7 +4247,7 @@ noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 4.4
 
-[node name="Area2D" type="Area2D" parent="Stars/BigStar13" node_paths=PackedStringArray("center_point", "collision")]
+[node name="Area2D" type="Area2D" parent="Stars/Hot Stuff" node_paths=PackedStringArray("center_point", "collision")]
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.87, 0.1218, 0.1218, 1)
@@ -4266,7 +4267,7 @@ raymarch_scene = 11
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/BigStar13/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Hot Stuff/Area2D"]
 shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Donut" type="AnimatedSprite2D" parent="Stars"]
@@ -4338,7 +4339,7 @@ collision = NodePath("CollisionShape2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Crystal/Area2D"]
 shape = SubResource("CircleShape2D_2f3dj")
 
-[node name="BigStar9" type="AnimatedSprite2D" parent="Stars"]
+[node name="Ring Station" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-28, 40)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
@@ -4348,6 +4349,30 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.7
+
+[node name="Area2D" type="Area2D" parent="Stars/Ring Station" node_paths=PackedStringArray("center_point", "collision")]
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/gas_giant.obj"
+wireframe_front_colour = Color(0.2324, 0.57104, 0.83, 1)
+wireframe_back_colour = Color(0.1416, 0.41064, 0.59, 1)
+reveal_type = 1
+outline_colour = Color(0.37, 0.672167, 0.74, 1)
+label = "Ring station"
+description = "Orbit: 0.62 Years
+Mass: 0.031 Earths
+Radius: 1400 km
+
+Despite the low surface gravity it is a small planetoid that seems to be covered in large crystals. An outlandish hypothesis is that it used to be a gas giant and this is the remaining planet core."
+planet_texture = ExtResource("33_cjqg0")
+raymarch_planet_noise = Vector4(1, 8, 1, 1.075)
+raymarch_planet_offset = Vector4(0.275, 0.265, 0.31, -0.045)
+raymarch_ring_params = Vector4(1.1, 0.75, 0.015, 128)
+raymarch_scene = 13
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Ring Station/Area2D"]
+shape = SubResource("CircleShape2D_2f3dj")
 
 [node name="BigStar15" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-18, -97)

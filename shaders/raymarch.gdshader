@@ -148,6 +148,32 @@ float sdfTorus(vec3 point, float radius, float ringRadius) {
 	return length(distToRingCenter) - ringRadius;
 }
 
+float sdfTriPrism(vec3 point, vec2 h) {
+	vec3 q = abs(point);
+	return max(q.z - h.y, max(q.x * 0.866025 + point.y * 0.5,-point.y) - h.x * 0.5);
+}
+
+float ringStation(vec3 point, float width) {
+	return sdfTriPrism(point - vec3(0.8, 0.0, 0.0), vec2(width, 0.4)); 
+}
+
+float ringStationRotational(vec3 point, float width) {
+	// domain repetition
+	const int   n = 6;
+	const float b = 6.283185 / float(n);
+	float a = atan(point.y, point.x);
+	float i = floor(a/b);
+
+	float c1 = b*(i+0.0);
+	float c2 = b*(i+1.0); 
+	
+	vec3 p1 = vec3(mat2(vec2(cos(c1), -sin(c1)), vec2(sin(c1), cos(c1))) * point.xy, point.z);
+	vec3 p2 = vec3(mat2(vec2(cos(c2), -sin(c2)), vec2(sin(c2), cos(c2))) * point.xy, point.z);
+
+	// evaluate two SDF instances
+	return min(ringStation(p1, width), ringStation(p2, width));
+}
+
 float cloudScene(vec3 samplePoint) {
 	samplePoint = cloudRotation * samplePoint;
 	vec3 cloudOffset = vec3(TIME * 0.0002);
@@ -218,6 +244,15 @@ vec2 planetScene(vec3 samplePoint) {
 		const float factor = 21.21;
 		float displacement = sin(factor * samplePoint.x) * sin(factor * samplePoint.y) * sin(factor * samplePoint.z) * 0.065;
 		return vec2(sdfSphere(samplePoint, 0.5) + displacement, PLANET);
+	}
+	if (uScene == 13) {
+		samplePoint = cloudRotation * samplePoint;
+		float center1 = sdfHexPrism(samplePoint, vec2(0.6, 0.125));
+		float width = saturate(1.0 - abs(samplePoint.z)) * 0.3;
+		float center2 = sdfHexPrism(samplePoint, vec2(width, 0.85));
+		vec2 center = vec2(opUnion(center1, center2), TOWER_INNER);
+		vec2 towers = vec2(ringStationRotational(samplePoint, width), TOWER_OUTER);
+		return objMin(center, towers);
 	}
 
 	return vec2(100.0, CLOUD);
@@ -451,6 +486,9 @@ void vertex() {
 	if (uScene == 8) {
 		cloudRotation = rotation3dY(PI * 0.5);
 	}
+	else if (uScene == 13) {
+		cloudRotation = rotation3d(vec3(1.0, 0.0, 0.0), PI * 0.5);
+	}
 	else if (uScene == 9) {
 		cloudRotation = rotation3dY(TIME * 0.1);
 	}
@@ -595,21 +633,15 @@ void fragment() {
 			else if (approxEquals(dist.y, STAR)) {
 				COLOR = vec4(1.0);
 			}
-			else if (approxEquals(dist.y, TOWER_OUTER)) {
+			else if (approxEquals(dist.y, TOWER_OUTER) || approxEquals(dist.y, TOWER_INNER)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
 
-				float squareNoise = perlinNoise3D(floor(p * 8.0) / 8.0 * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
+				float squareNoise = perlinNoise3D(floor(p * uRingParams.w) / uRingParams.w * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
 				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				
+				float offset = approxEquals(dist.y, TOWER_INNER) ? 0.5 : 0.0;
 
-				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5), 1.2 - lighting)).rgb;
-				COLOR = vec4(planetColour, 1.0);
-			}
-			else if (approxEquals(dist.y, TOWER_INNER)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-
-				float squareNoise = perlinNoise3D(floor(p * 8.0) / 8.0 * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
-				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5) + 0.5, 1.2 - lighting)).rgb;
+				vec3 planetColour = texture(uPlanetTexture, vec2(mod(squareNoise, 0.5) + offset, 1.2 - lighting)).rgb;
 				COLOR = vec4(planetColour, 1.0);
 			}
 			else if (approxEquals(dist.y, RINGWORLD_METAL)) {
