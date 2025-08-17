@@ -36,6 +36,10 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/curved_lines_2d/plugin.cfg", "res://addons/godot-vim/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

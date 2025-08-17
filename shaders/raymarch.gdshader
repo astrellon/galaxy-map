@@ -28,6 +28,7 @@ uniform float uReveal = 2.0;
 uniform vec4 uPlanetNoiseScale = vec4(1.0);
 uniform vec4 uPlanetNoiseOffset = vec4(0.0);
 uniform vec4 uRingParams = vec4(1.1, 0.75, 0.015, 0.0);
+uniform vec4 uCloudParams = vec4(0.2, 0.1, 0.3, 0.0);
 uniform int uScene = 0;
 uniform vec4[4] uLightningPoints;
 
@@ -177,28 +178,36 @@ float ringStationRotational(vec3 point, float width) {
 float cloudScene(vec3 samplePoint) {
 	samplePoint = cloudRotation * samplePoint;
 	vec3 cloudOffset = vec3(TIME * 0.0002);
-	if (uScene == 0 || uScene == 5 || uScene == 6) {
-		float outerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.x);
-		float innerSphere = sdfSphere(samplePoint, 0.5 + uRingParams.y);
-		float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12) + cloudOffset) - 0.85) * uRingParams.z;
+	if (uScene == 0 || uScene == 5 || uScene == 6 || uScene == 14) {
+		float outerSphere = sdfSphere(samplePoint, 0.5 + uCloudParams.x);
+		float innerSphere = sdfSphere(samplePoint, 0.5 + uCloudParams.y);
+		float cloudDist = outerSphere + (perlinNoise3D(samplePoint * 0.0175 + vec3(0.12) + cloudOffset) - 0.85) * uCloudParams.z;
 
 		return opSubtraction(cloudDist, innerSphere);
 	}
 
 	if (uScene == 7) {
-		float outerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.z);
-		float innerTorus = sdfTorus(samplePoint, uRingParams.x, uRingParams.y + uRingParams.w);
+		float outerTorus = sdfTorus(samplePoint, uCloudParams.x, uCloudParams.y + uCloudParams.z);
+		float innerTorus = sdfTorus(samplePoint, uCloudParams.x, uCloudParams.y + uCloudParams.w);
 		float cloudDist = outerTorus + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12) + cloudOffset) - 0.85) * 0.35;
 
 		return opSubtraction(cloudDist, innerTorus);
 	}
 
 	if (uScene == 9) {
-		float outer = sdfDisk(samplePoint, 1.0, uRingParams.x - 0.1, uRingParams.z - uRingParams.w);
-		float outerCut = sdfDisk(samplePoint, 1.0, uRingParams.x + 1.0, uRingParams.z - uRingParams.w - 0.1);
+		float outer = sdfDisk(samplePoint, 1.0, uCloudParams.x - 0.1, uCloudParams.z - uCloudParams.w);
+		float outerCut = sdfDisk(samplePoint, 1.0, uCloudParams.x + 1.0, uCloudParams.z - uCloudParams.w - 0.1);
 		float outerRing = opSubtraction(outerCut, outer);
 		float cloudDist = outerRing + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12) + cloudOffset) - 0.85) * 0.35;
 
+		return cloudDist;
+	}
+	
+	if (uScene == 13) {
+		float platform = sdfHexPrism(samplePoint, vec2(0.54, 0.145));
+		float cutout = sdfHexPrism(samplePoint, vec2(0.6, 0.135));
+		float cloudDist = opSubtraction(cutout, platform) + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12) + cloudOffset) - 0.85) * 0.35;
+		
 		return cloudDist;
 	}
 
@@ -206,7 +215,7 @@ float cloudScene(vec3 samplePoint) {
 }
 
 vec2 planetScene(vec3 samplePoint) {
-	if (uScene == 0 || uScene == 5 || uScene == 6) {
+	if (uScene == 0 || uScene == 5 || uScene == 6 || uScene == 14) {
 		return vec2(sdfSphere(samplePoint, 0.5), PLANET);
 	}
 	if (uScene == 12) {
@@ -246,12 +255,13 @@ vec2 planetScene(vec3 samplePoint) {
 		return vec2(sdfSphere(samplePoint, 0.5) + displacement, PLANET);
 	}
 	if (uScene == 13) {
-		samplePoint = cloudRotation * samplePoint;
-		float center1 = sdfHexPrism(samplePoint, vec2(0.6, 0.125));
-		float width = saturate(1.0 - abs(samplePoint.z)) * 0.3;
-		float center2 = sdfHexPrism(samplePoint, vec2(width, 0.85));
-		vec2 center = vec2(opUnion(center1, center2), TOWER_INNER);
-		vec2 towers = vec2(ringStationRotational(samplePoint, width), TOWER_OUTER);
+		float taperedWidth = saturate(1.0 - abs(samplePoint.z)) * 0.3;
+		
+		float platform = sdfHexPrism(samplePoint, vec2(0.6, 0.125));
+		float centerTower = sdfHexPrism(samplePoint, vec2(taperedWidth, 0.85));
+		float walls = opSubtraction(sdfHexPrism(samplePoint, vec2(0.6, 0.5)), sdfHexPrism(samplePoint, vec2(0.65, 0.15)));
+		vec2 center = vec2(platform, PLANET);
+		vec2 towers = vec2(opUnion(walls, opUnion(centerTower, ringStationRotational(samplePoint, taperedWidth))), RINGWORLD_METAL);
 		return objMin(center, towers);
 	}
 
@@ -259,12 +269,12 @@ vec2 planetScene(vec3 samplePoint) {
 }
 
 vec2 ringScene(vec3 samplePoint) {
-    if (uScene == 1 || uScene == 10) {
+    if (uScene == 1 || uScene == 10 || uScene == 14) {
 		return vec2(opSubtraction(
 			sdfCappedCylinder(samplePoint, uRingParams.z + 1.0, uRingParams.y),
 			sdfCappedCylinder(samplePoint, uRingParams.z, uRingParams.x)), RING);
     }
-	if (uScene == 2 || uScene == 3)	{
+	if (uScene == 2 || uScene == 3) {
 		float innerSphere = sdfSphere(samplePoint, 0.717);
 		float platforms1 = opSubtraction(innerSphere, sdfIcosahedron(samplePoint, 0.82));
 
@@ -487,7 +497,7 @@ void vertex() {
 		cloudRotation = rotation3dY(PI * 0.5);
 	}
 	else if (uScene == 13) {
-		cloudRotation = rotation3d(vec3(1.0, 0.0, 0.0), PI * 0.5);
+		cloudRotation = rotation3d(vec3(0.0, 0.0, 1.0), TIME * 0.1);
 	}
 	else if (uScene == 9) {
 		cloudRotation = rotation3dY(TIME * 0.1);

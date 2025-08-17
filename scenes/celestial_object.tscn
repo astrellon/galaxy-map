@@ -184,6 +184,7 @@ shader_parameter/uReveal = 2.0
 shader_parameter/uPlanetNoiseScale = Vector4(1, 1, 1, 1)
 shader_parameter/uPlanetNoiseOffset = Vector4(0, 0, 0, 0)
 shader_parameter/uRingParams = Vector4(1.1, 0.75, 0.015, 0)
+shader_parameter/uCloudParams = Vector4(0.2, 0.1, 0.3, 0)
 shader_parameter/uScene = 1
 shader_parameter/uLightningPoints = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 

@@ -86,3 +86,4 @@ func init(info: ShowCelestial) -> void:
 	self.material.set_shader_parameter('uPlanetNoiseOffset', info.raymarch_planet_offset)
 	self.material.set_shader_parameter('uScene', info.raymarch_scene)
 	self.material.set_shader_parameter('uRingParams', info.raymarch_ring_params)
+	self.material.set_shader_parameter('uCloudParams', info.raymarch_cloud_params)

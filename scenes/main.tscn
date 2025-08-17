@@ -1,4 +1,4 @@
-[gd_scene load_steps=379 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=378 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://bdcumrxyvfl1j" path="res://textures/backgroundStars.png" id="2_5he1u"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
@@ -42,7 +42,6 @@
 [ext_resource type="Script" uid="uid://cm5i0u0ufvaoi" path="res://scripts/cursor.gd" id="31_qkpxi"]
 [ext_resource type="Script" uid="uid://bsqjwfjskcjop" path="res://scripts/celestial_parent.gd" id="31_tel4y"]
 [ext_resource type="Script" uid="uid://bpdo67nnt4u35" path="res://scripts/title.gd" id="32_pibwh"]
-[ext_resource type="Texture2D" uid="uid://dw7ke7axmhwnl" path="res://textures/ringStation.png" id="33_cjqg0"]
 [ext_resource type="Texture2D" uid="uid://cilk12toc78mv" path="res://textures/signature.png" id="40_5he1u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c6pm6"]
@@ -4037,9 +4036,10 @@ Radius: 3400 km
 
 A dusty iron rich landscape, with much of the remaining water remaining as clouds."
 planet_texture = ExtResource("22_dgi5k")
-raymarch_planet_noise = Vector4(1.005, 1.295, 1.005, 0.565)
-raymarch_planet_offset = Vector4(0.11, 0.46, -0.395, -0.655)
+raymarch_planet_noise = Vector4(1.5, 1.8, 1.5, 0.485)
+raymarch_planet_offset = Vector4(0.225, 0.46, -0.395, -0.655)
 raymarch_ring_params = Vector4(0.19, 0.1, 0.35, 0)
+raymarch_cloud_params = Vector4(0.19, 0.1, 0.35, 0)
 raymarch_scene = 5
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4086,6 +4086,7 @@ planet_texture = ExtResource("25_kmb1v")
 raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
 raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
 raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 0)
+raymarch_cloud_params = Vector4(0.04, 0.03, 0.05, 0)
 raymarch_scene = 6
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4182,6 +4183,7 @@ planet_texture = ExtResource("29_5poiv")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.535)
 raymarch_planet_offset = Vector4(0.04, 0.37, 1.405, 0.02)
 raymarch_ring_params = Vector4(0.24, 1.05, 0.96, 0.04)
+raymarch_cloud_params = Vector4(0.24, 1.05, 0.96, 0.04)
 raymarch_scene = 9
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4298,6 +4300,7 @@ A torus shaped planet, that has perplexed scientists. Whilst the leading hypothe
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(1, 2.705, 0.855, 0.45)
 raymarch_ring_params = Vector4(0.59, 0.22, 0.165, 0.065)
+raymarch_cloud_params = Vector4(0.59, 0.22, 0.165, 0.065)
 raymarch_scene = 7
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4352,21 +4355,21 @@ time_offset = 4.7
 
 [node name="Area2D" type="Area2D" parent="Stars/Ring Station" node_paths=PackedStringArray("center_point", "collision")]
 script = ExtResource("30_fv21b")
-mesh_file = "res://meshes/gas_giant.obj"
+mesh_file = "res://meshes/flat_land.obj"
 wireframe_front_colour = Color(0.2324, 0.57104, 0.83, 1)
 wireframe_back_colour = Color(0.1416, 0.41064, 0.59, 1)
 reveal_type = 1
 outline_colour = Color(0.37, 0.672167, 0.74, 1)
-label = "Ring station"
+label = "Flatland"
 description = "Orbit: 0.62 Years
-Mass: 0.031 Earths
-Radius: 1400 km
+Radius: 800 km
 
-Despite the low surface gravity it is a small planetoid that seems to be covered in large crystals. An outlandish hypothesis is that it used to be a gas giant and this is the remaining planet core."
-planet_texture = ExtResource("33_cjqg0")
-raymarch_planet_noise = Vector4(1, 8, 1, 1.075)
+A habitate with two flat surfaces on either side of a central disk. The central tower and six surrounding ones all work together to generate artifical gravity that is even despite the shape."
+planet_texture = ExtResource("29_5poiv")
+raymarch_planet_noise = Vector4(5, 5, 5, 0.425)
 raymarch_planet_offset = Vector4(0.275, 0.265, 0.31, -0.045)
 raymarch_ring_params = Vector4(1.1, 0.75, 0.015, 128)
+raymarch_cloud_params = Vector4(1.1, 0.65, 0.015, 0)
 raymarch_scene = 13
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4374,7 +4377,7 @@ collision = NodePath("CollisionShape2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Ring Station/Area2D"]
 shape = SubResource("CircleShape2D_2f3dj")
 
-[node name="BigStar15" type="AnimatedSprite2D" parent="Stars"]
+[node name="EarthRing" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-18, -97)
 sprite_frames = SubResource("SpriteFrames_vtx2l")
 frame = 7
@@ -4384,6 +4387,31 @@ script = ExtResource("3_dp3eg")
 noise_speed = 14.0
 noise_amp = 0.3
 time_offset = 4.8
+
+[node name="Area2D" type="Area2D" parent="Stars/EarthRing" node_paths=PackedStringArray("center_point", "collision")]
+script = ExtResource("30_fv21b")
+mesh_file = "res://meshes/gas_giant.obj"
+wireframe_front_colour = Color(0.560784, 0.815686, 0.196078, 1)
+wireframe_back_colour = Color(0.380392, 0.647059, 0.247059, 1)
+reveal_type = 1
+outline_colour = Color(0.560784, 0.815686, 0.196078, 1)
+label = "Earthrathia"
+description = "Orbit: 1.02 Years
+Mass: 1.2 Earths
+Radius: 7040 km
+
+A lush planet filled with unusual and even fantastical creatures. Many seem to be originally artificially constructed but they have continued to evolve and grow on their own."
+planet_texture = ExtResource("13_jbj1t")
+raymarch_planet_noise = Vector4(3, 3, 3, 0.49)
+raymarch_planet_offset = Vector4(0.135, 0, 0, -0.05)
+raymarch_ring_params = Vector4(1.1, 0.8, 0.01, 0)
+raymarch_cloud_params = Vector4(0.1, 0.03, 0.395, 0)
+raymarch_scene = 14
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/EarthRing/Area2D"]
+shape = SubResource("CircleShape2D_2f3dj")
 
 [node name="Black Hole2" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(80, -93)
