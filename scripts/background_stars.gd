@@ -20,6 +20,10 @@ func _ready() -> void:
 	var index = 0
 	for i in range(self.num_stars):
 		for overflow_test in range(0, 10):
+			if index >= self.num_stars:
+				# Somehow this can happen
+				break
+			
 			var x = self.random.randf_range(-10, 490)
 			var y = self.random.randf_range(-10, 280)
 			

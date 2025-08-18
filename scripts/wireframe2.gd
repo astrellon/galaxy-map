@@ -11,7 +11,6 @@ enum RevealType { ALPHA, LINE_BY_LINE }
 @export var back_colour: Color = Color.DARK_GREEN
 @export var mesh_scale: float = 1.0
 @export var display_scale: float = 1.0
-@export var ignore_line: Vector4
 @export var animation: AnimationPlayer
 @export var label: Label
 @export var description: Label
@@ -43,6 +42,7 @@ func calc_num_total_lines() -> int:
 	var total: int = 0
 	for f in self.mesh.faces:
 		total += len(f.faces)
+	total += len(self.mesh.line_pairs)
 
 	return total
 
@@ -55,7 +55,6 @@ func _ready() -> void:
 		self.play_start_animation()
 
 func update_info(info: ShowCelestial) -> void:
-	
 	self.mesh_scale = info.wireframe_mesh_scale
 	self.target_camera_fov = info.target_camera_fov
 	self.backface_culling = info.backface_culling
@@ -154,17 +153,29 @@ func _draw() -> void:
 	var fov = lerpf(180, self.target_camera_fov, self.reveal_camera_fov)
 	self.camera.fov = fov
 
-	var has_ignore = self.ignore_line.length() > 0.1
-	var ignore_dir = Vector3(self.ignore_line.x, self.ignore_line.y, self.ignore_line.z)
-
 	var back_colour = Color(self.back_colour, self.alpha)
 	var front_colour = Color(self.front_colour, self.alpha)
 	
 	var num_lines_to_draw = self.total_lines_to_draw
 	num_lines_to_draw = roundi(num_lines_to_draw * self.reveal_lines)
+	
+	var total_scale = self.mesh_scale * self.display_scale
 
 	front_faces.clear()
-
+	
+	for l in self.mesh.line_pairs:
+		num_lines_to_draw -= 1
+		if num_lines_to_draw < 0:
+			break
+		
+		var from = self.mesh.vertices[l.x] * total_scale
+		var to = self.mesh.vertices[l.y] * total_scale
+		
+		var from_projected = self.camera.unproject_position(from)
+		var to_projected = self.camera.unproject_position(to)
+		
+		front_faces.push_back(ScreenFace.new([from_projected, to_projected]))
+	
 	for f in self.mesh.faces:
 		screen_positions.clear()
 
@@ -175,16 +186,8 @@ func _draw() -> void:
 			if num_lines_to_draw < 0:
 				break
 
-			var current = self.mesh.vertices[fv.x] * self.mesh_scale * self.display_scale
+			var current = self.mesh.vertices[fv.x] * total_scale
 			var next = self.camera.unproject_position(current)
-
-			if has_prev_world && has_ignore:
-				var dir = current - prev_world
-				var length = dir.length()
-				if length > self.ignore_line.w:
-					var norm = dir.normalized()
-					if abs(ignore_dir.dot(norm)) > 0.999:
-						continue
 
 			has_prev_world = true
 			prev_world = current

@@ -12,7 +12,6 @@ signal closing
 @export var wireframe_mesh_scale: float = 1.0
 @export var target_camera_fov: float = 100
 @export var reveal_type: Wireframe.RevealType = Wireframe.RevealType.ALPHA
-@export var ignore_line: Vector4
 @export var outline_colour: Color = Color.RED
 @export var outline_inside: bool
 @export var outline_pattern: int

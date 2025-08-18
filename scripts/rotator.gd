@@ -29,6 +29,9 @@ func do_held(held_velocity: Vector2) -> void:
 	self._held_timer = 0.0
 
 func _rotate_global(values: Vector2) -> void:
+	if values.length() < 0.001:
+		return
+	
 	var x = self.basis.y * -values.y
 	var y = self.basis.x * -values.x
 	var axis = x + y

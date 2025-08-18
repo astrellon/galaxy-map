@@ -1,4 +1,4 @@
-[gd_scene load_steps=378 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=379 format=3 uid="uid://b2einv4kauowa"]
 
 [ext_resource type="Texture2D" uid="uid://bdcumrxyvfl1j" path="res://textures/backgroundStars.png" id="2_5he1u"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://cpq8gr65umddu" path="res://textures/blueSmall.png" id="22_qkpxi"]
 [ext_resource type="Texture2D" uid="uid://cx8qx2jhuphti" path="res://textures/stars.png" id="24_fv21b"]
 [ext_resource type="Shader" uid="uid://cms3frm6puiba" path="res://shaders/small_stars.gdshader" id="24_tel4y"]
+[ext_resource type="Texture2D" uid="uid://b7fwoaohjacui" path="res://textures/balan.png" id="25_cjqg0"]
 [ext_resource type="Texture2D" uid="uid://d0r4s6kycptsr" path="res://textures/waterPlanet.png" id="25_kmb1v"]
 [ext_resource type="FontFile" uid="uid://c0xcu6pd4evir" path="res://fonts/Pixeloid/PixeloidSansBold-PKnYd.ttf" id="26_2wyq8"]
 [ext_resource type="Texture2D" uid="uid://desjrnqfy2clc" path="res://textures/pinkFluff.png" id="26_j8jky"]
@@ -3931,7 +3932,7 @@ label = "The Swarm"
 description = "Age: 780,300 Yr
 Power: 10^23 W
 
-A megastructure of energy collectors surrounding a white dwarf star."
+A mega-structure of energy collectors surrounding a white dwarf. The majority of the structure is devoted to collecting the energy and self-maintenance. However the energy collected is not stored but rather transmitted elsewhere by some unknown means."
 label_colour = Color(0.737232, 0.720694, 0.717384, 1)
 planet_texture = ExtResource("17_dp3eg")
 raymarch_scene = 2
@@ -3966,9 +3967,10 @@ Radius: 7040 km
 
 A lush planet filled with unusual and even fantastical creatures. Many seem to be originally artificially constructed but they have continued to evolve and grow on their own."
 planet_texture = ExtResource("13_jbj1t")
-raymarch_planet_noise = Vector4(1, 1, 1, 0.6)
-raymarch_planet_offset = Vector4(0, 0, 0, -0.05)
+raymarch_planet_noise = Vector4(1, 1, 1, 0.965)
+raymarch_planet_offset = Vector4(0, 0, 0, -0.585)
 raymarch_ring_params = Vector4(0.2, 0.1, 0.3, 0)
+raymarch_cloud_params = Vector4(0.2, 0.1, 0.35, 0)
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
@@ -4011,7 +4013,7 @@ collision = NodePath("CollisionShape2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Gas Giant/Area2D"]
 shape = SubResource("CircleShape2D_tel4y")
 
-[node name="Red Planet" type="AnimatedSprite2D" parent="Stars"]
+[node name="Gustin" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-96, 49)
 sprite_frames = SubResource("SpriteFrames_e755i")
 frame = 7
@@ -4022,7 +4024,7 @@ noise_speed = 8.0
 noise_amp = 0.2
 time_offset = 3.4
 
-[node name="Area2D" type="Area2D" parent="Stars/Red Planet" node_paths=PackedStringArray("center_point", "collision")]
+[node name="Area2D" type="Area2D" parent="Stars/Gustin" node_paths=PackedStringArray("center_point", "collision")]
 script = ExtResource("30_fv21b")
 mesh_file = "res://meshes/planet2.obj"
 wireframe_front_colour = Color(0.91, 0.2093, 0.220978, 1)
@@ -4036,19 +4038,19 @@ Radius: 3400 km
 
 A dusty iron rich landscape, with much of the remaining water remaining as clouds."
 planet_texture = ExtResource("22_dgi5k")
-raymarch_planet_noise = Vector4(1.5, 1.8, 1.5, 0.485)
-raymarch_planet_offset = Vector4(0.225, 0.46, -0.395, -0.655)
+raymarch_planet_noise = Vector4(1.5, 1.8, 1.5, 1.115)
+raymarch_planet_offset = Vector4(0.225, 0.46, -0.395, -0.445)
 raymarch_ring_params = Vector4(0.19, 0.1, 0.35, 0)
 raymarch_cloud_params = Vector4(0.19, 0.1, 0.35, 0)
 raymarch_scene = 5
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Red Planet/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Gustin/Area2D"]
 shape = SubResource("CircleShape2D_tel4y")
 
-[node name="BigStar5" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-59, 46)
+[node name="Balan" type="AnimatedSprite2D" parent="Stars"]
+position = Vector2(-67, 18)
 sprite_frames = SubResource("SpriteFrames_ygd8o")
 frame = 7
 centered = false
@@ -4057,6 +4059,32 @@ script = ExtResource("3_dp3eg")
 noise_speed = 10.0
 noise_amp = 0.22
 time_offset = 3.8
+
+[node name="Area2D" type="Area2D" parent="Stars/Balan" node_paths=PackedStringArray("center_point", "collision")]
+script = ExtResource("30_fv21b")
+mesh_file = "uid://dy3ndqj2r17p5"
+wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
+wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
+wireframe_mesh_scale = 1.14
+reveal_type = 1
+outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
+label = "Balan"
+description = "Orbit: 0.75 Years
+Mass: 2.6 Earths
+Day: 2.6 Hours
+
+An oblate spheroid shaped planet that has a very high rotation, leading to a short day. This high rotation has lead to a plant where the water levels are constantly rising and falling. Despite that life finds a way and has thrived on this planet."
+planet_texture = ExtResource("25_cjqg0")
+raymarch_planet_noise = Vector4(1, 4, 1, 0.385)
+raymarch_planet_offset = Vector4(0, 0, 0, 0.295)
+raymarch_ring_params = Vector4(0.59, 0.22, 0.165, 0.065)
+raymarch_cloud_params = Vector4(0.59, 0.22, 0.165, 0.065)
+raymarch_scene = 15
+center_point = NodePath("CollisionShape2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Balan/Area2D"]
+shape = SubResource("CircleShape2D_tel4y")
 
 [node name="Water Planet" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-39, 70)
@@ -4083,8 +4111,8 @@ Radius: 5400 km
 
 A mostly watery world with little exposed ground. Large interconnected sea plants appearing to be lush islands from space, lay the foundation for complex sea life to live in."
 planet_texture = ExtResource("25_kmb1v")
-raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
-raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
+raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.615)
+raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.265)
 raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 0)
 raymarch_cloud_params = Vector4(0.04, 0.03, 0.05, 0)
 raymarch_scene = 6
@@ -4143,7 +4171,7 @@ label = "The Tower"
 description = "Age: 6702 Years
 Height: 14.23 km
 
-A relatively recently abandoned structure, who's purpose seems to have been a research facility. However either it was never in use, or any traces of the inhabitance were completely removed."
+A relatively recently abandoned structure, who's purpose seems to have been a research facility. However either it was never in use, or any traces of the inhabitants were completely removed."
 planet_texture = ExtResource("27_c6pm6")
 raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.405)
 raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.9)
@@ -4204,10 +4232,10 @@ time_offset = 4.2
 
 [node name="Area2D" type="Area2D" parent="Stars/Pink Fluff" node_paths=PackedStringArray("center_point", "collision")]
 script = ExtResource("30_fv21b")
-mesh_file = "res://meshes/planet2.obj"
+mesh_file = "uid://b6b7sa5rh6oim"
 wireframe_front_colour = Color(0.733264, 0.336056, 0.702336, 1)
 wireframe_back_colour = Color(0.482951, 0.25005, 0.501091, 1)
-wireframe_mesh_scale = 1.5
+wireframe_mesh_scale = 1.15
 reveal_type = 1
 outline_colour = Color(0.871069, 0.436581, 0.790355, 1)
 label = "The Pink Fluff"
@@ -4215,7 +4243,7 @@ description = "Orbit: 8.65 Years
 Mass: 20.4 Earths
 Radius: 35360 km
 
-A very low density gas giant. The pink hues are primarily made up of crystal dust. How crystals came to be found in a low densitity gas giant is still under investigation."
+A very low density gas giant. The pink hues are primarily made up of crystal dust. How crystals came to be found in a low density gas giant is still under investigation."
 planet_texture = ExtResource("26_j8jky")
 raymarch_planet_noise = Vector4(2, 4, 2, 0.645)
 raymarch_planet_offset = Vector4(0.195, 0.07, 0.055, 0.085)
@@ -4226,17 +4254,6 @@ collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stars/Pink Fluff/Area2D"]
 shape = SubResource("CircleShape2D_tel4y")
-
-[node name="BigStar" type="AnimatedSprite2D" parent="Stars"]
-position = Vector2(-56, -2)
-sprite_frames = SubResource("SpriteFrames_vtx2l")
-frame = 7
-centered = false
-offset = Vector2(-15, -15)
-script = ExtResource("3_dp3eg")
-noise_speed = 14.0
-noise_amp = 0.3
-time_offset = 4.3
 
 [node name="Hot Stuff" type="AnimatedSprite2D" parent="Stars"]
 position = Vector2(-49, -52)
@@ -4290,7 +4307,7 @@ wireframe_front_colour = Color(0.3198, 0.71996, 0.82, 1)
 wireframe_back_colour = Color(0.292659, 0.394648, 0.578992, 1)
 reveal_type = 1
 outline_colour = Color(0.429796, 0.50933, 0.718927, 1)
-label = "Dorus"
+label = "Torius"
 description = "Orbit: 1.68 Years
 Mass: 2.1 Earths
 Outer Radius: 7140 km
@@ -4326,15 +4343,15 @@ wireframe_front_colour = Color(0.869069, 0.440496, 0.927407, 1)
 wireframe_back_colour = Color(0.608532, 0.398992, 0.583193, 1)
 reveal_type = 1
 outline_colour = Color(0.892343, 0.629979, 0.802935, 1)
-label = "Crystals"
+label = "Gamma"
 description = "Orbit: 0.62 Years
 Mass: 0.031 Earths
 Radius: 1400 km
 
-Despite the low surface gravity it is a small planetoid that seems to be covered in large crystals. An outlandish hypothesis is that it used to be a gas giant and this is the remaining planet core."
+Despite the low surface gravity the minor planet seems to be covered in large crystals. An outlandish hypothesis is that it used to be a gas giant and this is the remaining planet core."
 planet_texture = ExtResource("31_2cjbq")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.42)
-raymarch_planet_offset = Vector4(0.145, 0.23, 0.31, -1.025)
+raymarch_planet_offset = Vector4(0.145, 0.23, 0.31, -0.34)
 raymarch_scene = 10
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4361,10 +4378,10 @@ wireframe_back_colour = Color(0.1416, 0.41064, 0.59, 1)
 reveal_type = 1
 outline_colour = Color(0.37, 0.672167, 0.74, 1)
 label = "Flatland"
-description = "Orbit: 0.62 Years
+description = "Orbit: 0.71 Years
 Radius: 800 km
 
-A habitate with two flat surfaces on either side of a central disk. The central tower and six surrounding ones all work together to generate artifical gravity that is even despite the shape."
+A habitat with two flat surfaces on either side of a central disk. The central tower and six surrounding ones all work together to generate artificial gravity that is even despite the shape."
 planet_texture = ExtResource("29_5poiv")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.425)
 raymarch_planet_offset = Vector4(0.275, 0.265, 0.31, -0.045)
@@ -4395,17 +4412,17 @@ wireframe_front_colour = Color(0.560784, 0.815686, 0.196078, 1)
 wireframe_back_colour = Color(0.380392, 0.647059, 0.247059, 1)
 reveal_type = 1
 outline_colour = Color(0.560784, 0.815686, 0.196078, 1)
-label = "Earthrathia"
-description = "Orbit: 1.02 Years
-Mass: 1.2 Earths
-Radius: 7040 km
+label = "Ringwood"
+description = "Orbit: 2.02 Years
+Mass: 4.52 Earths
+Radius: 16430 km
 
-A lush planet filled with unusual and even fantastical creatures. Many seem to be originally artificially constructed but they have continued to evolve and grow on their own."
+A rare Super-Earth planet that features a ring. The larger than usual habitable area has resulted in extremely diverse flora and fauna."
 planet_texture = ExtResource("13_jbj1t")
-raymarch_planet_noise = Vector4(3, 3, 3, 0.49)
-raymarch_planet_offset = Vector4(0.135, 0, 0, -0.05)
+raymarch_planet_noise = Vector4(5, 5, 5, 0.9)
+raymarch_planet_offset = Vector4(0.265, 0.59, 0.295, -0.37)
 raymarch_ring_params = Vector4(1.1, 0.8, 0.01, 0)
-raymarch_cloud_params = Vector4(0.1, 0.03, 0.395, 0)
+raymarch_cloud_params = Vector4(0.1, 0.01, 0.39, 0.06)
 raymarch_scene = 14
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4435,7 +4452,7 @@ label = "Pri's Treasure"
 description = "Mass: 159 Earths
 Radius: 1.41 km
 
-A stellar sized black hole that was only found because of the obvious hole it left in a suprisingly dense dust cloud."
+A stellar sized black hole that was only found because of the obvious hole it left in a surprisingly dense dust cloud."
 planet_texture = ExtResource("5_gqmmt")
 raymarch_planet_noise = Vector4(1.005, 1.295, 1.005, 0.565)
 raymarch_planet_offset = Vector4(0.11, 0.46, -0.395, -0.655)
