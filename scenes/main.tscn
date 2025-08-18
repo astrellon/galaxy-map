@@ -1,5 +1,6 @@
-[gd_scene load_steps=379 format=3 uid="uid://b2einv4kauowa"]
+[gd_scene load_steps=380 format=3 uid="uid://b2einv4kauowa"]
 
+[ext_resource type="Script" uid="uid://bgk1js3o552mt" path="res://scripts/manager.gd" id="1_vchkt"]
 [ext_resource type="Texture2D" uid="uid://bdcumrxyvfl1j" path="res://textures/backgroundStars.png" id="2_5he1u"]
 [ext_resource type="Script" uid="uid://bywcusyx6k73r" path="res://scripts/background.gd" id="2_pm3ni"]
 [ext_resource type="Script" uid="uid://ch8r5woqsunlv" path="res://scripts/star_twinkle.gd" id="3_dp3eg"]
@@ -1864,6 +1865,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Galaxy Map" type="Node2D"]
 texture_filter = 1
+script = ExtResource("1_vchkt")
 
 [node name="BackgroundStars" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("ignore_node")]
 material = SubResource("ShaderMaterial_c6pm6")

@@ -10,6 +10,7 @@ var started_playing = false
 var _animated: AnimatedSprite2D
 var _starting_position: Vector2
 var _following: Node2D
+var _current_time = 0.0
 
 func _init() -> void:
 	self.noise_offset = randf() * 10.0
@@ -26,7 +27,8 @@ func _ready() -> void:
 		self._following = self.parent.follow
 
 func _process(delta: float) -> void:
-	var t = (Time.get_ticks_msec() / 1000.0) * self.noise_speed
+	self._current_time += delta
+	var t = self._current_time * self.noise_speed
 	var noise = sin(2 * (t + self.noise_offset)) + sin(PI * t + self.noise_offset)
 	var norm_noise = (noise + 2.0) / 4.0
 	var alpha = 1 - norm_noise * self.noise_amp
@@ -35,7 +37,6 @@ func _process(delta: float) -> void:
 	self.position = rotated_pos
 	
 	if self._animated != null and !self.started_playing:
-		var time = Time.get_ticks_msec() / 1000.0
-		if time > self.time_offset:
+		if self._current_time > self.time_offset:
 			self._animated.play()
 			self.started_playing = true

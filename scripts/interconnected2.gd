@@ -14,6 +14,8 @@ var num_active_traffic_points = 0
 var weighted_points: Array[int] = []
 var spawn_timer = 0.0
 
+var _current_time = 0.0
+
 func _ready() -> void:
 	for i in range(self.num_traffic):
 		self.traffic_points.push_back(TrafficPoint.new())
@@ -33,8 +35,9 @@ func _ready() -> void:
 		connected_points.push_back(ConnectedPoints.new(connected))
 
 func _process(delta: float) -> void:
-	var time_since_start = float(Time.get_ticks_msec()) / 1000.0
-	if time_since_start < self.time_offset:
+	self._current_time += delta
+	
+	if self._current_time < self.time_offset:
 		return
 	
 	self.num_active_traffic_points = 0

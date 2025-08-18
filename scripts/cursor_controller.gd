@@ -9,13 +9,20 @@ var highlighted_scene = preload("res://scenes/highlighted.tscn")
 @export var cursor_change_speed = 4.0
 @export var cursor: CursorGraphic
 @export var highlight_parent: Node2D
+@export var disable_cursor = false
 
 var over = false
+var _current_time = 0.0
 
 func _init() -> void:
 	instance = self
 
 func _process(delta: float) -> void:
+	self._current_time += delta
+	if self._current_time < 3.0:
+		self.cursor.global_position = Vector2(-100, -100)
+		return
+	
 	var diff = -delta
 	if self.over:
 		diff = delta
