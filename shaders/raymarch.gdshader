@@ -31,6 +31,7 @@ uniform vec4 uPlanetNoiseScale = vec4(1.0);
 uniform vec4 uPlanetNoiseOffset = vec4(0.0);
 uniform vec4 uRingParams = vec4(1.1, 0.75, 0.015, 0.0);
 uniform vec4 uCloudParams = vec4(0.2, 0.1, 0.3, 0.0);
+uniform vec4 uWaveParams = vec4(0.4, 0.2, 0.0, 0.0);
 uniform int uScene = 0;
 uniform vec4[4] uLightningPoints;
 
@@ -212,17 +213,28 @@ float cloudScene(vec3 samplePoint) {
 
 		return cloudDist;
 	}
-	
+
 	if (uScene == 15) {
 		return sdfSphere(samplePoint * vec3(0.75, 1.5, 0.75), 0.64) + (perlinNoise3D(samplePoint * 0.0175 + vec3(1.12) + cloudOffset) - 0.85) * 0.35;
 	}
-	
+
     return 100.0;
+}
+
+float getPlanetNoise(vec3 samplePoint) {
+	float noise = perlinNoise3D(samplePoint * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyx);
+	float colourX = abs(noise) * uPlanetNoiseScale.w + uPlanetNoiseOffset.w;
+	
+	float waveOffset = 0.0;
+	if (uWaveParams.x > -0.1 && colourX < uWaveParams.x) {
+		waveOffset = sin((TIME + sin(samplePoint.x * 20.0) * sin(samplePoint.y * 20.0) * sin(samplePoint.z * 20.0)) * uWaveParams.y) * uWaveParams.z;
+	}
+	return -pow(colourX + waveOffset, 3.0) * uPlanetNoiseOffset.z;
 }
 
 vec2 planetScene(vec3 samplePoint) {
 	if (uScene == 0 || uScene == 5 || uScene == 6 || uScene == 14) {
-		return vec2(sdfSphere(samplePoint, 0.5), PLANET);
+		return vec2(sdfSphere(samplePoint, 0.5) + getPlanetNoise(samplePoint) , PLANET);
 	}
 	if (uScene == 12) {
 		return vec2(sdfSphere(samplePoint, 0.75), GAS);
@@ -231,31 +243,33 @@ vec2 planetScene(vec3 samplePoint) {
 		return vec2(sdfSphere(samplePoint, 0.5), GAS);
 	}
 	if (uScene == 11) {
-		return vec2(sdfSphere(samplePoint, 0.5), LAVA);
+		return vec2(sdfSphere(samplePoint, 0.5) + getPlanetNoise(samplePoint), LAVA);
 	}
 	if (uScene == 2) {
 		return vec2(sdfSphere(samplePoint, 0.25), STAR);
 	}
 	if (uScene == 7) {
-		return vec2(sdfTorus(samplePoint, uRingParams.x, uRingParams.y), PLANET);
+		return vec2(sdfTorus(samplePoint, uRingParams.x, uRingParams.y) + getPlanetNoise(samplePoint), PLANET);
 	}
-	if (uScene == 15) {
-		return vec2(sdfSphere(samplePoint * vec3(0.75, 1.0, 0.75), 0.6), GAS);
+	if (uScene == 15) { // Balan
+		samplePoint = samplePoint * vec3(0.75, 1.0, 0.75);
+		return vec2(sdfSphere(samplePoint, 0.6) + getPlanetNoise(samplePoint), GAS);
 	}
-	if (uScene == 8) {
+	if (uScene == 8) { // The Tower
 		float inner1 = sdfHexPrism(samplePoint, vec2(0.15, 1.0));
 		float inner2 = sdfHexPrism(cloudRotation * samplePoint, vec2(0.15, 1.0));
 		vec2 inner = vec2(opUnion(inner1, inner2), TOWER_INNER);
 		vec2 outer = vec2(sdfOctahedron(samplePoint, 0.6), TOWER_OUTER);
 		return objSub(inner, outer);
 	}
-	if (uScene == 9) {
+	if (uScene == 9) { // Ringworld
 		float outer = sdfDisk(samplePoint, 1.0, uRingParams.x, uRingParams.y);
 		float outerCut = sdfDisk(samplePoint, 1.0, uRingParams.x + 1.0, uRingParams.z);
 		float outerRing = opSubtraction(outerCut, outer);
 		float inner = sdfDisk(samplePoint, 1.0, uRingParams.x - 0.1, uRingParams.z + 0.05);
 		vec2 outerMetal = vec2(outerRing, RINGWORLD_METAL);
-		vec2 innerPlanet = vec2(inner, PLANET);
+		
+		vec2 innerPlanet = vec2(inner + getPlanetNoise(samplePoint), PLANET);
 		return objSub(innerPlanet, outerMetal);
 	}
 	if (uScene == 10) {
@@ -264,10 +278,10 @@ vec2 planetScene(vec3 samplePoint) {
 		float displacement = sin(p.x) * sin(p.y) * sin(p.z) * 0.06;
 		return vec2(sdfSphere(samplePoint, 0.5) + displacement, CRYSTAL);
 	}
-	if (uScene == 13) {
+	if (uScene == 13) { // Flatland
 		float taperedWidth = saturate(1.0 - abs(samplePoint.z)) * 0.3;
-
-		float platform = sdfHexPrism(samplePoint, vec2(0.6, 0.125));
+		
+		float platform = sdfHexPrism(samplePoint, vec2(0.6, 0.125)) + getPlanetNoise(samplePoint);
 		float centerTower = sdfHexPrism(samplePoint, vec2(taperedWidth, 0.85));
 		float walls = opSubtraction(sdfHexPrism(samplePoint, vec2(0.6, 0.5)), sdfHexPrism(samplePoint, vec2(0.65, 0.15)));
 		float smallOffset = sin(samplePoint.x * 24.0) * sin(samplePoint.y * 24.0) * sin(samplePoint.z * 24.0) * 0.08;
@@ -487,7 +501,7 @@ vec4 getBlackHoleColour(vec3 rayOrigin, vec3 rayDir) {
 		vec3 p = rayOrigin + rayDir * res.x;
 		float idx = floor(length(finalPos) * 7.0);
 		if (res.z == BLACK_HOLE_RING) {
-			col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyz)) - 1.6) *
+			col += gradient(length(finalPos * 3.0 + noise3D(finalPos * 0.1 + uPlanetNoiseOffset.xyx)) - 1.6) *
 				mix(0.7, 1.0,
 				saturate(length(finalPos) - 1.5) *
 					saturate(400.0 * sin(0.25 * pow(idx, 0.75) + 5.0 * atan(finalPos.z, finalPos.x)))
@@ -522,7 +536,7 @@ void fragment() {
 	vec2 oPosition = UV * 2.0 - 1.0;
 	oPosition.y = -oPosition.y;
 
-	float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz) - 0.6;
+	float noise = perlinNoise3D(vec3(oPosition, 1.0) * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyx) - 0.6;
 	if (noise > uReveal) {
 		discard;
 	}
@@ -559,7 +573,7 @@ void fragment() {
 			// The closest point on the surface to the eyepoint along the view ray
 			vec3 p = rayOrigin + dist.x * rayDir;
 
-			float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz);
+			float noise = perlinNoise3D(p * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyx);
 			if (noise - 0.6 > uReveal && extraColour.x <= 0.0) {
 				discard;
 			}
@@ -603,7 +617,7 @@ void fragment() {
 				fresnel = pow(fresnel, 2.5);
 				fresnel = round(fresnel * 2.0);
 				lighting = max(lighting, fresnel * 0.5);
-				
+
 				float noiseScale = uPlanetNoiseScale.w + sin(TIME * 0.3) * 0.2;
 
 				float colourX = noise * noiseScale + abs(p.y * p.y * p.y) + uPlanetNoiseOffset.w;
@@ -635,7 +649,7 @@ void fragment() {
 				fresnel = pow(fresnel, 2.5);
 				fresnel = round(fresnel * 2.0);
 				lighting = max(lighting, fresnel * 0.5);
-				
+
 				noise += perlinNoise3D(p * 0.02);
 
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(noise * uPlanetNoiseScale.w + TIME * 0.01, 1.0), 1.2 - lighting)).rgb;
@@ -686,7 +700,7 @@ void fragment() {
 			else if (approxEquals(dist.y, TOWER_OUTER) || approxEquals(dist.y, TOWER_INNER)) {
 				vec3 normal = estimateNormalPlanet(p, dist.x);
 
-				float squareNoise = perlinNoise3D(floor(p * uRingParams.w) / uRingParams.w * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyz + uPlanetNoiseOffset.w);
+				float squareNoise = perlinNoise3D(floor(p * uRingParams.w) / uRingParams.w * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyx + uPlanetNoiseOffset.w);
 				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 
 				float offset = approxEquals(dist.y, TOWER_INNER) ? 0.5 : 0.0;

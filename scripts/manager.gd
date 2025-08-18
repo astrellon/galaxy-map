@@ -1,6 +1,9 @@
 extends Node
 
 func _notification(what: int) -> void:
+	if OS.is_debug_build():
+		return
+		
 	if what == NOTIFICATION_APPLICATION_FOCUS_IN:
 		Engine.time_scale = 1.0
 		OS.low_processor_usage_mode = false

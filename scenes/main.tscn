@@ -3969,10 +3969,11 @@ Radius: 7040 km
 
 A lush planet filled with unusual and even fantastical creatures. Many seem to be originally artificially constructed but they have continued to evolve and grow on their own."
 planet_texture = ExtResource("13_jbj1t")
-raymarch_planet_noise = Vector4(1, 1, 1, 0.965)
-raymarch_planet_offset = Vector4(0, 0, 0, -0.585)
+raymarch_planet_noise = Vector4(1.5, 1.5, 1.5, 0.965)
+raymarch_planet_offset = Vector4(0.055, 0, 0.245, -0.585)
 raymarch_ring_params = Vector4(0.2, 0.1, 0.3, 0)
 raymarch_cloud_params = Vector4(0.2, 0.1, 0.35, 0)
+raymarch_wave_params = Vector4(0.33, 1, 0.095, 0)
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
 
@@ -4041,7 +4042,7 @@ Radius: 3400 km
 A dusty iron rich landscape, with much of the remaining water remaining as clouds."
 planet_texture = ExtResource("22_dgi5k")
 raymarch_planet_noise = Vector4(1.5, 1.8, 1.5, 1.115)
-raymarch_planet_offset = Vector4(0.225, 0.46, -0.395, -0.445)
+raymarch_planet_offset = Vector4(0.225, 0.46, 0.075, -0.445)
 raymarch_ring_params = Vector4(0.19, 0.1, 0.35, 0)
 raymarch_cloud_params = Vector4(0.19, 0.1, 0.35, 0)
 raymarch_scene = 5
@@ -4078,9 +4079,10 @@ Day: 2.6 Hours
 An oblate spheroid shaped planet that has a very high rotation, leading to a short day. This high rotation has lead to a plant where the water levels are constantly rising and falling. Despite that life finds a way and has thrived on this planet."
 planet_texture = ExtResource("25_cjqg0")
 raymarch_planet_noise = Vector4(1, 4, 1, 0.385)
-raymarch_planet_offset = Vector4(0, 0, 0, 0.295)
+raymarch_planet_offset = Vector4(0.055, 0, 0, 0.295)
 raymarch_ring_params = Vector4(0.59, 0.22, 0.165, 0.065)
 raymarch_cloud_params = Vector4(0.59, 0.22, 0.165, 0.065)
+raymarch_wave_params = Vector4(0.775, 0.98, 0.355, 0)
 raymarch_scene = 15
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4114,9 +4116,10 @@ Radius: 5400 km
 A mostly watery world with little exposed ground. Large interconnected sea plants appearing to be lush islands from space, lay the foundation for complex sea life to live in."
 planet_texture = ExtResource("25_kmb1v")
 raymarch_planet_noise = Vector4(3.71, 3.575, 3.22, 0.615)
-raymarch_planet_offset = Vector4(0.04, 0.37, -0.375, -0.265)
+raymarch_planet_offset = Vector4(0.04, 0.37, 0.035, -0.265)
 raymarch_ring_params = Vector4(0.04, 0.03, 0.05, 0)
 raymarch_cloud_params = Vector4(0.04, 0.03, 0.05, 0)
+raymarch_wave_params = Vector4(0.335, 1.185, 0.12, 0)
 raymarch_scene = 6
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4211,7 +4214,7 @@ Radius: 1414 km
 A ringworld parked in a fairly high orbit around a gas giant that happens to be just on the edge of the stars habitable zone. The surface is covered with fairly wild forests and lakes. It's assumed that the ringworld is a wildlife sanctuary. "
 planet_texture = ExtResource("29_5poiv")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.535)
-raymarch_planet_offset = Vector4(0.04, 0.37, 1.405, 0.02)
+raymarch_planet_offset = Vector4(0.04, 0.37, 0.075, 0.02)
 raymarch_ring_params = Vector4(0.24, 1.05, 0.96, 0.04)
 raymarch_cloud_params = Vector4(0.24, 1.05, 0.96, 0.04)
 raymarch_scene = 9
@@ -4284,6 +4287,7 @@ A protoplanet that is both dense as is it hot. Whilst it is smaller than Earth i
 planet_texture = ExtResource("31_chjal")
 raymarch_planet_noise = Vector4(3, 3, 3, 0.51)
 raymarch_planet_offset = Vector4(0.395, 0.285, -0.02, -0.095)
+raymarch_wave_params = Vector4(1.185, 1, 0.55, 0)
 raymarch_scene = 11
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4317,7 +4321,8 @@ Ring Radius: 2200 km
 
 A torus shaped planet, that has perplexed scientists. Whilst the leading hypothesis is that the planet was artificially created, no evidence of that has been found."
 planet_texture = ExtResource("13_jbj1t")
-raymarch_planet_noise = Vector4(1, 2.705, 0.855, 0.45)
+raymarch_planet_noise = Vector4(2, 2.705, 2, 0.45)
+raymarch_planet_offset = Vector4(0, 0, 0.125, 0)
 raymarch_ring_params = Vector4(0.59, 0.22, 0.165, 0.065)
 raymarch_cloud_params = Vector4(0.59, 0.22, 0.165, 0.065)
 raymarch_scene = 7
@@ -4386,9 +4391,10 @@ Radius: 800 km
 A habitat with two flat surfaces on either side of a central disk. The central tower and six surrounding ones all work together to generate artificial gravity that is even despite the shape."
 planet_texture = ExtResource("29_5poiv")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.425)
-raymarch_planet_offset = Vector4(0.275, 0.265, 0.31, -0.045)
+raymarch_planet_offset = Vector4(0.275, 0.265, 0.1, -0.045)
 raymarch_ring_params = Vector4(1.1, 0.75, 0.015, 128)
 raymarch_cloud_params = Vector4(1.1, 0.65, 0.015, 0)
+raymarch_wave_params = Vector4(0.345, 1.015, 0.205, 0)
 raymarch_scene = 13
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")
@@ -4422,9 +4428,9 @@ Radius: 16430 km
 A rare Super-Earth planet that features a ring. The larger than usual habitable area has resulted in extremely diverse flora and fauna."
 planet_texture = ExtResource("13_jbj1t")
 raymarch_planet_noise = Vector4(5, 5, 5, 0.9)
-raymarch_planet_offset = Vector4(0.265, 0.59, 0.295, -0.37)
+raymarch_planet_offset = Vector4(0.265, 0.59, 0.08, -0.37)
 raymarch_ring_params = Vector4(1.1, 0.8, 0.01, 0)
-raymarch_cloud_params = Vector4(0.1, 0.01, 0.39, 0.06)
+raymarch_cloud_params = Vector4(0.195, 0.07, 0.455, 0.06)
 raymarch_scene = 14
 center_point = NodePath("CollisionShape2D")
 collision = NodePath("CollisionShape2D")

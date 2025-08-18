@@ -25,6 +25,7 @@ signal closing
 @export var raymarch_planet_offset: Vector4
 @export var raymarch_ring_params: Vector4 = Vector4(1.1, 0.75, 0.015, 0)
 @export var raymarch_cloud_params: Vector4 = Vector4(0.2, 0.1, 0.3, 0)
+@export var raymarch_wave_params: Vector4 = Vector4(0.4, 0.2, 0.1, 0)
 @export var raymarch_scene: int
 @export var fov_test = 1.0
 
