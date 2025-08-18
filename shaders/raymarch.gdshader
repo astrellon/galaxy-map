@@ -19,6 +19,7 @@ const float LAVA = 11.0;
 const float GAS = 12.0;
 const float FLATLAND_BLACK = 13.0;
 const float CRYSTAL = 14.0;
+const float BALAN = 15.0;
 
 uniform sampler2D uNoiseTexture: repeat_enable, filter_linear;
 uniform sampler2D uPlanetTexture: repeat_disable, filter_nearest;
@@ -253,7 +254,7 @@ vec2 planetScene(vec3 samplePoint) {
 	}
 	if (uScene == 15) { // Balan
 		samplePoint = samplePoint * vec3(0.75, 1.0, 0.75);
-		return vec2(sdfSphere(samplePoint, 0.6) + getPlanetNoise(samplePoint), GAS);
+		return vec2(sdfSphere(samplePoint, 0.6) + getPlanetNoise(samplePoint), BALAN);
 	}
 	if (uScene == 8) { // The Tower
 		float inner1 = sdfHexPrism(samplePoint, vec2(0.15, 1.0));
@@ -651,8 +652,23 @@ void fragment() {
 				lighting = max(lighting, fresnel * 0.5);
 
 				noise += perlinNoise3D(p * 0.02);
-
 				vec3 planetColour = texture(uPlanetTexture, vec2(mod(noise * uPlanetNoiseScale.w + TIME * 0.01, 1.0), 1.2 - lighting)).rgb;
+
+				COLOR = vec4(planetColour, 1.0);
+			}
+			else if (approxEquals(dist.y, BALAN)) {
+				vec3 normal = estimateNormalPlanet(p, dist.x);
+				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+				float fresnel = dot(normal, rayDir);
+				fresnel = saturate(fresnel + 1.0);
+
+				fresnel = pow(fresnel, 2.5);
+				fresnel = round(fresnel * 2.0);
+				lighting = max(lighting, fresnel * 0.5);
+
+				noise += perlinNoise3D(p * 0.02);
+				float poles = pow(abs(p.y), 3.0);
+				vec3 planetColour = texture(uPlanetTexture, vec2(poles + mod(noise * uPlanetNoiseScale.w + sin(TIME * uRingParams.x) * uRingParams.y, 1.0), 1.2 - lighting)).rgb;
 
 				COLOR = vec4(planetColour, 1.0);
 			}
@@ -718,7 +734,7 @@ void fragment() {
 				fresnel = round(fresnel * 2.0);
 				lighting = max(lighting, fresnel * 0.5);
 
-				vec3 planetColour = texture(uPlanetTexture, vec2(noise + uRingParams.x * uPlanetNoiseScale.w, 1.2 - lighting)).rgb;
+				vec3 planetColour = texture(uPlanetTexture, vec2(mod(noise * uPlanetNoiseScale.w, 0.25) + 0.75, 1.2 - lighting)).rgb;
 
 				COLOR = vec4(planetColour, 1.0);
 			}
