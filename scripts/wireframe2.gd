@@ -3,6 +3,7 @@ extends Node2D
 class_name Wireframe
 
 enum RevealType { ALPHA, LINE_BY_LINE }
+enum SceneParameter { SCENE, WAVES_X, WAVES_Y, WAVES_Z }
 
 @export_file var mesh_file
 @export var camera: Camera3D
@@ -73,6 +74,18 @@ func update_info(info: ShowCelestial) -> void:
 
 	self.outline_node.init(info)
 	self.raymarch_node.init(info)
+
+func set_info_parameter(key: SceneParameter, value: Variant) -> void:
+	match key:
+		SceneParameter.SCENE:
+			self.raymarch_node.material.set_shader_parameter('uScene', value)
+
+func get_info_parameter(key: SceneParameter) -> Variant:
+	match key:
+		SceneParameter.SCENE:
+			return int(self.raymarch_node.material.get_shader_parameter('uScene'))
+		_:
+			return null
 
 func init(info: ShowCelestial) -> void:
 	if self.inited:

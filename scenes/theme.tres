@@ -1,0 +1,34 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://3xqbucdlm67b"]
+
+[ext_resource type="Texture2D" uid="uid://v02j572omdon" path="res://textures/white.png" id="1_nx7ni"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nx7ni"]
+bg_color = Color(0.450648, 0.450648, 0.450648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4svv"]
+bg_color = Color(0.783523, 0.783523, 0.783523, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm5n4"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_detail = 12
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4gw00"]
+bg_color = Color(0.2484, 0.2484, 0.2484, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gp8n"]
+
+[resource]
+HSlider/icons/grabber = ExtResource("1_nx7ni")
+HSlider/icons/grabber_disabled = ExtResource("1_nx7ni")
+HSlider/icons/grabber_highlight = ExtResource("1_nx7ni")
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_nx7ni")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_w4svv")
+HSlider/styles/slider = SubResource("StyleBoxFlat_jm5n4")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_4gw00")
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_7gp8n")
+LineEdit/styles/read_only = null

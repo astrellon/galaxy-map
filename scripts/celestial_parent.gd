@@ -15,6 +15,8 @@ var current_scene: Wireframe
 var waiting_to_remove = false
 var waiting_to_trigger: ShowCelestial
 
+signal scene_change
+
 func _init() -> void:
 	instance = self
 
@@ -23,12 +25,14 @@ func _process(delta: float) -> void:
 		self._remove_current_scene()
 		if self.waiting_to_trigger != null:
 			self._setup_new_scene(self.waiting_to_trigger)
+		else:
+			self.scene_change.emit()
 		self.waiting_to_remove = false
 		self.waiting_to_trigger = null
 	
-	if OS.is_debug_build():
-		if self.current_scene_info != null and self.current_scene != null:
-			self.current_scene.update_info(self.current_scene_info)
+	#if OS.is_debug_build():
+		#if self.current_scene_info != null and self.current_scene != null:
+			#self.current_scene.update_info(self.current_scene_info)
 
 func trigger(info: ShowCelestial) -> void:
 	if self.current_scene_info == info && self.current_scene != null:
@@ -56,6 +60,8 @@ func _setup_new_scene(info: ShowCelestial) -> void:
 	self.current_scene_target = info
 	self.current_scene_info = info
 	self.current_scene = scene.instantiate()
+	
+	self.scene_change.emit()
 
 	self.child_offset.add_child(self.current_scene)
 	
