@@ -3,7 +3,11 @@ extends Node2D
 class_name Wireframe
 
 enum RevealType { ALPHA, LINE_BY_LINE }
-enum SceneParameter { SCENE, WAVES_X, WAVES_Y, WAVES_Z }
+enum SceneParameter { SCENE, 
+	WAVES_X, WAVES_Y, WAVES_Z, 
+	CLOUD_X, CLOUD_Y, CLOUD_Z, CLOUD_W,
+	NOISE_SCALE_X, NOISE_SCALE_Y, NOISE_SCALE_Z, NOISE_SCALE_W
+}
 
 @export_file var mesh_file
 @export var camera: Camera3D
@@ -75,15 +79,79 @@ func update_info(info: ShowCelestial) -> void:
 	self.outline_node.init(info)
 	self.raymarch_node.init(info)
 
+func _set_vector_x_info_parameter(key: String, x: float) -> void:
+	var current = self.raymarch_node.material.get_shader_parameter(key)
+	current.x = x
+	self.raymarch_node.material.set_shader_parameter(key, current)
+
+func _set_vector_y_info_parameter(key: String, y: float) -> void:
+	var current = self.raymarch_node.material.get_shader_parameter(key)
+	current.y = y
+	self.raymarch_node.material.set_shader_parameter(key, current)
+
+func _set_vector_z_info_parameter(key: String, z: float) -> void:
+	var current = self.raymarch_node.material.get_shader_parameter(key)
+	current.z = z
+	self.raymarch_node.material.set_shader_parameter(key, current)
+
+func _set_vector_w_info_parameter(key: String, w: float) -> void:
+	var current = self.raymarch_node.material.get_shader_parameter(key)
+	current.w = w
+	self.raymarch_node.material.set_shader_parameter(key, current)
+
 func set_info_parameter(key: SceneParameter, value: Variant) -> void:
 	match key:
 		SceneParameter.SCENE:
 			self.raymarch_node.material.set_shader_parameter('uScene', value)
+		SceneParameter.WAVES_X:
+			self._set_vector_x_info_parameter('uWaveParams', value)
+		SceneParameter.WAVES_Y:
+			self._set_vector_y_info_parameter('uWaveParams', value)
+		SceneParameter.WAVES_Z:
+			self._set_vector_z_info_parameter('uWaveParams', value)
+		SceneParameter.CLOUD_X:
+			self._set_vector_x_info_parameter('uCloudParams', value)
+		SceneParameter.CLOUD_Y:
+			self._set_vector_y_info_parameter('uCloudParams', value)
+		SceneParameter.CLOUD_Z:
+			self._set_vector_z_info_parameter('uCloudParams', value)
+		SceneParameter.CLOUD_W:
+			self._set_vector_w_info_parameter('uCloudParams', value)
+		SceneParameter.NOISE_SCALE_X:
+			self._set_vector_x_info_parameter('uPlanetNoiseScale', value)
+		SceneParameter.NOISE_SCALE_Y:
+			self._set_vector_y_info_parameter('uPlanetNoiseScale', value)
+		SceneParameter.NOISE_SCALE_Z:
+			self._set_vector_z_info_parameter('uPlanetNoiseScale', value)
+		SceneParameter.NOISE_SCALE_W:
+			self._set_vector_w_info_parameter('uPlanetNoiseScale', value)
 
 func get_info_parameter(key: SceneParameter) -> Variant:
 	match key:
 		SceneParameter.SCENE:
 			return int(self.raymarch_node.material.get_shader_parameter('uScene'))
+		SceneParameter.WAVES_X:
+			return self.raymarch_node.material.get_shader_parameter('uWaveParams').x
+		SceneParameter.WAVES_Y:
+			return self.raymarch_node.material.get_shader_parameter('uWaveParams').y
+		SceneParameter.WAVES_Z:
+			return self.raymarch_node.material.get_shader_parameter('uWaveParams').z
+		SceneParameter.CLOUD_X:
+			return self.raymarch_node.material.get_shader_parameter('uCloudParams').x
+		SceneParameter.CLOUD_Y:
+			return self.raymarch_node.material.get_shader_parameter('uCloudParams').y
+		SceneParameter.CLOUD_Z:
+			return self.raymarch_node.material.get_shader_parameter('uCloudParams').z
+		SceneParameter.CLOUD_W:
+			return self.raymarch_node.material.get_shader_parameter('uCloudParams').w
+		SceneParameter.NOISE_SCALE_X:
+			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').x
+		SceneParameter.NOISE_SCALE_Y:
+			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').y
+		SceneParameter.NOISE_SCALE_Z:
+			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').z
+		SceneParameter.NOISE_SCALE_W:
+			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').w
 		_:
 			return null
 

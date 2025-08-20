@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://3321waxobxc2"]
+
+[ext_resource type="Script" uid="uid://bwp2e22gyf17o" path="res://scripts/editor_slider.gd" id="1_71vhk"]
+[ext_resource type="Theme" uid="uid://3xqbucdlm67b" path="res://scenes/theme.tres" id="2_3117l"]
+[ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="3_e1ikr"]
+
+[node name="Scene" type="BoxContainer" node_paths=PackedStringArray("slider", "value", "label")]
+script = ExtResource("1_71vhk")
+slider = NodePath("HSlider")
+value = NodePath("Value")
+label = NodePath("Label")
+is_int = true
+
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme = ExtResource("2_3117l")
+max_value = 15.0
+value = 4.0
+
+[node name="Value" type="LineEdit" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+theme = ExtResource("2_3117l")
+theme_override_fonts/font = ExtResource("3_e1ikr")
+theme_override_font_sizes/font_size = 9
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_e1ikr")
+theme_override_font_sizes/font_size = 9
+text = "Label"

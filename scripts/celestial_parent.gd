@@ -61,11 +61,10 @@ func _setup_new_scene(info: ShowCelestial) -> void:
 	self.current_scene_info = info
 	self.current_scene = scene.instantiate()
 	
-	self.scene_change.emit()
-
 	self.child_offset.add_child(self.current_scene)
 	
 	self.current_scene.init(info)
+	self.scene_change.emit()
 
 func _remove_current_scene() -> void:
 	self.current_scene_info.trigger_hide()

@@ -1,0 +1,89 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2ji8cme54og"]
+
+[ext_resource type="Script" uid="uid://dbdvpsc5wjutd" path="res://scripts/editor_vector.gd" id="1_g8d3f"]
+[ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="2_owt1c"]
+[ext_resource type="Theme" uid="uid://3xqbucdlm67b" path="res://scenes/theme.tres" id="3_ips3g"]
+
+[node name="Waves" type="Control" node_paths=PackedStringArray("x_slider", "y_slider", "z_slider", "x_value", "y_value", "z_value", "label")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_g8d3f")
+x_slider = NodePath("VBoxContainer/XSlider")
+y_slider = NodePath("VBoxContainer/YSlider")
+z_slider = NodePath("VBoxContainer/ZSlider")
+x_value = NodePath("HBoxContainer/XValue")
+y_value = NodePath("HBoxContainer/YValue")
+z_value = NodePath("HBoxContainer/ZValue")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 135.0
+offset_top = 4.0
+offset_right = 263.0
+offset_bottom = 15.0
+theme_override_fonts/font = ExtResource("2_owt1c")
+theme_override_font_sizes/font_size = 9
+text = "Waves"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 20.0
+
+[node name="XSlider" type="HSlider" parent="VBoxContainer"]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme = ExtResource("3_ips3g")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="YSlider" type="HSlider" parent="VBoxContainer"]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme = ExtResource("3_ips3g")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="ZSlider" type="HSlider" parent="VBoxContainer"]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme = ExtResource("3_ips3g")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_top = 15.0
+offset_right = 128.0
+offset_bottom = 35.0
+
+[node name="XValue" type="LineEdit" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme = ExtResource("3_ips3g")
+theme_override_fonts/font = ExtResource("2_owt1c")
+theme_override_font_sizes/font_size = 9
+placeholder_text = "X"
+
+[node name="YValue" type="LineEdit" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme = ExtResource("3_ips3g")
+theme_override_fonts/font = ExtResource("2_owt1c")
+theme_override_font_sizes/font_size = 9
+placeholder_text = "Y"
+
+[node name="ZValue" type="LineEdit" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 2
+theme = ExtResource("3_ips3g")
+theme_override_fonts/font = ExtResource("2_owt1c")
+theme_override_font_sizes/font_size = 9
+placeholder_text = "Z"
