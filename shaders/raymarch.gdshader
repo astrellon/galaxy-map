@@ -225,7 +225,7 @@ float cloudScene(vec3 samplePoint) {
 float getPlanetNoise(vec3 samplePoint) {
 	float noise = perlinNoise3D(samplePoint * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyx);
 	float colourX = abs(noise) * uPlanetNoiseScale.w + uPlanetNoiseOffset.w;
-	
+
 	float waveOffset = 0.0;
 	if (uWaveParams.x > -0.1 && colourX < uWaveParams.x) {
 		waveOffset = sin((TIME + sin(samplePoint.x * 20.0) * sin(samplePoint.y * 20.0) * sin(samplePoint.z * 20.0)) * uWaveParams.y) * uWaveParams.z;
@@ -269,7 +269,7 @@ vec2 planetScene(vec3 samplePoint) {
 		float outerRing = opSubtraction(outerCut, outer);
 		float inner = sdfDisk(samplePoint, 1.0, uRingParams.x - 0.1, uRingParams.z + 0.05);
 		vec2 outerMetal = vec2(outerRing, RINGWORLD_METAL);
-		
+
 		vec2 innerPlanet = vec2(inner + getPlanetNoise(samplePoint), PLANET);
 		return objSub(innerPlanet, outerMetal);
 	}
@@ -281,7 +281,7 @@ vec2 planetScene(vec3 samplePoint) {
 	}
 	if (uScene == 13) { // Flatland
 		float taperedWidth = saturate(1.0 - abs(samplePoint.z)) * 0.3;
-		
+
 		float platform = sdfHexPrism(samplePoint, vec2(0.6, 0.125)) + getPlanetNoise(samplePoint);
 		float centerTower = sdfHexPrism(samplePoint, vec2(taperedWidth, 0.85));
 		float walls = opSubtraction(sdfHexPrism(samplePoint, vec2(0.6, 0.5)), sdfHexPrism(samplePoint, vec2(0.65, 0.15)));

@@ -54,7 +54,6 @@
 [ext_resource type="FontFile" uid="uid://x841t5umrxkb" path="res://fonts/Pixeloid/PixeloidSans-mLxMm.ttf" id="49_ty1g6"]
 [ext_resource type="Script" uid="uid://boi3pb0imtgnk" path="res://scripts/github_link.gd" id="50_j2jfr"]
 [ext_resource type="AudioStream" uid="uid://dvk8nc5wowxn1" path="res://audio/UI/Hover/Click_Electronic_05.wav" id="50_ro3en"]
-[ext_resource type="AudioStream" uid="uid://bda0n5yirnro5" path="res://audio/Lines of Code.mp3" id="51_bjg73"]
 [ext_resource type="Script" uid="uid://cdnobdxjed7dq" path="res://scripts/audio_manager.gd" id="51_bu4jf"]
 [ext_resource type="AudioStream" uid="uid://ydp2ms2sk3s" path="res://audio/UI/Click/Click_Electronic_00.wav" id="51_od4ux"]
 [ext_resource type="AudioStream" uid="uid://7udnpcyf4wjp" path="res://audio/UI/Click/Click_Electronic_09.wav" id="52_xhfw6"]
@@ -65,6 +64,7 @@
 [ext_resource type="AudioStream" uid="uid://c8g4ct72c85u0" path="res://audio/UI/Text/talk2.ogg" id="62_od4ux"]
 [ext_resource type="AudioStream" uid="uid://j26fgt4k2u58" path="res://audio/Stars/578801__nomiqbomi__synth-texture-4-high.wav" id="63_1epgm"]
 [ext_resource type="AudioStream" uid="uid://bw4gvtnxsxwl1" path="res://audio/Stars/578801__nomiqbomi__synth-texture-4.mp3" id="65_r4e17"]
+[ext_resource type="AudioStream" uid="uid://dc0ceur62qhb3" path="res://audio/Lines of Code.ogg" id="65_xhfw6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vc5cj"]
 shader = ExtResource("2_txyw0")
@@ -4817,9 +4817,11 @@ music_volume = 0.6
 [node name="UIPlayer6" type="AudioStreamPlayer2D" parent="AudioManager"]
 
 [node name="Background" type="AudioStreamPlayer2D" parent="AudioManager"]
-stream = ExtResource("51_bjg73")
+stream = ExtResource("65_xhfw6")
 volume_db = -10.0
 autoplay = true
+playback_type = 1
+parameters/looping = true
 
 [editable path="EditorOptions/HBoxContainer/VBoxContainer/WavesX"]
 [editable path="EditorOptions/HBoxContainer/VBoxContainer/WavesY"]

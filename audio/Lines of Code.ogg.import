@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dc0ceur62qhb3"
+path="res://.godot/imported/Lines of Code.ogg-dbb1e569944a4ebe0218471377277ce7.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/Lines of Code.ogg"
+dest_files=["res://.godot/imported/Lines of Code.ogg-dbb1e569944a4ebe0218471377277ce7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
