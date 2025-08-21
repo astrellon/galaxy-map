@@ -4819,7 +4819,6 @@ music_volume = 0.6
 [node name="Background" type="AudioStreamPlayer2D" parent="AudioManager"]
 stream = ExtResource("65_xhfw6")
 volume_db = -10.0
-autoplay = true
 playback_type = 1
 parameters/looping = true
 

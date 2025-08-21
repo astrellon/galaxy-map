@@ -14,10 +14,17 @@ static var instance: AudioManager
 @export var music_volume = 1.0
 @export var sfx_volume = 1.0
 
+var _play_background_timer = 1.0
+
 func _init() -> void:
 	instance = self
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	var before = self._play_background_timer
+	self._play_background_timer -= delta
+	if self._play_background_timer <= 0.0 and before > 0.0:
+		self.background.play()
+	
 	self.background.stream_paused = self.music_volume < 0.01
 	self.background.volume_db = (1.0 - self.music_volume) * -40
 
