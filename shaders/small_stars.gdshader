@@ -22,10 +22,10 @@ void fragment() {
 		t = clamp(TIME, 0.0, 30.0);
 	}
 	int unclamped_index = int((t + uTimeOffset - instance_id * uTimeBetweenInstances) / uIndexTime);
-	
+
 	int min_index = TIME > 29.0 ? 1 : 0;
 	int index = clamp(unclamped_index, min_index, 11);
-	
+
 	vec2 uv = (vec2(float(index), 0.0) + UV) * vec2(1.0 / 12.0, 1.0);
 	vec4 colour = texture(uTexture, uv);
 	COLOR = colour * vertex_colour;

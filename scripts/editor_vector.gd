@@ -7,7 +7,7 @@ extends Control
 @export var y_value: LineEdit
 @export var z_value: LineEdit
 @export var label: Label
-@export var parameter: Wireframe.SceneParameter
+@export var parameter: Constants.Options
 
 var _current: Vector3
 
@@ -18,7 +18,7 @@ func _ready() -> void:
 	self.x_value.text_submitted.connect(self._on_x_value_submitted)
 	self.y_value.text_submitted.connect(self._on_y_value_submitted)
 	self.z_value.text_submitted.connect(self._on_z_value_submitted)
-	self.label.text = Wireframe.SceneParameter.keys()[self.parameter]
+	self.label.text = Constants.Options.keys()[self.parameter]
 	
 	CelestialParent.instance.scene_change.connect(self._on_scene_change)
 

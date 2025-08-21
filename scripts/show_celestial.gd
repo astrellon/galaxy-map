@@ -47,6 +47,7 @@ func get_center_point() -> Vector2:
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_mask & MOUSE_BUTTON_MASK_LEFT > 0:
+			AudioManager.instance.play_random_click()
 			CelestialParent.instance.trigger(self)
 
 func _process(delta: float) -> void:

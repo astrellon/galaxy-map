@@ -3,11 +3,7 @@ extends Node2D
 class_name Wireframe
 
 enum RevealType { ALPHA, LINE_BY_LINE }
-enum SceneParameter { SCENE, 
-	WAVES_X, WAVES_Y, WAVES_Z, 
-	CLOUD_X, CLOUD_Y, CLOUD_Z, CLOUD_W,
-	NOISE_SCALE_X, NOISE_SCALE_Y, NOISE_SCALE_Z, NOISE_SCALE_W
-}
+
 
 @export_file var mesh_file
 @export var camera: Camera3D
@@ -99,58 +95,58 @@ func _set_vector_w_info_parameter(key: String, w: float) -> void:
 	current.w = w
 	self.raymarch_node.material.set_shader_parameter(key, current)
 
-func set_info_parameter(key: SceneParameter, value: Variant) -> void:
+func set_info_parameter(key: Constants.Options, value: Variant) -> void:
 	match key:
-		SceneParameter.SCENE:
+		Constants.Options.SCENE:
 			self.raymarch_node.material.set_shader_parameter('uScene', value)
-		SceneParameter.WAVES_X:
+		Constants.Options.WAVES_X:
 			self._set_vector_x_info_parameter('uWaveParams', value)
-		SceneParameter.WAVES_Y:
+		Constants.Options.WAVES_Y:
 			self._set_vector_y_info_parameter('uWaveParams', value)
-		SceneParameter.WAVES_Z:
+		Constants.Options.WAVES_Z:
 			self._set_vector_z_info_parameter('uWaveParams', value)
-		SceneParameter.CLOUD_X:
+		Constants.Options.CLOUD_X:
 			self._set_vector_x_info_parameter('uCloudParams', value)
-		SceneParameter.CLOUD_Y:
+		Constants.Options.CLOUD_Y:
 			self._set_vector_y_info_parameter('uCloudParams', value)
-		SceneParameter.CLOUD_Z:
+		Constants.Options.CLOUD_Z:
 			self._set_vector_z_info_parameter('uCloudParams', value)
-		SceneParameter.CLOUD_W:
+		Constants.Options.CLOUD_W:
 			self._set_vector_w_info_parameter('uCloudParams', value)
-		SceneParameter.NOISE_SCALE_X:
+		Constants.Options.NOISE_SCALE_X:
 			self._set_vector_x_info_parameter('uPlanetNoiseScale', value)
-		SceneParameter.NOISE_SCALE_Y:
+		Constants.Options.NOISE_SCALE_Y:
 			self._set_vector_y_info_parameter('uPlanetNoiseScale', value)
-		SceneParameter.NOISE_SCALE_Z:
+		Constants.Options.NOISE_SCALE_Z:
 			self._set_vector_z_info_parameter('uPlanetNoiseScale', value)
-		SceneParameter.NOISE_SCALE_W:
+		Constants.Options.NOISE_SCALE_W:
 			self._set_vector_w_info_parameter('uPlanetNoiseScale', value)
 
-func get_info_parameter(key: SceneParameter) -> Variant:
+func get_info_parameter(key: Constants.Options) -> Variant:
 	match key:
-		SceneParameter.SCENE:
+		Constants.Options.SCENE:
 			return int(self.raymarch_node.material.get_shader_parameter('uScene'))
-		SceneParameter.WAVES_X:
+		Constants.Options.WAVES_X:
 			return self.raymarch_node.material.get_shader_parameter('uWaveParams').x
-		SceneParameter.WAVES_Y:
+		Constants.Options.WAVES_Y:
 			return self.raymarch_node.material.get_shader_parameter('uWaveParams').y
-		SceneParameter.WAVES_Z:
+		Constants.Options.WAVES_Z:
 			return self.raymarch_node.material.get_shader_parameter('uWaveParams').z
-		SceneParameter.CLOUD_X:
+		Constants.Options.CLOUD_X:
 			return self.raymarch_node.material.get_shader_parameter('uCloudParams').x
-		SceneParameter.CLOUD_Y:
+		Constants.Options.CLOUD_Y:
 			return self.raymarch_node.material.get_shader_parameter('uCloudParams').y
-		SceneParameter.CLOUD_Z:
+		Constants.Options.CLOUD_Z:
 			return self.raymarch_node.material.get_shader_parameter('uCloudParams').z
-		SceneParameter.CLOUD_W:
+		Constants.Options.CLOUD_W:
 			return self.raymarch_node.material.get_shader_parameter('uCloudParams').w
-		SceneParameter.NOISE_SCALE_X:
+		Constants.Options.NOISE_SCALE_X:
 			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').x
-		SceneParameter.NOISE_SCALE_Y:
+		Constants.Options.NOISE_SCALE_Y:
 			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').y
-		SceneParameter.NOISE_SCALE_Z:
+		Constants.Options.NOISE_SCALE_Z:
 			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').z
-		SceneParameter.NOISE_SCALE_W:
+		Constants.Options.NOISE_SCALE_W:
 			return self.raymarch_node.material.get_shader_parameter('uPlanetNoiseScale').w
 		_:
 			return null
@@ -220,6 +216,7 @@ func _process(delta: float) -> void:
 				var times = floor(self.show_description_char_timer / self.char_show_time)
 				self.show_description_char_timer -= times * self.char_show_time
 				self.description.visible_characters = self.description.visible_characters + int(times) 
+				AudioManager.instance.play_random_text()
 		
 		queue_redraw()
 

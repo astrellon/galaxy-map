@@ -1,5 +1,7 @@
 extends Sprite2D
 
+class_name Interconnected
+
 @export var connected_point_numbers: Array[PackedInt32Array] = []
 @export var target: Node2D
 @export var num_traffic = 100
@@ -15,6 +17,11 @@ var weighted_points: Array[int] = []
 var spawn_timer = 0.0
 
 var _current_time = 0.0
+
+static var instance: Interconnected
+
+func _init() -> void:
+	instance = self
 
 func _ready() -> void:
 	for i in range(self.num_traffic):
@@ -58,7 +65,7 @@ func _process(delta: float) -> void:
 				var colour = Color.from_hsv(randf(), 0.5, 0.75)
 				traffic.setup(edge[0], edge[1], speed, colour)
 	
-	self.traffic.multimesh.visible_instance_count = self.num_active_traffic_points
+	self.traffic.multimesh.visible_instance_count = min(self.num_active_traffic_points, self.num_traffic)
 	var index = 0
 	for traffic in self.traffic_points:
 		if traffic.active:

@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Background
+
 @export var colour_map: Texture2D
 @export var time_per_pixel = 0.5
 
@@ -23,6 +25,11 @@ var stroke_lines: Array[Line2D]
 
 var time = 0.0
 var prev_index = -100
+
+static var instance: Background
+
+func _init() -> void:
+	instance = self
 
 func _ready() -> void:
 	self.layer1_polygons = self._find_polygons(self.layer1)

@@ -25,7 +25,10 @@ The `sourceAssets` folder contains the Blender and Aseprite files that are used 
 - Blur shader by [Juanito Pereyra](https://godotshaders.com/shader/gaussian-blur-2/)
 - Outline shader by [Juulpower](https://godotshaders.com/shader/2d-outline-inline/)
 - GLSL rotation functions by [Damien Seguin](https://github.com/dmnsgn/glsl-rotate)
-
+- Pixeloid font by [GGBotNet](https://www.fontspace.com/pixeloid-font-f69232)
+- Background music by [Trevor Lentz](https://opengameart.org/content/lines-of-code)
+- Star SFX by [nomiqbomi](https://freesound.org/people/nomiqbomi/sounds/578801/)
+- Other UI SFX by [Little Robot Sound Factory](https://opengameart.org/content/ui-sound-effects-library)
 
 ## Author
 Alan Lawrey 2025

@@ -10,9 +10,11 @@ var highlighted_scene = preload("res://scenes/highlighted.tscn")
 @export var cursor: CursorGraphic
 @export var highlight_parent: Node2D
 @export var disable_cursor = false
+@export var audio_player: AudioStreamPlayer2D
 
 var over = false
 var _current_time = 0.0
+var _cursor_ready = false
 
 func _init() -> void:
 	instance = self
@@ -23,6 +25,7 @@ func _process(delta: float) -> void:
 		self.cursor.global_position = Vector2(-100, -100)
 		return
 	
+	self._cursor_ready = true
 	var diff = -delta
 	if self.over:
 		diff = delta
@@ -33,6 +36,8 @@ func _process(delta: float) -> void:
 
 func hover():
 	self.over = true
+	if self._cursor_ready:
+		AudioManager.instance.play_random_hover()
 
 func unhover():
 	self.over = false
