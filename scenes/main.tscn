@@ -1901,8 +1901,7 @@ viewport_path = NodePath("SubViewport")
 texture_filter = 1
 script = ExtResource("1_vchkt")
 
-[node name="Preload" type="Sprite2D" parent="."]
-visible = false
+[node name="Preload" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_vc5cj")
 
 [node name="BackgroundStars" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("ignore_node")]

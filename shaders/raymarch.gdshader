@@ -534,6 +534,10 @@ void vertex() {
 }
 
 void fragment() {
+	if (uScene < 0)	{
+		discard;
+	}
+	
 	vec2 oPosition = UV * 2.0 - 1.0;
 	oPosition.y = -oPosition.y;
 

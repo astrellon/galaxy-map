@@ -35,7 +35,7 @@ func play_random_click() -> void:
 	self.play_random_audio(self.click_effects, 0)
 
 func play_random_text() -> void:
-	self.play_random_audio(self.text_effects, 0)
+	self.play_random_audio(self.text_effects, -10)
 
 func play_random_star() -> void:
 	self.play_random_audio(self.star_effects, -10)
