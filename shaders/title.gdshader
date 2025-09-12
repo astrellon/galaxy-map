@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode unshaded;
 
 uniform int pattern : hint_range(0, 3) = 0; // diamond, circle, square
 uniform float threshold : hint_range(0.0, 1.0) = 0.8;

@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode unshaded;
 
 const int MAX_MARCHING_STEPS = 255;
 const float MIN_DIST = 0.0;
@@ -76,8 +77,7 @@ float noise3D(vec3 p) {
 }
 float perlinNoise3D(vec3 p) {
 	float x = 0.0;
-	for (float i = 0.0; i < 6.0; i += 1.0)
-	{
+	for (float i = 0.0; i < 6.0; i += 1.0) {
 		x += noise3D(p * pow(2.0, i)) * pow(0.5, i);
 	}
 	return x;
@@ -597,10 +597,12 @@ void fragment() {
 				}
 				extraColour = vec4(0.56, 0.76, 0.83, 1.0) * smoothstep(0.05, 0.1, colourAmount);
 			}
+			
+			bool isCrystal = approxEquals(dist.y, CRYSTAL);
+			vec3 normal = estimateNormalPlanet(p, dist.x);
+			float lighting = saturate(phongIllumination(dist.x, isCrystal ? 10.0 : 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 
 			if (approxEquals(dist.y, PLANET)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -613,9 +615,7 @@ void fragment() {
 
 				COLOR = vec4(planetColour, 1.0);
 			}
-			else if (approxEquals(dist.y, CRYSTAL)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-				float lighting = saturate(phongIllumination(dist.x, 10.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
+			else if (isCrystal) {
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -632,8 +632,6 @@ void fragment() {
 				COLOR = vec4(planetColour + pow(noiseColour, vec3(4.0)) * 0.5, 1.0);
 			}
 			else if (approxEquals(dist.y, FLATLAND_BLACK)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -646,8 +644,6 @@ void fragment() {
 				COLOR = vec4(planetColour, 1.0);
 			}
 			else if (approxEquals(dist.y, GAS)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -661,8 +657,6 @@ void fragment() {
 				COLOR = vec4(planetColour, 1.0);
 			}
 			else if (approxEquals(dist.y, BALAN)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -677,8 +671,6 @@ void fragment() {
 				COLOR = vec4(planetColour, 1.0);
 			}
 			else if (approxEquals(dist.y, LAVA)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 
@@ -693,24 +685,20 @@ void fragment() {
 				COLOR = vec4(planetColour, 1.0);
 			}
 			else if (approxEquals(dist.y, CLOUD)) {
-				vec3 normal = estimateNormalCloud(p, dist.x);
-				float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true) * 0.5 + 0.5;
+				lighting = lighting * 0.5 + 0.5;
 				COLOR = vec4(vec3(lighting), 1.0);
 			}
 			else if (approxEquals(dist.y, RING)) {
-				vec3 normal = estimateNormalRing(p, dist.x);
 				normal.y = abs(normal.y);
 
 				vec3 ringColour = texture(uPlanetTexture, vec2(0.0)).rgb;
 
-				float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.1, defaultLightPos, true) / 2.0;
+				lighting = lighting / 2.0;
 				float dist = sin(length(p) * 50.0) * 0.2 + 1.0;
 				COLOR = vec4(vec3(dist * lighting * ringColour), 1.0);
 			}
 			else if (approxEquals(dist.y, METAL)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-
-				float lighting = phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, vec3(0.0), false) * 0.5 + 0.5;
+				lighting = lighting * 0.5 + 0.5;
 				vec3 planetColour = texture(uPlanetTexture, vec2(noise, 1.2 - lighting)).rgb;
 				COLOR = vec4(planetColour, 1.0);
 			}
@@ -718,10 +706,7 @@ void fragment() {
 				COLOR = vec4(1.0);
 			}
 			else if (approxEquals(dist.y, TOWER_OUTER) || approxEquals(dist.y, TOWER_INNER)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-
 				float squareNoise = perlinNoise3D(floor(p * uRingParams.w) / uRingParams.w * 0.0075 * uPlanetNoiseScale.xyz + uPlanetNoiseOffset.xyx + uPlanetNoiseOffset.w);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 
 				float offset = approxEquals(dist.y, TOWER_INNER) ? 0.5 : 0.0;
 
@@ -729,8 +714,6 @@ void fragment() {
 				COLOR = vec4(planetColour, 1.0);
 			}
 			else if (approxEquals(dist.y, RINGWORLD_METAL)) {
-				vec3 normal = estimateNormalPlanet(p, dist.x);
-				float lighting = saturate(phongIllumination(dist.x, 5.0, p, rayOrigin, normal, 0.001, defaultLightPos, true));
 				float fresnel = dot(normal, rayDir);
 				fresnel = saturate(fresnel + 1.0);
 

@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode unshaded;
 
 // Taken from https://godotshaders.com/shader/2d-outline-inline/
 uniform vec4 color : source_color = vec4(1.0);

@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode unshaded;
 
 uniform sampler2D uTexture : repeat_enable, filter_nearest;
 uniform vec2 uAlphaRange = vec2(0.05, 1.0);

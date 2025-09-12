@@ -1,4 +1,6 @@
 shader_type canvas_item;
+render_mode unshaded;
+
 // Taken from: https://godotshaders.com/shader/gaussian-blur-2/
 
 uniform float alpha_bump: hint_range(0.0, 5.0) = 1.0;

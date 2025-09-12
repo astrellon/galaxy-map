@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode unshaded;
 
 uniform sampler2D uTexture;
 uniform float uIndexTime = 0.5;
